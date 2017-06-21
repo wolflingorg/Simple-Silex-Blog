@@ -1,0 +1,25 @@
+{
+  "name": "wolfling/vp",
+  "description": "vp",
+  "minimum-stability": "stable",
+  "license": "proprietary",
+  "authors": [
+    {
+      "name": "wolfling",
+      "email": "wolfling@i.ua"
+    }
+  ],
+  "autoload": {
+    "psr-4": {
+      "VP\\": "src"
+    }
+  },
+  "require": {
+    "silex/silex": "^2.1",
+    "symfony/config": "^3.3",
+    "symfony/yaml": "^3.3"
+  },
+  "require-dev": {
+    "phpunit/phpunit": "^6.2"
+  }
+}
