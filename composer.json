@@ -1,6 +1,6 @@
 {
-  "name": "wolfling/vp",
-  "description": "vp",
+  "name": "wolfling/silex-blog",
+  "description": "silex-blog",
   "minimum-stability": "stable",
   "license": "proprietary",
   "authors": [
@@ -11,8 +11,11 @@
   ],
   "autoload": {
     "psr-4": {
-      "VP\\": "src"
-    }
+      "Blog\\": "src"
+    },
+    "files" : [
+      "app/bootstrap.php"
+    ]
   },
   "require": {
     "silex/silex": "^2.1",
