@@ -2,14 +2,14 @@
 use Silex\Application;
 use \Blog\Provider\ConfigurationServiceProvider;
 
-function application() : Application
+function application($debug = false) : Application
 {
     $app = new Application();
 
     $parameters = [
         'kernel.root_dir'       => __DIR__,
-        'kernel.environment'    => getenv('APP_ENV') ?? 'DEV',
-        'kernel.config_dir'     => __DIR__ . DIRECTORY_SEPARATOR . 'config',
+        'kernel.environment'    => '%env(APP_ENV)%',
+        'kernel.debug'          => $debug,
         'kernel.var_dir'        => __DIR__ . DIRECTORY_SEPARATOR . 'var',
         'kernel.cache_dir'      => __DIR__ . DIRECTORY_SEPARATOR . 'var' . DIRECTORY_SEPARATOR . 'cache',
         'kernel.runtime_dir'    => __DIR__ . DIRECTORY_SEPARATOR . 'var' . DIRECTORY_SEPARATOR . 'runtime',
@@ -17,12 +17,18 @@ function application() : Application
         'kernel.charset'        => 'UTF-8'
     ];
 
+    // parse configuration
     $app->register(new ConfigurationServiceProvider(
-        $parameters['kernel.config_dir'] . DIRECTORY_SEPARATOR . 'config.yml',
+        [
+            $parameters['kernel.root_dir'] . DIRECTORY_SEPARATOR . 'config',
+        ],
         $parameters
     ));
 
-    print_r($app['configuration']);
+    // register services
+    services($app);
+
+    print_r($app['config']);
 
     return $app;
 }

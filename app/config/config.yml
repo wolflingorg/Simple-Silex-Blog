@@ -1,18 +1,2 @@
 imports:
-    - parameters.yml
-
-parameters:
-    soft_deletable: true
-
-database:
-    host: %database_host%
-    port: %database_port%
-
-knp_doctrine_behaviors:
-    translatable:
-        host: %database_host%:%database_port%
-    sluggable: true
-    timestampable: true
-    soft_deletable: true
-    parameters:
-        sluggable: true
+    - { resource: parameters.yml }

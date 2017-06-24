@@ -14,7 +14,8 @@
       "Blog\\": "src"
     },
     "files" : [
-      "app/bootstrap.php"
+      "app/bootstrap.php",
+      "app/services.php"
     ]
   },
   "require": {
