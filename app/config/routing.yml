@@ -1,0 +1,5 @@
+test.index:
+  path: /
+  defaults:
+    _controller: 'Blog\Controller\TestController::indexAction'
+  methods: [GET]

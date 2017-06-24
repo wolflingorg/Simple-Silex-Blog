@@ -7,7 +7,6 @@ function application($debug = false) : Application
 {
     $parameters = [
         'kernel.root_dir'       => __DIR__,
-        'kernel.environment'    => '%env(APP_ENV)%',
         'kernel.var_dir'        => __DIR__ . DIRECTORY_SEPARATOR . 'var',
         'kernel.cache_dir'      => __DIR__ . DIRECTORY_SEPARATOR . 'var' . DIRECTORY_SEPARATOR . 'cache',
         'kernel.runtime_dir'    => __DIR__ . DIRECTORY_SEPARATOR . 'var' . DIRECTORY_SEPARATOR . 'runtime',
@@ -15,7 +14,8 @@ function application($debug = false) : Application
     ];
 
     $app = new Application([
-        'debug' => $debug
+        'debug' => $debug,
+        'environment'    => getenv('APP_ENV'),
     ]);
 
     // parse configuration
