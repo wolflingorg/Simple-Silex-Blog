@@ -5,18 +5,18 @@ use Blog\Provider\RoutingServiceProvider;
 
 function application($debug = false) : Application
 {
-    $app = new Application();
-
     $parameters = [
         'kernel.root_dir'       => __DIR__,
         'kernel.environment'    => '%env(APP_ENV)%',
-        'kernel.debug'          => $debug,
         'kernel.var_dir'        => __DIR__ . DIRECTORY_SEPARATOR . 'var',
         'kernel.cache_dir'      => __DIR__ . DIRECTORY_SEPARATOR . 'var' . DIRECTORY_SEPARATOR . 'cache',
         'kernel.runtime_dir'    => __DIR__ . DIRECTORY_SEPARATOR . 'var' . DIRECTORY_SEPARATOR . 'runtime',
         'kernel.logs_dir'       => __DIR__ . DIRECTORY_SEPARATOR . 'var' . DIRECTORY_SEPARATOR . 'logs',
-        'kernel.charset'        => 'UTF-8'
     ];
+
+    $app = new Application([
+        'debug' => $debug
+    ]);
 
     // parse configuration
     $app->register(new ConfigurationServiceProvider(
@@ -35,8 +35,6 @@ function application($debug = false) : Application
 
     // register services
     services($app);
-
-    $app['routing'];
 
     return $app;
 }

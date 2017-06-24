@@ -27,7 +27,7 @@ class RoutingServiceProvider implements ServiceProviderInterface
             $delegatingLoader = new DelegatingLoader($loaderResolver);
 
             $cachePath = $app['config']['parameters']['kernel.cache_dir'] . DIRECTORY_SEPARATOR . 'routing.obj';
-            $configMatcherCache = new ConfigCache($cachePath, $app['config']['parameters']['kernel.debug']);
+            $configMatcherCache = new ConfigCache($cachePath, $app['debug']);
 
             if (!$configMatcherCache->isFresh()) {
                 $collection = $delegatingLoader->load('routing.yml');

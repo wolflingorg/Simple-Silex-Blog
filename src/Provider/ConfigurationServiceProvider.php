@@ -23,7 +23,7 @@ class ConfigurationServiceProvider implements ServiceProviderInterface
 
     public function register(Container $app)
     {
-        $app['config'] = function () {
+        $app['config'] = function ($app) {
             $configuration = new Configuration();
 
             $locator = new FileLocator($this->paths);
@@ -31,7 +31,7 @@ class ConfigurationServiceProvider implements ServiceProviderInterface
             $delegatingLoader = new DelegatingLoader($loaderResolver);
 
             $cachePath = $this->parameters['kernel.cache_dir'] . DIRECTORY_SEPARATOR . 'configuration.obj';
-            $configMatcherCache = new ConfigCache($cachePath, $this->parameters['kernel.debug']);
+            $configMatcherCache = new ConfigCache($cachePath, $app['debug']);
 
             if (!$configMatcherCache->isFresh()) {
                 $configuration->mergeParameters($this->parameters);
