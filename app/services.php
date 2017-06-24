@@ -1,6 +1,8 @@
 <?php
 use Silex\Application;
 use Blog\Provider\CommandBusServiceProvider;
+use Blog\Command;
+use Blog\Command\Handler;
 
 function services(Application $app)
 {
@@ -9,7 +11,7 @@ function services(Application $app)
 
     $app['command_handlers'] = function ($app) {
         return [
-            'Blog\\Command\\CalculateCommand' => 'Blog\\Command\\Handler\\CalculateCommandHandler'
+            Command\CalculateCommand::class => Handler\CalculateCommandHandler::class
         ];
     };
 }
