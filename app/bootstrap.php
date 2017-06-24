@@ -1,4 +1,6 @@
 <?php
+namespace app;
+
 use Silex\Application;
 use Blog\Provider\ConfigurationServiceProvider;
 use Blog\Provider\RoutingServiceProvider;
