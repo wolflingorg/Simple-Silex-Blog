@@ -1,6 +1,7 @@
 <?php
 use Silex\Application;
-use \Blog\Provider\ConfigurationServiceProvider;
+use Blog\Provider\ConfigurationServiceProvider;
+use Blog\Provider\RoutingServiceProvider;
 
 function application($debug = false) : Application
 {
@@ -25,10 +26,17 @@ function application($debug = false) : Application
         $parameters
     ));
 
+    // register routing
+    $app->register(new RoutingServiceProvider(
+        [
+            $parameters['kernel.root_dir'] . DIRECTORY_SEPARATOR . 'config',
+        ]
+    ));
+
     // register services
     services($app);
 
-    print_r($app['config']);
+    $app['routing'];
 
     return $app;
 }
