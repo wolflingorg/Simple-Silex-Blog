@@ -1,5 +1,6 @@
 .idea
 composer.lock
-vendor
+/vendor/
 /app/config/parameters.yml
-/var
+/var/
+/runtime/
