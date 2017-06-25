@@ -1,0 +1,17 @@
+users.search:
+  path: /
+  defaults:
+    _controller: 'Blog\Controller\UsersController::searchAction'
+  methods: [GET]
+
+users.user:
+  path: /{id}
+  defaults:
+    _controller: 'Blog\Controller\UsersController::showAction'
+  methods: [GET]
+
+users.user:
+  path: /{id}
+  defaults:
+    _controller: 'Blog\Controller\UsersController::editAction'
+  methods: [PUT]

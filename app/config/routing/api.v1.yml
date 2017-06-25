@@ -1,0 +1,11 @@
+users:
+  prefix: /users
+  resource: api.v1.users.yml
+
+posts:
+  prefix: /posts
+  resource: api.v1.posts.yml
+
+photos:
+  prefix: /photos
+  resource: api.v1.photos.yml

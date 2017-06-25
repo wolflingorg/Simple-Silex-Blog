@@ -1,0 +1,29 @@
+photos:
+  path: /
+  defaults:
+    _controller: 'Blog\Controller\PhotosController::createAction'
+  methods: [POST]
+
+photos.search:
+  path: /
+  defaults:
+    _controller: 'Blog\Controller\PhotosController::searchAction'
+  methods: [GET]
+
+photos.photo:
+  path: /{id}
+  defaults:
+    _controller: 'Blog\Controller\PhotosController::showAction'
+  methods: [GET]
+
+photos.photo:
+  path: /{id}
+  defaults:
+    _controller: 'Blog\Controller\PhotosController::editAction'
+  methods: [PUT]
+
+photos.photo:
+  path: /{id}
+  defaults:
+    _controller: 'Blog\Controller\PhotosController::deleteAction'
+  methods: [DELETE]

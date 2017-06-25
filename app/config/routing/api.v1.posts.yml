@@ -1,0 +1,29 @@
+posts:
+  path: /
+  defaults:
+    _controller: 'Blog\Controller\PostsController::createAction'
+  methods: [POST]
+
+posts.search:
+  path: /
+  defaults:
+    _controller: 'Blog\Controller\PostsController::searchAction'
+  methods: [GET]
+
+posts.post:
+  path: /{id}
+  defaults:
+    _controller: 'Blog\Controller\PostsController::showAction'
+  methods: [GET]
+
+posts.post:
+  path: /{id}
+  defaults:
+    _controller: 'Blog\Controller\PostsController::editAction'
+  methods: [PUT]
+
+posts.post:
+  path: /{id}
+  defaults:
+    _controller: 'Blog\Controller\PostsController::deleteAction'
+  methods: [DELETE]

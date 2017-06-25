@@ -1,5 +1,3 @@
-test.index:
-  path: /
-  defaults:
-    _controller: 'Blog\Controller\TestController::indexAction'
-  methods: [GET]
+api.v1:
+  prefix: /api/v1
+  resource: routing/api.v1.yml
