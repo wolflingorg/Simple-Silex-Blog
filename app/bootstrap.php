@@ -7,12 +7,15 @@ use Blog\Provider\RoutingServiceProvider;
 
 function application($debug = false) : Application
 {
+    $rootDir = __DIR__;
+    $varDir = dirname($rootDir) . DIRECTORY_SEPARATOR . 'var';
+
     $parameters = [
-        'kernel.root_dir'       => __DIR__,
-        'kernel.var_dir'        => __DIR__ . DIRECTORY_SEPARATOR . 'var',
-        'kernel.cache_dir'      => __DIR__ . DIRECTORY_SEPARATOR . 'var' . DIRECTORY_SEPARATOR . 'cache',
-        'kernel.runtime_dir'    => __DIR__ . DIRECTORY_SEPARATOR . 'var' . DIRECTORY_SEPARATOR . 'runtime',
-        'kernel.logs_dir'       => __DIR__ . DIRECTORY_SEPARATOR . 'var' . DIRECTORY_SEPARATOR . 'logs',
+        'kernel.root_dir'       => $rootDir,
+        'kernel.var_dir'        => $varDir,
+        'kernel.cache_dir'      => $varDir . DIRECTORY_SEPARATOR . 'cache',
+        'kernel.runtime_dir'    => $varDir . DIRECTORY_SEPARATOR . 'runtime',
+        'kernel.logs_dir'       => $varDir . DIRECTORY_SEPARATOR . 'logs',
     ];
 
     $app = new Application([
