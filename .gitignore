@@ -4,3 +4,4 @@ composer.lock
 /app/config/parameters.yml
 /var/
 /runtime/
+/.scannerwork/

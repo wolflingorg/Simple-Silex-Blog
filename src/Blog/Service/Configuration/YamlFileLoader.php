@@ -9,9 +9,12 @@ use Symfony\Component\Yaml\Yaml;
 
 class YamlFileLoader extends FileLoader
 {
+    const CONFIG_IMPORTS = 'imports';
+    const CONFIG_PARAMETERS = 'parameters';
+
     private $configuration;
 
-    public function __construct(FileLocatorInterface $locator, Configuration $configuration)
+    public function __construct(FileLocatorInterface $locator, ConfigurationBuilder $configuration)
     {
         $this->configuration = $configuration;
 
@@ -51,32 +54,32 @@ class YamlFileLoader extends FileLoader
         }
 
         try {
-            $configuration = Yaml::parse(file_get_contents($file));
+            $content = Yaml::parse(file_get_contents($file));
         } catch (ParseException $e) {
             throw new \InvalidArgumentException(sprintf('The file "%s" does not contain valid YAML.', $file), 0, $e);
         }
 
-        return $configuration;
+        return $content;
     }
 
     private function parseImports(array $content, $file)
     {
-        if (!isset($content['imports'])) {
+        if (!isset($content[self::CONFIG_IMPORTS])) {
             return;
         }
 
-        if (!is_array($content['imports'])) {
+        if (!is_array($content[self::CONFIG_IMPORTS])) {
             throw new \InvalidArgumentException(sprintf('The "imports" key should contain an array in %s. Check your YAML syntax.', $file));
         }
 
         $defaultDirectory = dirname($file);
-        foreach ($content['imports'] as $import) {
+        foreach ($content[self::CONFIG_IMPORTS] as $import) {
             if (!is_array($import)) {
                 throw new \InvalidArgumentException(sprintf('The values in the "imports" key should be arrays in %s. Check your YAML syntax.', $file));
             }
 
             $this->setCurrentDir($defaultDirectory);
-            $this->import($import['resource'], null, isset($import['ignore_errors']) ? (bool) $import['ignore_errors'] : false, $file);
+            $this->import($import['resource'], null, isset($import['ignore_errors']) ?? (bool) $import['ignore_errors'], $file);
         }
     }
 
@@ -92,17 +95,17 @@ class YamlFileLoader extends FileLoader
 
         // imports
         $this->parseImports($content, $path);
-        unset($content['imports']);
+        unset($content[self::CONFIG_IMPORTS]);
 
         // parameters
-        if (isset($content['parameters'])) {
-            if (!is_array($content['parameters'])) {
+        if (isset($content[self::CONFIG_PARAMETERS])) {
+            if (!is_array($content[self::CONFIG_PARAMETERS])) {
                 throw new \InvalidArgumentException(sprintf('The "parameters" key should contain an array in %s. Check your YAML syntax.', $path));
             }
 
             $this->configuration->mergeParameters($content['parameters']);
         }
-        unset($content['parameters']);
+        unset($content[self::CONFIG_PARAMETERS]);
 
         $this->configuration->mergeConfiguration($content);
     }

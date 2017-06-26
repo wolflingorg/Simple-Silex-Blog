@@ -2,6 +2,7 @@
 namespace Blog\Provider;
 
 use Blog\Service\Configuration\Configuration;
+use Blog\Service\Configuration\ConfigurationBuilder;
 use Blog\Service\Configuration\YamlFileLoader;
 use Pimple\Container;
 use Pimple\ServiceProviderInterface;
@@ -23,21 +24,22 @@ class ConfigurationServiceProvider implements ServiceProviderInterface
 
     public function register(Container $app)
     {
-        $app['config'] = function ($app) {
-            $configuration = new Configuration();
-
-            $locator = new FileLocator($this->paths);
-            $loaderResolver = new LoaderResolver(array(new YamlFileLoader($locator, $configuration)));
-            $delegatingLoader = new DelegatingLoader($loaderResolver);
-
+        $app['config'] = function ($app) :Configuration {
             $cachePath = $this->parameters['kernel.cache_dir'] . DIRECTORY_SEPARATOR . 'configuration.obj';
             $configMatcherCache = new ConfigCache($cachePath, $app['debug']);
 
             if (!$configMatcherCache->isFresh()) {
-                $configuration->mergeParameters($this->parameters);
+                $configurationBuilder = new ConfigurationBuilder();
+                $configurationBuilder->mergeParameters($this->parameters);
+
+                $locator = new FileLocator($this->paths);
+                $loaderResolver = new LoaderResolver(array(new YamlFileLoader($locator, $configurationBuilder)));
+
+                $delegatingLoader = new DelegatingLoader($loaderResolver);
                 $delegatingLoader->load('config.yml');
 
-                $configMatcherCache->write(serialize($configuration), $configuration->getResources());
+                $configuration = $configurationBuilder->build();
+                $configMatcherCache->write(serialize($configuration), $configurationBuilder->getResources());
             } else {
                 $configuration = unserialize(file_get_contents($cachePath));
             }

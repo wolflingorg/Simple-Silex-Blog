@@ -22,14 +22,14 @@ class RoutingServiceProvider implements ServiceProviderInterface
     public function register(Container $app)
     {
         $app['routing'] = $app->extend('routes', function (RouteCollection $routes, Container $app) {
-            $locator = new FileLocator($this->paths);
-            $loaderResolver = new LoaderResolver(array(new YamlFileLoader($locator)));
-            $delegatingLoader = new DelegatingLoader($loaderResolver);
-
             $cachePath = $app['config']['parameters']['kernel.cache_dir'] . DIRECTORY_SEPARATOR . 'routing.obj';
             $configMatcherCache = new ConfigCache($cachePath, $app['debug']);
 
             if (!$configMatcherCache->isFresh()) {
+                $locator = new FileLocator($this->paths);
+                $loaderResolver = new LoaderResolver(array(new YamlFileLoader($locator)));
+                $delegatingLoader = new DelegatingLoader($loaderResolver);
+
                 $collection = $delegatingLoader->load('routing.yml');
                 $routes->addCollection($collection);
 
