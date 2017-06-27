@@ -9,14 +9,11 @@ use Symfony\Component\Yaml\Yaml;
 
 class YamlFileLoader extends FileLoader
 {
-    const CONFIG_IMPORTS = 'imports';
-    const CONFIG_PARAMETERS = 'parameters';
+    private $configurationBuilder;
 
-    private $configuration;
-
-    public function __construct(FileLocatorInterface $locator, ConfigurationBuilder $configuration)
+    public function __construct(FileLocatorInterface $locator, ConfigurationBuilder $configurationBuilder)
     {
-        $this->configuration = $configuration;
+        $this->configurationBuilder = $configurationBuilder;
 
         parent::__construct($locator);
     }
@@ -64,16 +61,16 @@ class YamlFileLoader extends FileLoader
 
     private function parseImports(array $content, $file)
     {
-        if (!isset($content[self::CONFIG_IMPORTS])) {
+        if (!isset($content['imports'])) {
             return;
         }
 
-        if (!is_array($content[self::CONFIG_IMPORTS])) {
+        if (!is_array($content['imports'])) {
             throw new \InvalidArgumentException(sprintf('The "imports" key should contain an array in %s. Check your YAML syntax.', $file));
         }
 
         $defaultDirectory = dirname($file);
-        foreach ($content[self::CONFIG_IMPORTS] as $import) {
+        foreach ($content['imports'] as $import) {
             if (!is_array($import)) {
                 throw new \InvalidArgumentException(sprintf('The values in the "imports" key should be arrays in %s. Check your YAML syntax.', $file));
             }
@@ -86,7 +83,7 @@ class YamlFileLoader extends FileLoader
     private function processFile($path)
     {
         $content = $this->loadFile($path);
-        $this->configuration->addResource(new FileResource($path));
+        $this->configurationBuilder->addResource(new FileResource($path));
 
         // empty file
         if (null === $content) {
@@ -95,18 +92,18 @@ class YamlFileLoader extends FileLoader
 
         // imports
         $this->parseImports($content, $path);
-        unset($content[self::CONFIG_IMPORTS]);
+        unset($content['imports']);
 
         // parameters
-        if (isset($content[self::CONFIG_PARAMETERS])) {
-            if (!is_array($content[self::CONFIG_PARAMETERS])) {
+        if (isset($content['parameters'])) {
+            if (!is_array($content['parameters'])) {
                 throw new \InvalidArgumentException(sprintf('The "parameters" key should contain an array in %s. Check your YAML syntax.', $path));
             }
 
-            $this->configuration->mergeParameters($content['parameters']);
+            $this->configurationBuilder->mergeParameters($content['parameters']);
         }
-        unset($content[self::CONFIG_PARAMETERS]);
+        unset($content['parameters']);
 
-        $this->configuration->mergeConfiguration($content);
+        $this->configurationBuilder->mergeConfiguration($content);
     }
 }

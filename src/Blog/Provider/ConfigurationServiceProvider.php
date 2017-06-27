@@ -25,26 +25,33 @@ class ConfigurationServiceProvider implements ServiceProviderInterface
     public function register(Container $app)
     {
         $app['config'] = function ($app) :Configuration {
+            return $app['config_loader_cache_proxy'];
+        };
+
+        $app['config_loader'] = function () :Configuration {
+            $configurationBuilder = new ConfigurationBuilder();
+            $configurationBuilder->mergeParameters($this->parameters);
+
+            $locator = new FileLocator($this->paths);
+            $loaderResolver = new LoaderResolver(array(new YamlFileLoader($locator, $configurationBuilder)));
+            $delegatingLoader = new DelegatingLoader($loaderResolver);
+            $delegatingLoader->load('config.yml');
+
+            return $configurationBuilder->build();
+        };
+
+        $app['config_loader_cache_proxy'] = function ($app) :Configuration {
             $cachePath = $this->parameters['kernel.cache_dir'] . DIRECTORY_SEPARATOR . 'configuration.obj';
             $configMatcherCache = new ConfigCache($cachePath, $app['debug']);
 
             if (!$configMatcherCache->isFresh()) {
-                $configurationBuilder = new ConfigurationBuilder();
-                $configurationBuilder->mergeParameters($this->parameters);
-
-                $locator = new FileLocator($this->paths);
-                $loaderResolver = new LoaderResolver(array(new YamlFileLoader($locator, $configurationBuilder)));
-
-                $delegatingLoader = new DelegatingLoader($loaderResolver);
-                $delegatingLoader->load('config.yml');
-
-                $configuration = $configurationBuilder->build();
-                $configMatcherCache->write(serialize($configuration), $configurationBuilder->getResources());
+                $config = $app['config_loader'];
+                $configMatcherCache->write(serialize($config), $config->getResources());
             } else {
-                $configuration = unserialize(file_get_contents($cachePath));
+                $config = unserialize(file_get_contents($cachePath));
             }
 
-            return $configuration;
+            return $config;
         };
     }
 }

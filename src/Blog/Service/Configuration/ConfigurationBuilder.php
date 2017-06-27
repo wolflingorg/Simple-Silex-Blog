@@ -20,8 +20,6 @@ class ConfigurationBuilder
             $this->configuration,
             $configuration
         );
-
-        $this->replacePlaceholders();
     }
 
     /**
@@ -48,38 +46,30 @@ class ConfigurationBuilder
     }
 
     /**
-     * Returns all resources for this configuration
-     *
-     * @return ResourceInterface[]
-     */
-    public function getResources()
-    {
-        return $this->resources;
-    }
-
-    /**
      * Builds configuration
      *
      * @return Configuration
      */
     public function build() :Configuration
     {
+        $this->replaceEnvironmentPlaceholders();
+        $this->replaceParameterPlaceholders();
+
         return new Configuration(
             array_merge(
                 $this->configuration,
                 [
                     'parameters' => $this->parameters
                 ]
-            )
+            ),
+            $this->resources
         );
     }
 
     /**
-     * Replaces placeholders with parameter value or environment value
+     * Replaces env variables in parameters
      */
-    private function replacePlaceholders()
-    {
-        // replace env variables in parameters
+    private function replaceEnvironmentPlaceholders() {
         $callback = function($param) {
             return getenv($param) ? getenv($param) : $param;
         };
@@ -96,8 +86,12 @@ class ConfigurationBuilder
                 }
             }
         );
+    }
 
-        // replace placeholders in configuration with parameter value
+    /**
+     * Replaces placeholders in configuration with parameter value
+     */
+    private function replaceParameterPlaceholders() {
         $callback = function($param) {
             return isset($this->parameters[$param]) ? $this->parameters[$param] : $param;
         };

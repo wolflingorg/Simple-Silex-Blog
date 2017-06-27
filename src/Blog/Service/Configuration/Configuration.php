@@ -4,10 +4,28 @@ namespace Blog\Service\Configuration;
 class Configuration implements \ArrayAccess
 {
     private $configuration;
+    private $resources;
 
-    public function __construct(array $configuration)
+    public function __construct(array $configuration, array $resources)
     {
         $this->configuration = $configuration;
+        $this->resources = $resources;
+    }
+
+    /**
+     * @return array
+     */
+    public function getResources(): array
+    {
+        return $this->resources;
+    }
+
+    /**
+     * @return array
+     */
+    public function getConfiguration(): array
+    {
+        return $this->configuration;
     }
 
     /**
