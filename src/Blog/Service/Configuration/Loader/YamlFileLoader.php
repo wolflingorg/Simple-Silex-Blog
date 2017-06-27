@@ -1,7 +1,8 @@
 <?php
-namespace Blog\Service\Configuration;
 
-use Symfony\Component\Config\FileLocatorInterface;
+namespace Blog\Service\Configuration\Loader;
+
+use Blog\Service\Configuration\ConfigurationCollection;
 use Symfony\Component\Config\Loader\FileLoader;
 use Symfony\Component\Config\Resource\FileResource;
 use Symfony\Component\Yaml\Exception\ParseException;
@@ -9,26 +10,28 @@ use Symfony\Component\Yaml\Yaml;
 
 class YamlFileLoader extends FileLoader
 {
-    private $configurationBuilder;
-
-    public function __construct(FileLocatorInterface $locator, ConfigurationBuilder $configurationBuilder)
-    {
-        $this->configurationBuilder = $configurationBuilder;
-
-        parent::__construct($locator);
-    }
-
     public function load($resource, $type = null)
     {
         $paths = $this->locator->locate($resource, null, false);
 
-        if (is_array($paths)) {
-            foreach ($paths as $path) {
-                $this->processFile($path);
+        $collection = new ConfigurationCollection();
+
+        foreach ((array)$paths as $path) {
+            $content = $this->loadFile($path);
+            $collection->addResource(new FileResource($path));
+
+            // empty file
+            if (null === $content) {
+                continue;
             }
-        } else {
-            $this->processFile($paths);
+
+            // imports
+            $this->parseImports($content, $path, $collection);
+
+            $collection->addCollection(new ConfigurationCollection($content));
         }
+
+        return $collection;
     }
 
     public function supports($resource, $type = null)
@@ -38,10 +41,6 @@ class YamlFileLoader extends FileLoader
 
     protected function loadFile($file)
     {
-        if (!class_exists('Symfony\Component\Yaml\Parser')) {
-            throw new \RuntimeException('Unable to load YAML config files as the Symfony Yaml Component is not installed.');
-        }
-
         if (!stream_is_local($file)) {
             throw new \InvalidArgumentException(sprintf('This is not a local file "%s".', $file));
         }
@@ -59,7 +58,7 @@ class YamlFileLoader extends FileLoader
         return $content;
     }
 
-    private function parseImports(array $content, $file)
+    private function parseImports(array &$content, $file, ConfigurationCollection $collection)
     {
         if (!isset($content['imports'])) {
             return;
@@ -76,34 +75,11 @@ class YamlFileLoader extends FileLoader
             }
 
             $this->setCurrentDir($defaultDirectory);
-            $this->import($import['resource'], null, isset($import['ignore_errors']) ?? (bool) $import['ignore_errors'], $file);
-        }
-    }
+            $subCollection = $this->import($import['resource'], null, isset($import['ignore_errors']) ?? (bool)$import['ignore_errors'], $file);
 
-    private function processFile($path)
-    {
-        $content = $this->loadFile($path);
-        $this->configurationBuilder->addResource(new FileResource($path));
-
-        // empty file
-        if (null === $content) {
-            return;
+            $collection->addCollection($subCollection);
         }
 
-        // imports
-        $this->parseImports($content, $path);
         unset($content['imports']);
-
-        // parameters
-        if (isset($content['parameters'])) {
-            if (!is_array($content['parameters'])) {
-                throw new \InvalidArgumentException(sprintf('The "parameters" key should contain an array in %s. Check your YAML syntax.', $path));
-            }
-
-            $this->configurationBuilder->mergeParameters($content['parameters']);
-        }
-        unset($content['parameters']);
-
-        $this->configurationBuilder->mergeConfiguration($content);
     }
 }

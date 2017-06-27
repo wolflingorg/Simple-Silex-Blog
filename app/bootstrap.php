@@ -42,6 +42,9 @@ function application($debug = false) : Application
         ]
     );
 
+    $app['config'];
+    print_r($app);
+
     // register services
     services($app);
 

@@ -1,4 +1,5 @@
 <?php
+
 namespace Blog\Provider;
 
 use Pimple\Container;
