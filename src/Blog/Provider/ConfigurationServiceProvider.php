@@ -13,35 +13,10 @@ use Symfony\Component\Config\Loader\LoaderResolver;
 
 class ConfigurationServiceProvider implements ServiceProviderInterface
 {
-    private $parameters;
-    private $paths;
-
-    public function __construct(array $paths, array $parameters = [])
-    {
-        $this->parameters = $parameters;
-        $this->paths = $paths;
-    }
-
     public function register(Container $app)
     {
         $app['config'] = function ($app) :Configuration {
-            return $app['config_loader_cache_proxy'];
-        };
-
-        $app['config_loader'] = function () :Configuration {
-            $configurationBuilder = new ConfigurationBuilder();
-            $configurationBuilder->mergeParameters($this->parameters);
-
-            $locator = new FileLocator($this->paths);
-            $loaderResolver = new LoaderResolver(array(new YamlFileLoader($locator, $configurationBuilder)));
-            $delegatingLoader = new DelegatingLoader($loaderResolver);
-            $delegatingLoader->load('config.yml');
-
-            return $configurationBuilder->build();
-        };
-
-        $app['config_loader_cache_proxy'] = function ($app) :Configuration {
-            $cachePath = $this->parameters['kernel.cache_dir'] . DIRECTORY_SEPARATOR . 'configuration.obj';
+            $cachePath = $app['config.kernel']['kernel.cache_dir'] . DIRECTORY_SEPARATOR . 'configuration.obj';
             $configMatcherCache = new ConfigCache($cachePath, $app['debug']);
 
             if (!$configMatcherCache->isFresh()) {
@@ -52,6 +27,18 @@ class ConfigurationServiceProvider implements ServiceProviderInterface
             }
 
             return $config;
+        };
+
+        $app['config_loader'] = function ($app): Configuration {
+            $configurationBuilder = new ConfigurationBuilder();
+            $configurationBuilder->mergeParameters($app['config.kernel']);
+
+            $locator = new FileLocator($app['config.paths']);
+            $loaderResolver = new LoaderResolver(array(new YamlFileLoader($locator, $configurationBuilder)));
+            $delegatingLoader = new DelegatingLoader($loaderResolver);
+            $delegatingLoader->load('config.yml');
+
+            return $configurationBuilder->build();
         };
     }
 }

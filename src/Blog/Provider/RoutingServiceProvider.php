@@ -12,42 +12,30 @@ use Symfony\Component\Routing\RouteCollection;
 
 class RoutingServiceProvider implements ServiceProviderInterface
 {
-    private $paths;
-
-    public function __construct(array $paths)
-    {
-        $this->paths = $paths;
-    }
-
     public function register(Container $app)
     {
         $app['routing'] = $app->extend('routes', function (RouteCollection $routes, Container $app) {
-            $collection = $app['routing_config_loader_cache_proxy'];
-            $routes->addCollection($collection);
-
-            return $routes;
-        });
-
-        $app['routing_config_loader'] = function() :RouteCollection {
-            $locator = new FileLocator($this->paths);
-            $loaderResolver = new LoaderResolver(array(new YamlFileLoader($locator)));
-            $delegatingLoader = new DelegatingLoader($loaderResolver);
-
-            return $delegatingLoader->load('routing.yml');
-        };
-
-        $app['routing_config_loader_cache_proxy'] = function ($app) :RouteCollection {
-            $cachePath = $app['config']['parameters']['kernel.cache_dir'] . DIRECTORY_SEPARATOR . 'routing.obj';
+            $cachePath = $app['config.kernel']['kernel.cache_dir'] . DIRECTORY_SEPARATOR . 'routing.obj';
             $configMatcherCache = new ConfigCache($cachePath, $app['debug']);
 
             if (!$configMatcherCache->isFresh()) {
-                $collection = $app['routing_config_loader'];
+                $collection = $app['routing_loader'];
                 $configMatcherCache->write(serialize($collection), $collection->getResources());
             } else {
                 $collection = unserialize(file_get_contents($cachePath));
             }
 
-            return $collection;
+            $routes->addCollection($collection);
+
+            return $routes;
+        });
+
+        $app['routing_loader'] = function ($app): RouteCollection {
+            $locator = new FileLocator($app['routing.paths']);
+            $loaderResolver = new LoaderResolver(array(new YamlFileLoader($locator)));
+            $delegatingLoader = new DelegatingLoader($loaderResolver);
+
+            return $delegatingLoader->load('routing.yml');
         };
     }
 }

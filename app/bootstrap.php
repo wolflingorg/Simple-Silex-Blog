@@ -24,19 +24,23 @@ function application($debug = false) : Application
     ]);
 
     // parse configuration
-    $app->register(new ConfigurationServiceProvider(
+    $app->register(new ConfigurationServiceProvider(),
         [
-            $parameters['kernel.root_dir'] . DIRECTORY_SEPARATOR . 'config',
-        ],
-        $parameters
-    ));
+            'config.kernel' => $parameters,
+            'config.paths' => [
+                $parameters['kernel.root_dir'] . DIRECTORY_SEPARATOR . 'config'
+            ]
+        ]
+    );
 
     // register routing
-    $app->register(new RoutingServiceProvider(
+    $app->register(new RoutingServiceProvider(),
         [
-            $parameters['kernel.root_dir'] . DIRECTORY_SEPARATOR . 'config',
+            'routing.paths' => [
+                $parameters['kernel.root_dir'] . DIRECTORY_SEPARATOR . 'config'
+            ]
         ]
-    ));
+    );
 
     // register services
     services($app);
