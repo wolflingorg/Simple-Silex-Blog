@@ -18,9 +18,9 @@ class ConfigurationCollection implements ConfigurationCollectionInterface
     /**
      * Merges configuration
      *
-     * @param ConfigurationCollection $collection
+     * @param ConfigurationCollectionInterface $collection
      */
-    public function addCollection(ConfigurationCollection $collection)
+    public function addCollection(ConfigurationCollectionInterface $collection)
     {
         $this->collection = array_replace_recursive(
             $this->collection,

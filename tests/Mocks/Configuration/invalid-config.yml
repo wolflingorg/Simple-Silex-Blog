@@ -1,0 +1,6 @@
+imports: { resource: valid-parameters.yml }
+
+doctrine:
+    dbal:
+        driver:   pdo_mysql
+"

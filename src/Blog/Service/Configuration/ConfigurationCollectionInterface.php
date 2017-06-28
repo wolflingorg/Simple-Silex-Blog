@@ -6,7 +6,7 @@ use Symfony\Component\Config\Resource\ResourceInterface;
 
 interface ConfigurationCollectionInterface
 {
-    public function addCollection(ConfigurationCollection $collection);
+    public function addCollection(ConfigurationCollectionInterface $collection);
 
     public function getCollection(): array;
 

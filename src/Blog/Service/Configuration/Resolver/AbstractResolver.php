@@ -15,7 +15,7 @@ abstract class AbstractResolver implements ConfigurationCollectionInterface
         $this->collection = $collection;
     }
 
-    public function addCollection(ConfigurationCollection $collection)
+    public function addCollection(ConfigurationCollectionInterface $collection)
     {
         throw new \LogicException('You can not addCollection to the Configuration Resolver Decorator');
     }
