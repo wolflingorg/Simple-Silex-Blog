@@ -9,7 +9,7 @@ class UserShowActionTest extends AbstractApiV1Test
     {
         $client = $this->createClient();
 
-        $response = $client->get('/users/100');
+        $response = $client->get('users/100');
 
         $this->assertEquals(404, $response->getStatusCode());
     }
@@ -18,7 +18,7 @@ class UserShowActionTest extends AbstractApiV1Test
     {
         $client = $this->createClient();
 
-        $response = $client->get('/users/1');
+        $response = $client->get('users/1');
 
         $this->assertEquals(200, $response->getStatusCode());
     }
