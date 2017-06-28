@@ -1,20 +1,19 @@
 <?php
 namespace Tests\Api;
 
-use GuzzleHttp\Client;
-use PHPUnit\Framework\TestCase;
+use Silex\Application;
+use Silex\WebTestCase;
+use app;
 
-abstract class AbstractApiTest extends TestCase
+abstract class AbstractApiTest extends WebTestCase
 {
-    protected function createClient(array $parameters = []) :Client
+    /**
+     * @return Application
+     */
+    public function createApplication()
     {
-        return new Client(
-            array_replace_recursive(
-                $this->getDefaultClientParameters(),
-                $parameters
-            )
-        );
-    }
+        putenv("APP_ENV=TEST");
 
-    abstract protected function getDefaultClientParameters() :array;
+        return app\application(true);
+    }
 }

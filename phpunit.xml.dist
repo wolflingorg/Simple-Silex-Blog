@@ -28,6 +28,7 @@
                 <directory>./public</directory>
                 <directory>./vendor</directory>
                 <directory>./var</directory>
+                <directory>./tests</directory>
             </exclude>
         </whitelist>
     </filter>

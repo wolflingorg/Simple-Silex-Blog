@@ -1,25 +1,26 @@
 <?php
 namespace Tests\Api\v1\User;
 
-use Tests\Api\v1\AbstractApiV1Test;
+use Symfony\Component\HttpFoundation\Response;
+use Tests\Api\AbstractApiTest;
 
-class UserShowActionTest extends AbstractApiV1Test
+class UserShowActionTest extends AbstractApiTest
 {
     public function testShowNotValidUser()
     {
         $client = $this->createClient();
 
-        $response = $client->get('users/100');
+        $client->request('GET', '/api/v1/users/100');
 
-        $this->assertEquals(404, $response->getStatusCode());
+        $this->assertEquals(Response::HTTP_NOT_FOUND, $client->getResponse()->getStatusCode());
     }
 
     public function testShowValidUser()
     {
         $client = $this->createClient();
 
-        $response = $client->get('users/1');
+        $client->request('GET', '/api/v1/users/1');
 
-        $this->assertEquals(200, $response->getStatusCode());
+        $this->assertEquals(Response::HTTP_OK, $client->getResponse()->getStatusCode());
     }
 }
