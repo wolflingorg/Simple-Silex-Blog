@@ -19,11 +19,11 @@ class ConfigurationServiceProvider implements ServiceProviderInterface
     public function register(Container $app)
     {
         $app['config'] = function ($app) {
-            $cachePath = $app['config.kernel']['kernel.cache_dir'] . DIRECTORY_SEPARATOR . 'configuration.obj';
+            $cachePath = $app['private.config']['kernel.cache_dir'] . DIRECTORY_SEPARATOR . 'configuration.obj';
             $configMatcherCache = new ConfigCache($cachePath, $app['debug']);
 
             if (!$configMatcherCache->isFresh()) {
-                $collection = $app['config_resolver'];
+                $collection = $app['private.config_resolver'];
                 $config = new Configuration($collection->getCollection());
                 $configMatcherCache->write(serialize($config), $collection->getResources());
             } else {
@@ -33,19 +33,19 @@ class ConfigurationServiceProvider implements ServiceProviderInterface
             return $config;
         };
 
-        $app['config_loader'] = function ($app) {
-            $locator = new FileLocator($app['config.paths']);
+        $app['private.config_loader'] = function ($app) {
+            $locator = new FileLocator($app['private.config.paths']);
             $loaderResolver = new LoaderResolver(array(new YamlFileLoader($locator)));
             $delegatingLoader = new DelegatingLoader($loaderResolver);
 
             return $delegatingLoader->load('config.yml');
         };
 
-        $app['config_resolver'] = function ($app) {
-            $collection = new ConfigurationCollection(['parameters' => $app['config.kernel']]);
-            $app['config_loader']->addCollection($collection);
+        $app['private.config_resolver'] = function ($app) {
+            $collection = new ConfigurationCollection(['parameters' => $app['private.config']]);
+            $app['private.config_loader']->addCollection($collection);
 
-            return new ParameterPlaceholdersResolver(new EnvironmentPlaceholdersResolver($app['config_loader']));
+            return new ParameterPlaceholdersResolver(new EnvironmentPlaceholdersResolver($app['private.config_loader']));
         };
     }
 }

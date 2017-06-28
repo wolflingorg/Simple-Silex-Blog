@@ -26,8 +26,8 @@ function application($debug = false) : Application
     // parse configuration
     $app->register(new ConfigurationServiceProvider(),
         [
-            'config.kernel' => $parameters,
-            'config.paths' => [
+            'private.config' => $parameters,
+            'private.config.paths' => [
                 $parameters['kernel.root_dir'] . DIRECTORY_SEPARATOR . 'config'
             ]
         ]
@@ -36,14 +36,11 @@ function application($debug = false) : Application
     // register routing
     $app->register(new RoutingServiceProvider(),
         [
-            'routing.paths' => [
+            'private.routing.paths' => [
                 $parameters['kernel.root_dir'] . DIRECTORY_SEPARATOR . 'config'
             ]
         ]
     );
-
-    $app['config'];
-    print_r($app);
 
     // register services
     services($app);
