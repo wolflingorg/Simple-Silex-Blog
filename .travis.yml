@@ -19,12 +19,12 @@ before_script:
   - composer install --prefer-source --no-interaction --dev
 
 script:
-  - sonar-scanner
-  - phpunit --configuration phpunit.xml.dist --coverage-text
   - |
-      cat > $HOME/app/config/parameters.yml << EOF
+      cat > /app/config/parameters.yml << EOF
       parameters:
       EOF
+  - phpunit --configuration phpunit.xml.dist
+  - sonar-scanner
 
 cache:
   directories:

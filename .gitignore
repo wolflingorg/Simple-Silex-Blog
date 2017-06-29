@@ -5,3 +5,4 @@ composer.lock
 /var/
 /.vagrant/
 *.log
+/reports/
