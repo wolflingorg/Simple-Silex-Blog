@@ -1,4 +1,5 @@
 <?php
+
 namespace Unit\Configuration;
 
 use Blog\Service\Configuration\Loader\YamlFileLoader;

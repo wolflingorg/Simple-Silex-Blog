@@ -1,9 +1,10 @@
 <?php
+
 namespace app;
 
+use Blog\Provider\CommandBusServiceProvider;
 use Blog\Provider\EventBusServiceProvider;
 use Silex\Application;
-use Blog\Provider\CommandBusServiceProvider;
 
 function services(Application $app)
 {

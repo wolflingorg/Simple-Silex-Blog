@@ -2,7 +2,6 @@
 
 namespace Blog\Service\Configuration\Resolver;
 
-use Blog\Service\Configuration\ConfigurationCollection;
 use Blog\Service\Configuration\ConfigurationCollectionInterface;
 use Symfony\Component\Config\Resource\ResourceInterface;
 

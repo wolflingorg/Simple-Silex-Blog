@@ -34,11 +34,6 @@ class YamlFileLoader extends FileLoader
         return $collection;
     }
 
-    public function supports($resource, $type = null)
-    {
-        return is_string($resource) && 'yml' === pathinfo($resource, PATHINFO_EXTENSION);
-    }
-
     protected function loadFile($file)
     {
         if (!stream_is_local($file)) {
@@ -81,5 +76,10 @@ class YamlFileLoader extends FileLoader
         }
 
         unset($content['imports']);
+    }
+
+    public function supports($resource, $type = null)
+    {
+        return is_string($resource) && 'yml' === pathinfo($resource, PATHINFO_EXTENSION);
     }
 }

@@ -1,9 +1,10 @@
 <?php
+
 namespace Tests\Api;
 
+use app;
 use Silex\Application;
 use Silex\WebTestCase;
-use app;
 
 abstract class AbstractApiTest extends WebTestCase
 {
