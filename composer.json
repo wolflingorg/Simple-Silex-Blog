@@ -13,7 +13,7 @@
     "psr-4": {
       "": "src"
     },
-    "files" : [
+    "files": [
       "app/bootstrap.php",
       "app/services.php"
     ]
@@ -28,7 +28,8 @@
     "symfony/config": "^3.3",
     "symfony/yaml": "^3.3",
     "simple-bus/message-bus": "^2.2",
-    "incenteev/composer-parameter-handler": "^2.1"
+    "incenteev/composer-parameter-handler": "^2.1",
+    "symfony/console": "^3.3"
   },
   "require-dev": {
     "phpunit/phpunit": "^6.2",

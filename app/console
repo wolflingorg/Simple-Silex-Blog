@@ -1,0 +1,18 @@
+<?php
+
+namespace app;
+
+use Symfony\Component\Console\Application;
+
+require_once(__DIR__ . '/../vendor/autoload.php');
+
+set_time_limit(0);
+
+$app = application();
+
+/** @var Application $console */
+$console = $app['console'];
+
+$console->run();
+
+?>

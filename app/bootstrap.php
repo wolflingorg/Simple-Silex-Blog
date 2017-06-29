@@ -1,26 +1,29 @@
 <?php
+
 namespace app;
 
-use Silex\Application;
 use Blog\Provider\ConfigurationServiceProvider;
+use Blog\Provider\ConsoleServiceProvider;
 use Blog\Provider\RoutingServiceProvider;
+use Silex\Application;
 
-function application($debug = false) : Application
+function application(): Application
 {
     $rootDir = __DIR__;
     $varDir = dirname($rootDir) . DIRECTORY_SEPARATOR . 'var';
+    $environment = getenv('APP_ENV');
 
     $parameters = [
-        'kernel.root_dir'       => $rootDir,
-        'kernel.var_dir'        => $varDir,
-        'kernel.cache_dir'      => $varDir . DIRECTORY_SEPARATOR . 'cache',
-        'kernel.runtime_dir'    => $varDir . DIRECTORY_SEPARATOR . 'runtime',
-        'kernel.logs_dir'       => $varDir . DIRECTORY_SEPARATOR . 'logs',
+        'kernel.root_dir' => $rootDir,
+        'kernel.var_dir' => $varDir,
+        'kernel.cache_dir' => $varDir . DIRECTORY_SEPARATOR . 'cache',
+        'kernel.runtime_dir' => $varDir . DIRECTORY_SEPARATOR . 'runtime',
+        'kernel.logs_dir' => $varDir . DIRECTORY_SEPARATOR . 'logs',
     ];
 
     $app = new Application([
-        'debug' => $debug,
-        'environment'    => getenv('APP_ENV'),
+        'debug' => in_array($environment, ['DEV', 'TEST']),
+        'environment' => $environment,
     ]);
 
     // parse configuration
@@ -41,6 +44,9 @@ function application($debug = false) : Application
             ]
         ]
     );
+
+    // register console
+    $app->register(new ConsoleServiceProvider());
 
     // register services
     services($app);
