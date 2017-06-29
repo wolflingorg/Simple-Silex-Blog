@@ -1,0 +1,383 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<coverage generated="1498745399">
+    <project timestamp="1498745399">
+        <package name="Blog\Controller">
+            <file name="D:\projects\Simple-Silex-Blog-Backend\src\Blog/Controller/PhotosController.php">
+                <class name="PhotosController" namespace="Blog\Controller">
+                    <metrics complexity="5" methods="5" coveredmethods="0" conditionals="0" coveredconditionals="0"
+                             statements="15" coveredstatements="0" elements="20" coveredelements="0"/>
+                </class>
+                <line num="10" type="method" name="createAction" visibility="public" complexity="1" crap="2" count="0"/>
+                <line num="11" type="stmt" count="0"/>
+                <line num="12" type="stmt" count="0"/>
+                <line num="13" type="stmt" count="0"/>
+                <line num="15" type="method" name="searchAction" visibility="public" complexity="1" crap="2" count="0"/>
+                <line num="16" type="stmt" count="0"/>
+                <line num="17" type="stmt" count="0"/>
+                <line num="18" type="stmt" count="0"/>
+                <line num="20" type="method" name="showAction" visibility="public" complexity="1" crap="2" count="0"/>
+                <line num="21" type="stmt" count="0"/>
+                <line num="22" type="stmt" count="0"/>
+                <line num="23" type="stmt" count="0"/>
+                <line num="25" type="method" name="editAction" visibility="public" complexity="1" crap="2" count="0"/>
+                <line num="26" type="stmt" count="0"/>
+                <line num="27" type="stmt" count="0"/>
+                <line num="28" type="stmt" count="0"/>
+                <line num="30" type="method" name="deleteAction" visibility="public" complexity="1" crap="2" count="0"/>
+                <line num="31" type="stmt" count="0"/>
+                <line num="32" type="stmt" count="0"/>
+                <line num="33" type="stmt" count="0"/>
+                <metrics loc="34" ncloc="34" classes="1" methods="5" coveredmethods="0" conditionals="0"
+                         coveredconditionals="0" statements="15" coveredstatements="0" elements="20"
+                         coveredelements="0"/>
+            </file>
+            <file name="D:\projects\Simple-Silex-Blog-Backend\src\Blog/Controller/PostsController.php">
+                <class name="PostsController" namespace="Blog\Controller">
+                    <metrics complexity="5" methods="5" coveredmethods="0" conditionals="0" coveredconditionals="0"
+                             statements="15" coveredstatements="0" elements="20" coveredelements="0"/>
+                </class>
+                <line num="10" type="method" name="createAction" visibility="public" complexity="1" crap="2" count="0"/>
+                <line num="11" type="stmt" count="0"/>
+                <line num="12" type="stmt" count="0"/>
+                <line num="13" type="stmt" count="0"/>
+                <line num="15" type="method" name="searchAction" visibility="public" complexity="1" crap="2" count="0"/>
+                <line num="16" type="stmt" count="0"/>
+                <line num="17" type="stmt" count="0"/>
+                <line num="18" type="stmt" count="0"/>
+                <line num="20" type="method" name="showAction" visibility="public" complexity="1" crap="2" count="0"/>
+                <line num="21" type="stmt" count="0"/>
+                <line num="22" type="stmt" count="0"/>
+                <line num="23" type="stmt" count="0"/>
+                <line num="25" type="method" name="editAction" visibility="public" complexity="1" crap="2" count="0"/>
+                <line num="26" type="stmt" count="0"/>
+                <line num="27" type="stmt" count="0"/>
+                <line num="28" type="stmt" count="0"/>
+                <line num="30" type="method" name="deleteAction" visibility="public" complexity="1" crap="2" count="0"/>
+                <line num="31" type="stmt" count="0"/>
+                <line num="32" type="stmt" count="0"/>
+                <line num="33" type="stmt" count="0"/>
+                <metrics loc="34" ncloc="34" classes="1" methods="5" coveredmethods="0" conditionals="0"
+                         coveredconditionals="0" statements="15" coveredstatements="0" elements="20"
+                         coveredelements="0"/>
+            </file>
+            <file name="D:\projects\Simple-Silex-Blog-Backend\src\Blog/Controller/UsersController.php">
+                <class name="UsersController" namespace="Blog\Controller">
+                    <metrics complexity="3" methods="3" coveredmethods="1" conditionals="0" coveredconditionals="0"
+                             statements="3" coveredstatements="1" elements="6" coveredelements="2"/>
+                </class>
+                <line num="10" type="method" name="searchAction" visibility="public" complexity="1" crap="2" count="0"/>
+                <line num="12" type="stmt" count="0"/>
+                <line num="15" type="method" name="showAction" visibility="public" complexity="1" crap="1" count="2"/>
+                <line num="17" type="stmt" count="2"/>
+                <line num="20" type="method" name="editAction" visibility="public" complexity="1" crap="2" count="0"/>
+                <line num="22" type="stmt" count="0"/>
+                <metrics loc="24" ncloc="24" classes="1" methods="3" coveredmethods="1" conditionals="0"
+                         coveredconditionals="0" statements="3" coveredstatements="1" elements="6" coveredelements="2"/>
+            </file>
+        </package>
+        <package name="Blog\Entity">
+            <file name="D:\projects\Simple-Silex-Blog-Backend\src\Blog/Entity/Photo.php">
+                <class name="Photo" namespace="Blog\Entity">
+                    <metrics complexity="0" methods="0" coveredmethods="0" conditionals="0" coveredconditionals="0"
+                             statements="0" coveredstatements="0" elements="0" coveredelements="0"/>
+                </class>
+                <metrics loc="6" ncloc="6" classes="0" methods="0" coveredmethods="0" conditionals="0"
+                         coveredconditionals="0" statements="0" coveredstatements="0" elements="0" coveredelements="0"/>
+            </file>
+            <file name="D:\projects\Simple-Silex-Blog-Backend\src\Blog/Entity/Post.php">
+                <class name="Post" namespace="Blog\Entity">
+                    <metrics complexity="0" methods="0" coveredmethods="0" conditionals="0" coveredconditionals="0"
+                             statements="0" coveredstatements="0" elements="0" coveredelements="0"/>
+                </class>
+                <metrics loc="6" ncloc="6" classes="0" methods="0" coveredmethods="0" conditionals="0"
+                         coveredconditionals="0" statements="0" coveredstatements="0" elements="0" coveredelements="0"/>
+            </file>
+            <file name="D:\projects\Simple-Silex-Blog-Backend\src\Blog/Entity/User.php">
+                <class name="User" namespace="Blog\Entity">
+                    <metrics complexity="0" methods="0" coveredmethods="0" conditionals="0" coveredconditionals="0"
+                             statements="0" coveredstatements="0" elements="0" coveredelements="0"/>
+                </class>
+                <metrics loc="6" ncloc="6" classes="0" methods="0" coveredmethods="0" conditionals="0"
+                         coveredconditionals="0" statements="0" coveredstatements="0" elements="0" coveredelements="0"/>
+            </file>
+        </package>
+        <package name="Blog\Provider">
+            <file name="D:\projects\Simple-Silex-Blog-Backend\src\Blog/Provider/CommandBusServiceProvider.php">
+                <class name="CommandBusServiceProvider" namespace="Blog\Provider">
+                    <metrics complexity="2" methods="2" coveredmethods="0" conditionals="0" coveredconditionals="0"
+                             statements="13" coveredstatements="0" elements="15" coveredelements="0"/>
+                </class>
+                <line num="17" type="method" name="register" visibility="public" complexity="1" crap="2" count="2"/>
+                <line num="20" type="stmt" count="0"/>
+                <line num="21" type="stmt" count="0"/>
+                <line num="23" type="stmt" count="0"/>
+                <line num="24" type="stmt" count="0"/>
+                <line num="25" type="stmt" count="0"/>
+                <line num="27" type="stmt" count="0"/>
+                <line num="28" type="stmt" count="0"/>
+                <line num="32" type="stmt" count="0"/>
+                <line num="33" type="stmt" count="0"/>
+                <line num="37" type="stmt" count="0"/>
+                <line num="38" type="stmt" count="0"/>
+                <line num="43" type="stmt" count="0"/>
+                <line num="46" type="method" name="anonymous function" complexity="1" crap="2" count="0"/>
+                <line num="47" type="stmt" count="0"/>
+                <line num="49" type="stmt" count="2"/>
+                <metrics loc="49" ncloc="49" classes="1" methods="2" coveredmethods="0" conditionals="0"
+                         coveredconditionals="0" statements="14" coveredstatements="1" elements="16"
+                         coveredelements="1"/>
+            </file>
+            <file name="D:\projects\Simple-Silex-Blog-Backend\src\Blog/Provider/ConfigurationServiceProvider.php">
+                <class name="ConfigurationServiceProvider" namespace="Blog\Provider">
+                    <metrics complexity="3" methods="2" coveredmethods="0" conditionals="0" coveredconditionals="0"
+                             statements="15" coveredstatements="5" elements="17" coveredelements="5"/>
+                </class>
+                <line num="19" type="method" name="register" visibility="public" complexity="2" crap="2.79" count="2"/>
+                <line num="22" type="stmt" count="2"/>
+                <line num="23" type="stmt" count="2"/>
+                <line num="25" type="stmt" count="2"/>
+                <line num="26" type="stmt" count="0"/>
+                <line num="27" type="stmt" count="0"/>
+                <line num="28" type="stmt" count="0"/>
+                <line num="30" type="stmt" count="2"/>
+                <line num="33" type="stmt" count="2"/>
+                <line num="37" type="stmt" count="0"/>
+                <line num="38" type="stmt" count="0"/>
+                <line num="39" type="stmt" count="0"/>
+                <line num="41" type="stmt" count="0"/>
+                <line num="44" type="method" name="anonymous function" complexity="1" crap="2" count="0"/>
+                <line num="45" type="stmt" count="0"/>
+                <line num="46" type="stmt" count="0"/>
+                <line num="48" type="stmt" count="0"/>
+                <line num="50" type="stmt" count="2"/>
+                <metrics loc="50" ncloc="50" classes="1" methods="2" coveredmethods="0" conditionals="0"
+                         coveredconditionals="0" statements="16" coveredstatements="6" elements="18"
+                         coveredelements="6"/>
+            </file>
+            <file name="D:\projects\Simple-Silex-Blog-Backend\src\Blog/Provider/EventBusServiceProvider.php">
+                <class name="EventBusServiceProvider" namespace="Blog\Provider">
+                    <metrics complexity="2" methods="2" coveredmethods="0" conditionals="0" coveredconditionals="0"
+                             statements="13" coveredstatements="0" elements="15" coveredelements="0"/>
+                </class>
+                <line num="17" type="method" name="register" visibility="public" complexity="1" crap="2" count="2"/>
+                <line num="20" type="stmt" count="0"/>
+                <line num="21" type="stmt" count="0"/>
+                <line num="23" type="stmt" count="0"/>
+                <line num="24" type="stmt" count="0"/>
+                <line num="25" type="stmt" count="0"/>
+                <line num="27" type="stmt" count="0"/>
+                <line num="28" type="stmt" count="0"/>
+                <line num="32" type="stmt" count="0"/>
+                <line num="33" type="stmt" count="0"/>
+                <line num="37" type="stmt" count="0"/>
+                <line num="38" type="stmt" count="0"/>
+                <line num="43" type="stmt" count="0"/>
+                <line num="46" type="method" name="anonymous function" complexity="1" crap="2" count="0"/>
+                <line num="47" type="stmt" count="0"/>
+                <line num="49" type="stmt" count="2"/>
+                <metrics loc="49" ncloc="49" classes="1" methods="2" coveredmethods="0" conditionals="0"
+                         coveredconditionals="0" statements="14" coveredstatements="1" elements="16"
+                         coveredelements="1"/>
+            </file>
+            <file name="D:\projects\Simple-Silex-Blog-Backend\src\Blog/Provider/RoutingServiceProvider.php">
+                <class name="RoutingServiceProvider" namespace="Blog\Provider">
+                    <metrics complexity="3" methods="2" coveredmethods="0" conditionals="0" coveredconditionals="0"
+                             statements="13" coveredstatements="7" elements="15" coveredelements="7"/>
+                </class>
+                <line num="16" type="method" name="register" visibility="public" complexity="2" crap="2.04" count="2"/>
+                <line num="19" type="stmt" count="2"/>
+                <line num="20" type="stmt" count="2"/>
+                <line num="22" type="stmt" count="2"/>
+                <line num="23" type="stmt" count="0"/>
+                <line num="24" type="stmt" count="0"/>
+                <line num="26" type="stmt" count="2"/>
+                <line num="29" type="stmt" count="2"/>
+                <line num="31" type="stmt" count="2"/>
+                <line num="32" type="stmt" count="2"/>
+                <line num="34" type="method" name="anonymous function" complexity="1" crap="2" count="0"/>
+                <line num="35" type="stmt" count="0"/>
+                <line num="36" type="stmt" count="0"/>
+                <line num="37" type="stmt" count="0"/>
+                <line num="39" type="stmt" count="0"/>
+                <line num="41" type="stmt" count="2"/>
+                <metrics loc="41" ncloc="41" classes="1" methods="2" coveredmethods="0" conditionals="0"
+                         coveredconditionals="0" statements="14" coveredstatements="8" elements="16"
+                         coveredelements="8"/>
+            </file>
+        </package>
+        <package name="Blog\Service\Configuration">
+            <file name="D:\projects\Simple-Silex-Blog-Backend\src\Blog/Service/Configuration/Configuration.php">
+                <class name="Configuration" namespace="Blog\Service\Configuration">
+                    <metrics complexity="7" methods="6" coveredmethods="6" conditionals="0" coveredconditionals="0"
+                             statements="7" coveredstatements="7" elements="13" coveredelements="13"/>
+                </class>
+                <line num="9" type="method" name="__construct" visibility="public" complexity="1" crap="1" count="3"/>
+                <line num="11" type="stmt" count="3"/>
+                <line num="12" type="stmt" count="3"/>
+                <line num="17" type="method" name="getConfiguration" visibility="public" complexity="1" crap="1"
+                      count="1"/>
+                <line num="19" type="stmt" count="1"/>
+                <line num="25" type="method" name="offsetExists" visibility="public" complexity="1" crap="1" count="1"/>
+                <line num="27" type="stmt" count="1"/>
+                <line num="33" type="method" name="offsetGet" visibility="public" complexity="2" crap="2" count="3"/>
+                <line num="35" type="stmt" count="3"/>
+                <line num="41" type="method" name="offsetSet" visibility="public" complexity="1" crap="1" count="1"/>
+                <line num="43" type="stmt" count="1"/>
+                <line num="49" type="method" name="offsetUnset" visibility="public" complexity="1" crap="1" count="1"/>
+                <line num="51" type="stmt" count="1"/>
+                <metrics loc="52" ncloc="37" classes="1" methods="6" coveredmethods="6" conditionals="0"
+                         coveredconditionals="0" statements="7" coveredstatements="7" elements="13"
+                         coveredelements="13"/>
+            </file>
+            <file name="D:\projects\Simple-Silex-Blog-Backend\src\Blog/Service/Configuration/ConfigurationCollection.php">
+                <class name="ConfigurationCollection" namespace="Blog\Service\Configuration">
+                    <metrics complexity="5" methods="5" coveredmethods="5" conditionals="0" coveredconditionals="0"
+                             statements="11" coveredstatements="11" elements="16" coveredelements="16"/>
+                </class>
+                <line num="13" type="method" name="__construct" visibility="public" complexity="1" crap="1" count="10"/>
+                <line num="15" type="stmt" count="10"/>
+                <line num="16" type="stmt" count="10"/>
+                <line num="23" type="method" name="addCollection" visibility="public" complexity="1" crap="1"
+                      count="6"/>
+                <line num="25" type="stmt" count="6"/>
+                <line num="26" type="stmt" count="6"/>
+                <line num="27" type="stmt" count="6"/>
+                <line num="30" type="stmt" count="6"/>
+                <line num="31" type="stmt" count="6"/>
+                <line num="36" type="method" name="getCollection" visibility="public" complexity="1" crap="1"
+                      count="7"/>
+                <line num="38" type="stmt" count="7"/>
+                <line num="46" type="method" name="getResources" visibility="public" complexity="1" crap="1" count="6"/>
+                <line num="48" type="stmt" count="6"/>
+                <line num="56" type="method" name="addResource" visibility="public" complexity="1" crap="1" count="9"/>
+                <line num="58" type="stmt" count="9"/>
+                <line num="59" type="stmt" count="9"/>
+                <metrics loc="59" ncloc="41" classes="1" methods="5" coveredmethods="5" conditionals="0"
+                         coveredconditionals="0" statements="11" coveredstatements="11" elements="16"
+                         coveredelements="16"/>
+            </file>
+        </package>
+        <file name="D:\projects\Simple-Silex-Blog-Backend\src\Blog/Service/Configuration/ConfigurationCollectionInterface.php">
+            <metrics loc="15" ncloc="15" classes="0" methods="0" coveredmethods="0" conditionals="0"
+                     coveredconditionals="0" statements="0" coveredstatements="0" elements="0" coveredelements="0"/>
+        </file>
+        <package name="Blog\Service\Configuration\Loader">
+            <file name="D:\projects\Simple-Silex-Blog-Backend\src\Blog/Service/Configuration/Loader/YamlFileLoader.php">
+                <class name="YamlFileLoader" namespace="Blog\Service\Configuration\Loader">
+                    <metrics complexity="14" methods="4" coveredmethods="3" conditionals="0" coveredconditionals="0"
+                             statements="32" coveredstatements="30" elements="36" coveredelements="33"/>
+                </class>
+                <line num="13" type="method" name="load" visibility="public" complexity="3" crap="3" count="10"/>
+                <line num="15" type="stmt" count="10"/>
+                <line num="17" type="stmt" count="10"/>
+                <line num="19" type="stmt" count="10"/>
+                <line num="20" type="stmt" count="10"/>
+                <line num="21" type="stmt" count="9"/>
+                <line num="24" type="stmt" count="9"/>
+                <line num="25" type="stmt" count="1"/>
+                <line num="29" type="stmt" count="8"/>
+                <line num="31" type="stmt" count="6"/>
+                <line num="34" type="stmt" count="7"/>
+                <line num="37" type="method" name="supports" visibility="public" complexity="2" crap="2" count="6"/>
+                <line num="39" type="stmt" count="6"/>
+                <line num="42" type="method" name="loadFile" visibility="protected" complexity="4" crap="4.25"
+                      count="10"/>
+                <line num="44" type="stmt" count="10"/>
+                <line num="45" type="stmt" count="0"/>
+                <line num="48" type="stmt" count="10"/>
+                <line num="49" type="stmt" count="0"/>
+                <line num="53" type="stmt" count="10"/>
+                <line num="54" type="stmt" count="1"/>
+                <line num="55" type="stmt" count="1"/>
+                <line num="58" type="stmt" count="9"/>
+                <line num="61" type="method" name="parseImports" visibility="private" complexity="5" crap="5"
+                      count="8"/>
+                <line num="63" type="stmt" count="8"/>
+                <line num="64" type="stmt" count="6"/>
+                <line num="67" type="stmt" count="8"/>
+                <line num="68" type="stmt" count="1"/>
+                <line num="71" type="stmt" count="7"/>
+                <line num="72" type="stmt" count="7"/>
+                <line num="73" type="stmt" count="7"/>
+                <line num="74" type="stmt" count="1"/>
+                <line num="77" type="stmt" count="6"/>
+                <line num="78" type="stmt" count="6"/>
+                <line num="80" type="stmt" count="6"/>
+                <line num="83" type="stmt" count="6"/>
+                <line num="84" type="stmt" count="6"/>
+                <metrics loc="84" ncloc="80" classes="1" methods="4" coveredmethods="3" conditionals="0"
+                         coveredconditionals="0" statements="32" coveredstatements="30" elements="36"
+                         coveredelements="33"/>
+            </file>
+        </package>
+        <package name="Blog\Service\Configuration\Resolver">
+            <file name="D:\projects\Simple-Silex-Blog-Backend\src\Blog/Service/Configuration/Resolver/AbstractResolver.php">
+                <class name="AbstractResolver" namespace="Blog\Service\Configuration\Resolver">
+                    <metrics complexity="5" methods="4" coveredmethods="4" conditionals="0" coveredconditionals="0"
+                             statements="5" coveredstatements="5" elements="9" coveredelements="9"/>
+                </class>
+                <line num="13" type="method" name="__construct" visibility="public" complexity="1" crap="1" count="5"/>
+                <line num="15" type="stmt" count="5"/>
+                <line num="16" type="stmt" count="5"/>
+                <line num="18" type="method" name="addCollection" visibility="public" complexity="1" crap="1"
+                      count="1"/>
+                <line num="20" type="stmt" count="1"/>
+                <line num="23" type="method" name="getResources" visibility="public" complexity="1" crap="1" count="1"/>
+                <line num="25" type="stmt" count="1"/>
+                <line num="28" type="method" name="addResource" visibility="public" complexity="1" crap="1" count="1"/>
+                <line num="30" type="stmt" count="1"/>
+                <metrics loc="33" ncloc="33" classes="1" methods="4" coveredmethods="4" conditionals="0"
+                         coveredconditionals="0" statements="5" coveredstatements="5" elements="9" coveredelements="9"/>
+            </file>
+            <file name="D:\projects\Simple-Silex-Blog-Backend\src\Blog/Service/Configuration/Resolver/EnvironmentPlaceholdersResolver.php">
+                <class name="EnvironmentPlaceholdersResolver" namespace="Blog\Service\Configuration\Resolver">
+                    <metrics complexity="6" methods="3" coveredmethods="3" conditionals="0" coveredconditionals="0"
+                             statements="9" coveredstatements="9" elements="12" coveredelements="12"/>
+                </class>
+                <line num="7" type="method" name="getCollection" visibility="public" complexity="1" crap="1" count="1"/>
+                <line num="9" type="stmt" count="1"/>
+                <line num="12" type="method" name="resolve" visibility="protected" complexity="3" crap="3" count="1"/>
+                <line num="15" type="stmt" count="1"/>
+                <line num="16" type="stmt" count="1"/>
+                <line num="18" type="stmt" count="1"/>
+                <line num="20" type="method" name="anonymous function" complexity="2" crap="2" count="1"/>
+                <line num="21" type="stmt" count="1"/>
+                <line num="22" type="stmt" count="1"/>
+                <line num="23" type="stmt" count="1"/>
+                <line num="24" type="stmt" count="1"/>
+                <line num="28" type="stmt" count="1"/>
+                <line num="31" type="stmt" count="1"/>
+                <metrics loc="32" ncloc="32" classes="1" methods="3" coveredmethods="3" conditionals="0"
+                         coveredconditionals="0" statements="10" coveredstatements="10" elements="13"
+                         coveredelements="13"/>
+            </file>
+            <file name="D:\projects\Simple-Silex-Blog-Backend\src\Blog/Service/Configuration/Resolver/ParameterPlaceholdersResolver.php">
+                <class name="ParameterPlaceholdersResolver" namespace="Blog\Service\Configuration\Resolver">
+                    <metrics complexity="8" methods="3" coveredmethods="2" conditionals="0" coveredconditionals="0"
+                             statements="11" coveredstatements="10" elements="14" coveredelements="12"/>
+                </class>
+                <line num="7" type="method" name="getCollection" visibility="public" complexity="1" crap="1" count="1"/>
+                <line num="9" type="stmt" count="1"/>
+                <line num="12" type="method" name="resolve" visibility="protected" complexity="5" crap="5.20"
+                      count="1"/>
+                <line num="14" type="stmt" count="1"/>
+                <line num="15" type="stmt" count="0"/>
+                <line num="19" type="stmt" count="1"/>
+                <line num="20" type="stmt" count="1"/>
+                <line num="22" type="stmt" count="1"/>
+                <line num="24" type="method" name="anonymous function" complexity="2" crap="2" count="1"/>
+                <line num="25" type="stmt" count="1"/>
+                <line num="26" type="stmt" count="1"/>
+                <line num="27" type="stmt" count="1"/>
+                <line num="28" type="stmt" count="1"/>
+                <line num="32" type="stmt" count="1"/>
+                <line num="35" type="stmt" count="1"/>
+                <metrics loc="36" ncloc="36" classes="1" methods="3" coveredmethods="2" conditionals="0"
+                         coveredconditionals="0" statements="12" coveredstatements="11" elements="15"
+                         coveredelements="13"/>
+            </file>
+        </package>
+        <metrics files="17" loc="610" ncloc="573" classes="13" methods="46" coveredmethods="24" conditionals="0"
+                 coveredconditionals="0" statements="168" coveredstatements="91" elements="214" coveredelements="115"/>
+    </project>
+</coverage>
