@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1498745399">
-    <project timestamp="1498745399">
+<coverage generated="1498748059">
+    <project timestamp="1498748059">
         <package name="Blog\Controller">
             <file name="D:\projects\Simple-Silex-Blog-Backend\src\Blog/Controller/PhotosController.php">
                 <class name="PhotosController" namespace="Blog\Controller">
