@@ -6,10 +6,22 @@ addons:
     organization: "wolflingorg-github"
     token:
       secure: "ixkApofddWIXobbNUWgu8TmqEhVT5h7fVH+sy6njh14WCpJO2fyhkg+l0k0wlEniXtJBuEdXm0IQ9BAurZHkDgaSglF4lEYbBstq4v1U8NFVEPrpezjg/RaXLunfp9RYs6ua7p5UAky062Ue06wkjhRclZ/5+lwWGJEgvS28w9Zvwqh5ItJfaq6916Pf5uQsfMwfX4RcmZ1thy+pSd7XDWk6gujFkV7q8pNvUB2wUN1j7TgLkRa0gvr3hFRLx+CaTGboZKtQBHwIQ1XgGquslXW06r0aeAMxMFzH4LKb/wJEbnH04pMXWeWevkhD5DfzTE2XEXcv35/6CJlaBjqsEq2Pho4Ui7817/YXx+nWAwOXD73KjIdyXYaq+dS104X7Cp+sS8zGMroX8voIrXpMfpfDs9pWmfULrQVJ8gVknRptOdwb+BQA995BzloZe4al6qZ1R/H9OakVgvZ/jsLtC2lAgJVYV14xuUjjF7XN77t1s6X9ZvHMmE3gQvMVk+MH3P125T04ajKV9pwyvdcJDFCHhsqxxvlYbhZ1rTbVOYxvZfUpv8hOFunknkkujUd9M+EPKulwVJ4R3uWADtIiH9oUF59UdAigbFhYoylLrhUTkdxvUa9XzpBfJlv9ub4/83P+F7IZv/pDOw7KgDh0rYEyDBSiidIVAEzHCEtE1sE="
+
 jdk:
   - oraclejdk8
+
+language: php
+php:
+  - '7.1'
+
+before_script:
+  - composer self-update
+  - composer install --prefer-source --no-interaction --dev
+
 script:
   - sonar-scanner
+  - phpunit
+
 cache:
   directories:
     - '$HOME/.sonar/cache'
