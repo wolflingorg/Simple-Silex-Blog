@@ -12,7 +12,7 @@
          bootstrap="vendor/autoload.php"
 >
     <testsuites>
-        <testsuite name="Silex Blog Test Suite">
+        <testsuite name="Simple Silex Blog Backend Test Suite">
             <directory suffix="Test.php">./tests</directory>
         </testsuite>
     </testsuites>
@@ -33,8 +33,7 @@
         </whitelist>
     </filter>
     <logging>
-         <log type="coverage-html" target="runtime/coverage" logIncompleteSkipped="true" charset="UTF-8" yui="true" />
-         <log type="junit" target="runtime/phpunit.report.xml" logIncompleteSkipped="false"/>
-         <log type="coverage-clover" target="runtime/phpunit.coverage.xml"/>
+        <log type="junit" target="reports/phpunit.xml" logIncompleteSkipped="false"/>
+        <log type="coverage-clover" target="reports/phpunit.coverage.xml"/>
     </logging>
 </phpunit>

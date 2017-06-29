@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuites>
+    <testsuite name="D:\projects\Simple-Silex-Blog-Backend\tests" tests="15" assertions="17" errors="0" failures="1"
+               skipped="0" time="0.461889">
+        <testsuite name="Tests\Api\v1\User\UserShowActionTest"
+                   file="D:\projects\Simple-Silex-Blog-Backend\tests\Api\v1\User\UserShowActionTest.php" tests="2"
+                   assertions="2" errors="0" failures="1" skipped="0" time="0.203485">
+            <testcase name="testShowNotValidUser" class="Tests\Api\v1\User\UserShowActionTest"
+                      classname="Tests.Api.v1.User.UserShowActionTest"
+                      file="D:\projects\Simple-Silex-Blog-Backend\tests\Api\v1\User\UserShowActionTest.php" line="9"
+                      assertions="1" time="0.177941">
+                <failure type="PHPUnit\Framework\ExpectationFailedException">
+                    Tests\Api\v1\User\UserShowActionTest::testShowNotValidUser
+                    Failed asserting that 200 matches expected 404.
+
+                    D:\projects\Simple-Silex-Blog-Backend\tests\Api\v1\User\UserShowActionTest.php:15
+                </failure>
+            </testcase>
+            <testcase name="testShowValidUser" class="Tests\Api\v1\User\UserShowActionTest"
+                      classname="Tests.Api.v1.User.UserShowActionTest"
+                      file="D:\projects\Simple-Silex-Blog-Backend\tests\Api\v1\User\UserShowActionTest.php" line="18"
+                      assertions="1" time="0.025544"/>
+        </testsuite>
+        <testsuite name="Unit\Configuration\ConfigurationTest"
+                   file="D:\projects\Simple-Silex-Blog-Backend\tests\Unit\Configuration\ConfigurationTest.php" tests="3"
+                   assertions="5" errors="0" failures="0" skipped="0" time="0.008316">
+            <testcase name="testConfiguration" class="Unit\Configuration\ConfigurationTest"
+                      classname="Unit.Configuration.ConfigurationTest"
+                      file="D:\projects\Simple-Silex-Blog-Backend\tests\Unit\Configuration\ConfigurationTest.php"
+                      line="20" assertions="3" time="0.003381"/>
+            <testcase name="testConfigurationOffsetSet" class="Unit\Configuration\ConfigurationTest"
+                      classname="Unit.Configuration.ConfigurationTest"
+                      file="D:\projects\Simple-Silex-Blog-Backend\tests\Unit\Configuration\ConfigurationTest.php"
+                      line="29" assertions="1" time="0.002538"/>
+            <testcase name="testConfigurationOffsetUnset" class="Unit\Configuration\ConfigurationTest"
+                      classname="Unit.Configuration.ConfigurationTest"
+                      file="D:\projects\Simple-Silex-Blog-Backend\tests\Unit\Configuration\ConfigurationTest.php"
+                      line="38" assertions="1" time="0.002397"/>
+        </testsuite>
+        <testsuite name="Unit\Configuration\ResolversTest"
+                   file="D:\projects\Simple-Silex-Blog-Backend\tests\Unit\Configuration\ResolversTest.php" tests="5"
+                   assertions="5" errors="0" failures="0" skipped="0" time="0.165663">
+            <testcase name="testEnvironmentResolverConfig" class="Unit\Configuration\ResolversTest"
+                      classname="Unit.Configuration.ResolversTest"
+                      file="D:\projects\Simple-Silex-Blog-Backend\tests\Unit\Configuration\ResolversTest.php" line="33"
+                      assertions="1" time="0.033114"/>
+            <testcase name="testParameterResolverConfig" class="Unit\Configuration\ResolversTest"
+                      classname="Unit.Configuration.ResolversTest"
+                      file="D:\projects\Simple-Silex-Blog-Backend\tests\Unit\Configuration\ResolversTest.php" line="42"
+                      assertions="1" time="0.030610"/>
+            <testcase name="testAbstractResolverAddResourceConfig" class="Unit\Configuration\ResolversTest"
+                      classname="Unit.Configuration.ResolversTest"
+                      file="D:\projects\Simple-Silex-Blog-Backend\tests\Unit\Configuration\ResolversTest.php" line="49"
+                      assertions="1" time="0.035570"/>
+            <testcase name="testAbstractResolverAddCollectionConfig" class="Unit\Configuration\ResolversTest"
+                      classname="Unit.Configuration.ResolversTest"
+                      file="D:\projects\Simple-Silex-Blog-Backend\tests\Unit\Configuration\ResolversTest.php" line="58"
+                      assertions="1" time="0.034839"/>
+            <testcase name="testAbstractResolverGetResourcesConfig" class="Unit\Configuration\ResolversTest"
+                      classname="Unit.Configuration.ResolversTest"
+                      file="D:\projects\Simple-Silex-Blog-Backend\tests\Unit\Configuration\ResolversTest.php" line="67"
+                      assertions="1" time="0.031530"/>
+        </testsuite>
+        <testsuite name="Unit\Configuration\YamlFileLoaderTest"
+                   file="D:\projects\Simple-Silex-Blog-Backend\tests\Unit\Configuration\YamlFileLoaderTest.php"
+                   tests="5" assertions="5" errors="0" failures="0" skipped="0" time="0.084425">
+            <testcase name="testLoadValidYamlConfig" class="Unit\Configuration\YamlFileLoaderTest"
+                      classname="Unit.Configuration.YamlFileLoaderTest"
+                      file="D:\projects\Simple-Silex-Blog-Backend\tests\Unit\Configuration\YamlFileLoaderTest.php"
+                      line="19" assertions="1" time="0.039310"/>
+            <testcase name="testLoadEmptyYamlConfig" class="Unit\Configuration\YamlFileLoaderTest"
+                      classname="Unit.Configuration.YamlFileLoaderTest"
+                      file="D:\projects\Simple-Silex-Blog-Backend\tests\Unit\Configuration\YamlFileLoaderTest.php"
+                      line="30" assertions="1" time="0.010975"/>
+            <testcase name="testLoadInValidYamlConfig" class="Unit\Configuration\YamlFileLoaderTest"
+                      classname="Unit.Configuration.YamlFileLoaderTest"
+                      file="D:\projects\Simple-Silex-Blog-Backend\tests\Unit\Configuration\YamlFileLoaderTest.php"
+                      line="40" assertions="1" time="0.018306"/>
+            <testcase name="testLoadInValidImportsYamlConfig" class="Unit\Configuration\YamlFileLoaderTest"
+                      classname="Unit.Configuration.YamlFileLoaderTest"
+                      file="D:\projects\Simple-Silex-Blog-Backend\tests\Unit\Configuration\YamlFileLoaderTest.php"
+                      line="50" assertions="1" time="0.005838"/>
+            <testcase name="testLoadInValidImportsResourcesYamlConfig" class="Unit\Configuration\YamlFileLoaderTest"
+                      classname="Unit.Configuration.YamlFileLoaderTest"
+                      file="D:\projects\Simple-Silex-Blog-Backend\tests\Unit\Configuration\YamlFileLoaderTest.php"
+                      line="60" assertions="1" time="0.009996"/>
+        </testsuite>
+    </testsuite>
+</testsuites>

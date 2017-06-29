@@ -1,0 +1,15 @@
+dist: trusty
+sudo: required
+
+addons:
+  sonarcloud:
+    organization: "wolflingorg-github"
+    token:
+      secure: "MIICIjANBgkqhkiG9w0BAQEFAAOCAg8AMIICCgKCAgEAqGO54hutH+e5njmqmWr9\n4dCzDKeOwXVMPOxk25WPYk46h6cEXjZ4Svf9zV6wFy3/pHDI8QuKLIvhR/OmzdZf\nE3RcafRzCK/Bo6SwMlQ08LDWpTYu4ZCGF5jO4Xcw4yohLUT1s9mB7oELtW3KkqKn\nDj691Id57ZoVNBUNIeOo2C1xtXaQTyjS7uWk9We3OlZufvdKZDlyR4UpxwSfewnN\n0EbnSDC719vTO3QHOZQtoVNMEtHzPoxgNfPuXHx5XGAXkqKQ24GCW37/iERNdRK6\nfrjccKBaRIhanTobPIM/q8pRQRCGYHYnIPpJaTLWLLUJcpwnOUkGdbeUSIWjRI8+\nWLZ/wEuJvVR7UVjDPkUMI/Od29PiRmKEanHtm1lN7fXZ0ypYwu9Kk1djzTH0AQyL\nf+xPQVJm8SKPyZgJg3LegNEB7aSNSRVK/4E7RlUXg+o3v7Kj0C7rndPxC00snkST\nhtjyr+rW5ltx4bjJ+Jsf2gapWis8pwgF549MuNoob7/JWcFlNrwF4vebUjFkuVbL\nuLgsqQZSkJliJcAX1Nzo9o8SjTxLr8is38Od/SZxanxmriQWwakcbcVQ7a7GJ0QF\niT9XMrVYxgfXqXVupRagP1JkO9yeOxH8AQXDtFQ0tNCkqw8rss+Kk/KZMVTWfNz7\nmpNPj3CWw8EB8TGCNa/qnAUCAwEAAQ=="
+jdk:
+  - oraclejdk8
+script:
+  - sonar-scanner
+cache:
+  directories:
+    - '$HOME/.sonar/cache'
