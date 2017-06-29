@@ -20,7 +20,7 @@ before_script:
 
 script:
   - |
-      cat > /app/config/parameters.yml << EOF
+      cat > $TRAVIS_BUILD_DIR/app/config/parameters.yml << EOF
       parameters:
       EOF
   - phpunit --configuration phpunit.xml.dist

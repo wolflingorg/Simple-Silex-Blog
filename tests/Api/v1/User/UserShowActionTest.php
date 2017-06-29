@@ -6,20 +6,11 @@ use Tests\Api\AbstractApiTest;
 
 class UserShowActionTest extends AbstractApiTest
 {
-    public function testShowNotValidUser()
+    public function testOkResponse()
     {
         $client = $this->createClient();
 
-        $client->request('GET', '/api/v1/users/100');
-
-        $this->assertEquals(Response::HTTP_NOT_FOUND, $client->getResponse()->getStatusCode());
-    }
-
-    public function testShowValidUser()
-    {
-        $client = $this->createClient();
-
-        $client->request('GET', '/api/v1/users/1');
+        $client->request('GET', '/api/v1/users/');
 
         $this->assertEquals(Response::HTTP_OK, $client->getResponse()->getStatusCode());
     }
