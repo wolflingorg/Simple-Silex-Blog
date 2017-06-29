@@ -1,8 +1,8 @@
 .idea
 composer.lock
-/vendor/
+/vendor
 /app/config/parameters.yml
-/var/
-/.vagrant/
+/var
+/.vagrant
+/reports
 *.log
-/reports/
