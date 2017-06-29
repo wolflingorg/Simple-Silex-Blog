@@ -19,10 +19,6 @@ before_script:
   - composer install --prefer-source --no-interaction --dev
 
 script:
-  - |
-      cat > $TRAVIS_BUILD_DIR/app/config/parameters.yml << EOF
-      parameters:
-      EOF
   - phpunit --configuration phpunit.xml.dist
   - sonar-scanner
 
