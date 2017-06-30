@@ -3,6 +3,7 @@
 namespace app;
 
 use Blog\Provider\CommandBusServiceProvider;
+use Blog\Provider\DoctrineMigrationsServiceProvider;
 use Blog\Provider\EventBusServiceProvider;
 use Silex\Application;
 
@@ -21,4 +22,6 @@ function services(Application $app)
         return [
         ];
     };
+
+    $app->register(new DoctrineMigrationsServiceProvider());
 }
