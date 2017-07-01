@@ -3,9 +3,11 @@
 namespace app;
 
 use Blog\Provider\CommandBusServiceProvider;
-use Blog\Provider\DoctrineMigrationsServiceProvider;
+use Blog\Provider\DoctrineCommandsServiceProvider;
+use Blog\Provider\DoctrineMigrationCommandsServiceProvider;
 use Blog\Provider\EventBusServiceProvider;
 use Silex\Application;
+use Silex\Provider\DoctrineServiceProvider;
 
 function services(Application $app)
 {
@@ -23,5 +25,11 @@ function services(Application $app)
         ];
     };
 
-    $app->register(new DoctrineMigrationsServiceProvider());
+    $app->register(new DoctrineServiceProvider(), [
+        'db.options' => $app['config']['doctrine']['dbal']
+    ]);
+
+    $app->register(new DoctrineMigrationCommandsServiceProvider());
+
+    $app->register(new DoctrineCommandsServiceProvider());
 }
