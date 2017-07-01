@@ -2,7 +2,6 @@
 
 namespace Blog\Provider;
 
-use Blog\Service\Configuration\Configuration;
 use Blog\Service\Configuration\ConfigurationCollection;
 use Blog\Service\Configuration\Loader\YamlFileLoader;
 use Blog\Service\Configuration\Resolver\EnvironmentPlaceholdersResolver;
@@ -24,7 +23,8 @@ class ConfigurationServiceProvider implements ServiceProviderInterface
 
             if (!$configMatcherCache->isFresh()) {
                 $collection = $app['config_resolver'];
-                $config = new Configuration($collection->getCollection());
+                $config = $collection->getCollection();
+
                 $configMatcherCache->write(serialize($config), $collection->getResources());
             } else {
                 $config = unserialize(file_get_contents($cachePath));
