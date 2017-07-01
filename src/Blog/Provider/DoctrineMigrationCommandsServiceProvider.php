@@ -20,10 +20,8 @@ class DoctrineMigrationCommandsServiceProvider implements ServiceProviderInterfa
     public function register(Container $app)
     {
         $app->extend('console', function (Application $console, Container $app) {
-            $appConfig = $app['config']['doctrine']['migrations'];
-
-            if (!is_dir($appConfig['directory'])) {
-                mkdir($appConfig['directory'], 0777, true);
+            if (!is_dir($app['db.migrations']['directory'])) {
+                mkdir($app['db.migrations']['directory'], 0777, true);
             }
 
             $migrationConfig = new Configuration($app['db'], new OutputWriter(
@@ -32,11 +30,11 @@ class DoctrineMigrationCommandsServiceProvider implements ServiceProviderInterfa
                     $output->writeln($message);
                 }
             ));
-            $migrationConfig->setMigrationsDirectory($appConfig['directory']);
-            $migrationConfig->setMigrationsNamespace($appConfig['namespace']);
-            $migrationConfig->setName($appConfig['name']);
-            $migrationConfig->setMigrationsTableName($appConfig['table_name']);
-            $migrationConfig->registerMigrationsFromDirectory($appConfig['directory']);
+            $migrationConfig->setMigrationsDirectory($app['db.migrations']['directory']);
+            $migrationConfig->setMigrationsNamespace($app['db.migrations']['namespace']);
+            $migrationConfig->setName($app['db.migrations']['name']);
+            $migrationConfig->setMigrationsTableName($app['db.migrations']['table_name']);
+            $migrationConfig->registerMigrationsFromDirectory($app['db.migrations']['directory']);
 
             $commands = array(
                 new DiffCommand(),

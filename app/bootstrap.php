@@ -13,37 +13,26 @@ function application(): Application
     $varDir = dirname($rootDir) . DIRECTORY_SEPARATOR . 'var';
     $environment = getenv('APP_ENV');
 
-    $parameters = [
-        'kernel.root_dir' => $rootDir,
-        'kernel.var_dir' => $varDir,
-        'kernel.cache_dir' => $varDir . DIRECTORY_SEPARATOR . 'cache',
-        'kernel.runtime_dir' => $varDir . DIRECTORY_SEPARATOR . 'runtime',
-        'kernel.logs_dir' => $varDir . DIRECTORY_SEPARATOR . 'logs',
-    ];
-
     $app = new Application([
         'debug' => in_array($environment, ['DEV', 'TEST']),
         'environment' => $environment,
     ]);
 
+    $app['parameters'] = [
+        'kernel.root_dir' => $rootDir,
+        'kernel.var_dir' => $varDir,
+        'kernel.cache_dir' => $varDir . DIRECTORY_SEPARATOR . 'cache',
+        'kernel.runtime_dir' => $varDir . DIRECTORY_SEPARATOR . 'runtime',
+        'kernel.logs_dir' => $varDir . DIRECTORY_SEPARATOR . 'logs',
+        'app.config_dirs' => [$rootDir . DIRECTORY_SEPARATOR . 'config'],
+        'app.routing_dirs' => [$rootDir . DIRECTORY_SEPARATOR . 'config'],
+    ];
+
     // parse configuration
-    $app->register(new ConfigurationServiceProvider(),
-        [
-            'private.config' => $parameters,
-            'private.config.paths' => [
-                $parameters['kernel.root_dir'] . DIRECTORY_SEPARATOR . 'config'
-            ]
-        ]
-    );
+    $app->register(new ConfigurationServiceProvider());
 
     // register routing
-    $app->register(new RoutingServiceProvider(),
-        [
-            'private.routing.paths' => [
-                $parameters['kernel.root_dir'] . DIRECTORY_SEPARATOR . 'config'
-            ]
-        ]
-    );
+    $app->register(new RoutingServiceProvider());
 
     // register console
     $app->register(new ConsoleServiceProvider());

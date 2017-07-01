@@ -16,11 +16,11 @@ class RoutingServiceProvider implements ServiceProviderInterface
     public function register(Container $app)
     {
         $app['routes'] = $app->extend('routes', function (RouteCollection $routes, Container $app) {
-            $cachePath = $app['config']['parameters']['kernel.cache_dir'] . DIRECTORY_SEPARATOR . 'routing.obj';
+            $cachePath = $app['parameters']['kernel.cache_dir'] . DIRECTORY_SEPARATOR . 'routing.obj';
             $configMatcherCache = new ConfigCache($cachePath, $app['debug']);
 
             if (!$configMatcherCache->isFresh()) {
-                $collection = $app['private.routing_loader'];
+                $collection = $app['routing_loader'];
                 $configMatcherCache->write(serialize($collection), $collection->getResources());
             } else {
                 $collection = unserialize(file_get_contents($cachePath));
@@ -31,8 +31,8 @@ class RoutingServiceProvider implements ServiceProviderInterface
             return $routes;
         });
 
-        $app['private.routing_loader'] = function ($app) {
-            $locator = new FileLocator($app['private.routing.paths']);
+        $app['routing_loader'] = function ($app) {
+            $locator = new FileLocator($app['parameters']['app.routing_dirs']);
             $loaderResolver = new LoaderResolver(array(new YamlFileLoader($locator)));
             $delegatingLoader = new DelegatingLoader($loaderResolver);
 

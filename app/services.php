@@ -25,9 +25,7 @@ function services(Application $app)
         ];
     };
 
-    $app->register(new DoctrineServiceProvider(), [
-        'db.options' => $app['config']['doctrine']['dbal']
-    ]);
+    $app->register(new DoctrineServiceProvider());
 
     $app->register(new DoctrineMigrationCommandsServiceProvider());
 

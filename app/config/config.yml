@@ -1,17 +1,17 @@
 imports:
     - { resource: parameters.yml }
 
-doctrine:
-    dbal:
-        driver:   pdo_mysql
-        host:     "%database_host%"
-        port:     "%database_port%"
-        dbname:   "%database_name%"
-        user:     "%database_user%"
-        password: "%database_password%"
-        charset:  UTF8
-    migrations:
-        directory: "%kernel.root_dir%/DoctrineMigrations"
-        namespace: "DoctrineMigrations"
-        name: "silex_blog"
-        table_name: "_migrations"
+db.options:
+      driver:   pdo_mysql
+      host:     "%database_host%"
+      port:     "%database_port%"
+      dbname:   "%database_name%"
+      user:     "%database_user%"
+      password: "%database_password%"
+      charset:  UTF8
+
+db.migrations:
+    directory: "%kernel.root_dir%/DoctrineMigrations"
+    namespace: "DoctrineMigrations"
+    name: "silex_blog"
+    table_name: "_migrations"
