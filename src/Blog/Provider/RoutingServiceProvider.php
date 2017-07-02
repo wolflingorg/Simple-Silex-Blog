@@ -15,7 +15,7 @@ class RoutingServiceProvider implements ServiceProviderInterface
 {
     public function register(Container $app)
     {
-        $app['routes'] = $app->extend('routes', function (RouteCollection $routes, Container $app) {
+        $app->extend('routes', function (RouteCollection $routes, Container $app) {
             $cachePath = $app['parameters']['kernel.cache_dir'] . DIRECTORY_SEPARATOR . 'routing.obj';
             $configMatcherCache = new ConfigCache($cachePath, $app['debug']);
 
