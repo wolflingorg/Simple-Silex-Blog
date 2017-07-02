@@ -1,14 +1,22 @@
 imports:
     - { resource: parameters.yml }
 
-db.options:
-      driver:   pdo_mysql
-      host:     "%database_host%"
-      port:     "%database_port%"
-      dbname:   "%database_name%"
-      user:     "%database_user%"
-      password: "%database_password%"
-      charset:  UTF8
+dbs.options:
+    silex_blog:
+        driver:   pdo_mysql
+        host:     "%database_host%"
+        port:     "%database_port%"
+        dbname:   "%database_name%"
+        user:     "%database_user%"
+        password: "%database_password%"
+        charset:  UTF8
+    console:
+        driver:   pdo_mysql
+        host:     "%database_host%"
+        port:     "%database_port%"
+        user:     "%database_user%"
+        password: "%database_password%"
+        charset:  UTF8
 
 db.migrations:
     directory: "%kernel.root_dir%/DoctrineMigrations"

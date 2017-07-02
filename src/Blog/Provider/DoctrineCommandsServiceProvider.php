@@ -17,7 +17,7 @@ class DoctrineCommandsServiceProvider implements ServiceProviderInterface
     {
         $app->extend('console', function (Application $console, Container $app) {
             $console->setHelperSet(new HelperSet([
-                'db' => new ConnectionHelper($app['db'])
+                'db' => new ConnectionHelper($app['dbs']['console'])
             ]));
 
             $commands = array(
