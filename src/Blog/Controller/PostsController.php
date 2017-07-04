@@ -2,13 +2,20 @@
 
 namespace Blog\Controller;
 
+use Blog\CommandBus\Command\CreatePostCommand;
 use Silex\Application;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
 class PostsController
 {
-    public function createAction(Application $app)
+    public function createAction(Request $request, Application $app)
     {
+        $data = $request->getContent();
+
+        $command = new CreatePostCommand(json_decode($data, true));
+        $app['command_bus']->handle($command);
+
         return new Response(sprintf("Hello from %s", __METHOD__));
     }
 

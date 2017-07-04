@@ -6,6 +6,8 @@ use Blog\Provider\ConfigurationServiceProvider;
 use Blog\Provider\ConsoleServiceProvider;
 use Blog\Provider\RoutingServiceProvider;
 use Silex\Application;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 
 function application(): Application
 {
@@ -39,6 +41,14 @@ function application(): Application
 
     // register services
     services($app);
+
+    // processing exceptions
+    $app->error(function (\Exception $e, Request $request, $code) {
+        return new Response(['error' => [
+            'message' => $e->getMessage(),
+            'content' => 'exception'
+        ]], $code);
+    });
 
     return $app;
 }
