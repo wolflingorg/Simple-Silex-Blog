@@ -4,11 +4,11 @@ namespace Blog\Provider;
 
 use Doctrine\DBAL\Migrations\Configuration\Configuration;
 use Doctrine\DBAL\Migrations\OutputWriter;
-use Doctrine\DBAL\Migrations\Tools\Console\Command\DiffCommand;
 use Doctrine\DBAL\Migrations\Tools\Console\Command\ExecuteCommand;
 use Doctrine\DBAL\Migrations\Tools\Console\Command\GenerateCommand;
 use Doctrine\DBAL\Migrations\Tools\Console\Command\MigrateCommand;
 use Doctrine\DBAL\Migrations\Tools\Console\Command\StatusCommand;
+use Doctrine\DBAL\Migrations\Tools\Console\Command\UpToDateCommand;
 use Doctrine\DBAL\Migrations\Tools\Console\Command\VersionCommand;
 use Pimple\Container;
 use Pimple\ServiceProviderInterface;
@@ -37,12 +37,12 @@ class DoctrineMigrationCommandsServiceProvider implements ServiceProviderInterfa
             $migrationConfig->registerMigrationsFromDirectory($app['db.migrations']['directory']);
 
             $commands = array(
-                new DiffCommand(),
                 new ExecuteCommand(),
                 new GenerateCommand(),
                 new MigrateCommand(),
                 new StatusCommand(),
                 new VersionCommand(),
+                new UpToDateCommand()
             );
             foreach ($commands as $command) {
                 /** @var \Doctrine\DBAL\Migrations\Tools\Console\Command\AbstractCommand $command */
