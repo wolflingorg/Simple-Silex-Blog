@@ -8,6 +8,11 @@ use Doctrine\DBAL\Connection;
 class PostRepository
 {
     const TABLE_NAME = 'post';
+    const TABLE_TYPES = [
+        'is_published' => 'boolean',
+        'created_at' => 'datetime',
+        'updated_at' => 'datetime',
+    ];
 
     private $db;
 
@@ -28,10 +33,6 @@ class PostRepository
             'updated_at' => new \DateTime(),
         ];
 
-        $this->db->insert(self::TABLE_NAME, $values, [
-            'is_published' => 'boolean',
-            'created_at' => 'datetime',
-            'updated_at' => 'datetime',
-        ]);
+        $this->db->insert(self::TABLE_NAME, $values, self::TABLE_TYPES);
     }
 }

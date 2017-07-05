@@ -43,5 +43,8 @@ function application(): Application
     // middlewares
     middlewares($app);
 
+    // exceptions
+    exceptions($app);
+
     return $app;
 }

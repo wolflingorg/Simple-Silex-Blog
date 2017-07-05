@@ -61,6 +61,7 @@ class Post
     public function setIsPublished(bool $isPublished): Post
     {
         $this->isPublished = $isPublished;
+
         return $this;
     }
 
