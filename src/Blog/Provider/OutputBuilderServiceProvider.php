@@ -10,6 +10,7 @@ class OutputBuilderServiceProvider implements ServiceProviderInterface
 {
     public function register(Container $app)
     {
+        // TODO implement different types of response and serialisation schemas
         $app['output_builder'] = function () {
             return new OutputBuilder();
         };

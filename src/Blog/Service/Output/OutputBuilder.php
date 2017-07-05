@@ -6,11 +6,11 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 
 class OutputBuilder
 {
-    protected $content;
+    protected $content = '';
 
-    protected $statusCode;
+    protected $statusCode = 200;
 
-    protected $headers;
+    protected $headers = [];
 
     public function setContent($content)
     {
@@ -35,6 +35,6 @@ class OutputBuilder
 
     public function getResponse()
     {
-        return new JsonResponse($this->content, $this->statusCode);
+        return new JsonResponse($this->content, $this->statusCode, $this->headers);
     }
 }

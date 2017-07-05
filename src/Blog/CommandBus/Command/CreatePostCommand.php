@@ -15,8 +15,6 @@ class CreatePostCommand extends AbstractCommand
 
     public $isPublished = false;
 
-    public $user;
-
     static public function loadValidatorMetadata(ClassMetadata $metadata)
     {
         $metadata->addPropertyConstraint('id', new Assert\Uuid());
@@ -24,7 +22,5 @@ class CreatePostCommand extends AbstractCommand
         $metadata->addPropertyConstraint('title', new Assert\NotBlank());
         $metadata->addPropertyConstraint('title', new Assert\Length(['max' => 256]));
         $metadata->addPropertyConstraint('isPublished', new Assert\Type("bool"));
-        $metadata->addPropertyConstraint('user', new Assert\Uuid());
-        $metadata->addPropertyConstraint('user', new Assert\NotBlank());
     }
 }

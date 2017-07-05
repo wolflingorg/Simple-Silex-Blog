@@ -2,7 +2,7 @@ imports:
     - { resource: parameters.yml }
 
 dbs.options:
-    silex_blog:
+    default:
         driver:   pdo_mysql
         host:     "%database_host%"
         port:     "%database_port%"
