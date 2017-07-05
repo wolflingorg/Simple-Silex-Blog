@@ -15,7 +15,8 @@
     },
     "files": [
       "app/bootstrap.php",
-      "app/services.php"
+      "app/services.php",
+      "app/middlewares.php"
     ]
   },
   "autoload-dev": {

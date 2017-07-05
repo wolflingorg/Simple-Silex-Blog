@@ -8,6 +8,5 @@ class CreatePostCommandHandler
 {
     public function handle(CreatePostCommand $command)
     {
-        print_r($command);
     }
 }
