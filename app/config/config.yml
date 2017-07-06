@@ -19,7 +19,7 @@ dbs.options:
         charset:  UTF8
 
 db.migrations:
-    directory: "%kernel.root_dir%/DoctrineMigrations"
-    namespace: "DoctrineMigrations"
+    directory: "%kernel.root_dir%/migrations"
+    namespace: "app\\migrations"
     name: "silex_blog"
     table_name: "_migrations"
