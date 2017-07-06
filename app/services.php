@@ -5,6 +5,7 @@ namespace app;
 use Blog\CommandBus\Command\CreatePostCommand;
 use Blog\CommandBus\Handler\CreatePostCommandHandler;
 use Blog\Entity\User;
+use Blog\EventBus\Event\PostWasCreatedEvent;
 use Blog\Provider\CommandBusMiddlewareServiceProvider;
 use Blog\Provider\CommandBusServiceProvider;
 use Blog\Provider\DoctrineCommandsServiceProvider;
@@ -31,13 +32,14 @@ function services(Application $app)
         ];
     };
     $app['command_bus_create_post_command_handler'] = function ($app) {
-        return new CreatePostCommandHandler($app['post_repository'], $app['user']);
+        return new CreatePostCommandHandler($app['post_repository'], $app['user'], $app['event_bus']);
     };
 
     // event bus
     $app->register(new EventBusServiceProvider());
     $app['event_subscribers'] = function () {
         return [
+            PostWasCreatedEvent::class => [],
         ];
     };
 
