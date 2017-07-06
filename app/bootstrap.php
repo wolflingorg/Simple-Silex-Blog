@@ -26,6 +26,7 @@ function application(): Application
         'kernel.logs_dir' => $varDir . DIRECTORY_SEPARATOR . 'logs',
         'app.config_dirs' => [$rootDir . DIRECTORY_SEPARATOR . 'config'],
         'app.routing_dirs' => [$rootDir . DIRECTORY_SEPARATOR . 'config'],
+        'app.fixtures_dirs' => [$rootDir . DIRECTORY_SEPARATOR . 'fixtures'],
     ];
 
     // parse configuration

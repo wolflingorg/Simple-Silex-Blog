@@ -10,6 +10,7 @@ use Blog\Provider\CommandBusServiceProvider;
 use Blog\Provider\DoctrineCommandsServiceProvider;
 use Blog\Provider\DoctrineMigrationCommandsServiceProvider;
 use Blog\Provider\EventBusServiceProvider;
+use Blog\Provider\FixtureCommandsServiceProvider;
 use Blog\Provider\OutputBuilderServiceProvider;
 use Blog\Repository\PostRepository;
 use Silex\Application;
@@ -49,6 +50,7 @@ function services(Application $app)
     $app->register(new DoctrineServiceProvider());
     $app->register(new DoctrineMigrationCommandsServiceProvider());
     $app->register(new DoctrineCommandsServiceProvider());
+    $app->register(new FixtureCommandsServiceProvider());
     $app->register(new ValidatorServiceProvider());
     $app->register(new OutputBuilderServiceProvider());
 }
