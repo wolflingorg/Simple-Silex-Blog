@@ -2,8 +2,13 @@
 
 namespace Blog\Entity;
 
-class Post
+use Blog\Entity\Interfaces\ArrayableInterface;
+use Blog\Entity\Traits\ArrayableTrait;
+
+class Post implements ArrayableInterface
 {
+    use ArrayableTrait;
+
     private $id;
 
     private $title;
@@ -14,9 +19,9 @@ class Post
 
     private $user;
 
-    private $created_at;
+    private $createdAt;
 
-    private $updated_at;
+    private $updatedAt;
 
     public function __construct($id, User $user)
     {
@@ -72,24 +77,24 @@ class Post
 
     public function getCreatedAt()
     {
-        return $this->created_at;
+        return $this->createdAt;
     }
 
-    public function setCreatedAt($created_at)
+    public function setCreatedAt($createdAt)
     {
-        $this->created_at = $created_at;
+        $this->createdAt = $createdAt;
 
         return $this;
     }
 
     public function getUpdatedAt()
     {
-        return $this->updated_at;
+        return $this->updatedAt;
     }
 
-    public function setUpdatedAt($updated_at)
+    public function setUpdatedAt($updatedAt)
     {
-        $this->updated_at = $updated_at;
+        $this->updatedAt = $updatedAt;
 
         return $this;
     }

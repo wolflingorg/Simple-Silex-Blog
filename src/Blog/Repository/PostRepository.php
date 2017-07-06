@@ -12,6 +12,7 @@ class PostRepository
         'is_published' => 'boolean',
         'created_at' => 'datetime',
         'updated_at' => 'datetime',
+        'user' => 'string'
     ];
 
     private $db;
@@ -23,16 +24,10 @@ class PostRepository
 
     public function createPost(Post $post)
     {
-        $values = [
-            'id' => $post->getId(),
-            'title' => $post->getTitle(),
-            'body' => $post->getBody(),
-            'is_published' => $post->isPublished(),
-            'user' => $post->getUser()->getId(),
-            'created_at' => new \DateTime(),
-            'updated_at' => new \DateTime(),
-        ];
+        $post
+            ->setCreatedAt(new \DateTime())
+            ->setUpdatedAt(new \DateTime());
 
-        $this->db->insert(self::TABLE_NAME, $values, self::TABLE_TYPES);
+        $this->db->insert(self::TABLE_NAME, $post->toArray(), self::TABLE_TYPES);
     }
 }
