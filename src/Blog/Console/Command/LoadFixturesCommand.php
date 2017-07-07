@@ -6,9 +6,12 @@ use Doctrine\DBAL\Driver\PDOConnection;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
+use Symfony\Component\Finder\Finder;
 
 class LoadFixturesCommand extends Command
 {
+    const FIXTURE_FILE_PATTERN = '*.sql';
+
     private $dirs;
 
     public function __construct(array $dirs, $name = null)
@@ -39,15 +42,16 @@ HELP
             throw new \InvalidArgumentException("Fixture dir parameter is required");
         }
 
-        foreach ($this->dirs as $dir) {
-            $all_files = new \IteratorIterator(new \DirectoryIterator($dir));
-            $sql_files = new \RegexIterator($all_files, '/\.sql$/');
+        $finder = new Finder();
+        $files = $finder->files()
+            ->in($this->dirs)
+            ->name(self::FIXTURE_FILE_PATTERN)
+            ->sortByName()
+            ->files();
 
-            foreach ($sql_files as $file) {
-                if ($file->isFile()) {
-                    $this->processFile($file->getPathname(), $output);
-                }
-            }
+        foreach ($files as $file) {
+            /** @var \SplFileInfo $file */
+            $this->processFile($file->getPathname(), $output);
         }
     }
 
