@@ -16,7 +16,7 @@ class ParameterPlaceholdersResolver extends AbstractResolver
         }
 
         $callback = function ($param) use ($collection) {
-            return isset($collection['parameters'][$param]) ? $collection['parameters'][$param] : $param;
+            return array_key_exists($param, $collection['parameters']) ? $collection['parameters'][$param] : $param;
         };
 
         array_walk_recursive(

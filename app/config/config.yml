@@ -2,7 +2,7 @@ imports:
     - { resource: parameters.yml }
 
 dbs.options:
-    silex_blog:
+    default:
         driver:   pdo_mysql
         host:     "%database_host%"
         port:     "%database_port%"
@@ -19,7 +19,7 @@ dbs.options:
         charset:  UTF8
 
 db.migrations:
-    directory: "%kernel.root_dir%/DoctrineMigrations"
-    namespace: "DoctrineMigrations"
+    directory: "%kernel.root_dir%/migrations"
+    namespace: "app\\migrations"
     name: "silex_blog"
     table_name: "_migrations"

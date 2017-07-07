@@ -2,33 +2,39 @@
 
 namespace Blog\Controller;
 
+use Blog\CommandBus\Command\CreatePostCommand;
 use Silex\Application;
-use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\Request;
 
 class PostsController
 {
-    public function createAction(Application $app)
+    public function createAction(Request $request, Application $app)
     {
-        return new Response(sprintf("Hello from %s", __METHOD__));
+        $data = $request->getContent();
+
+        $command = new CreatePostCommand(json_decode($data, true));
+        $app['command_bus']->handle($command);
+
+        return sprintf("Hello from %s", __METHOD__);
     }
 
     public function searchAction(Application $app)
     {
-        return new Response(sprintf("Hello from %s", __METHOD__));
+        return sprintf("Hello from %s", __METHOD__);
     }
 
     public function showAction(Application $app)
     {
-        return new Response(sprintf("Hello from %s", __METHOD__));
+        return sprintf("Hello from %s", __METHOD__);
     }
 
     public function editAction(Application $app)
     {
-        return new Response(sprintf("Hello from %s", __METHOD__));
+        return sprintf("Hello from %s", __METHOD__);
     }
 
     public function deleteAction(Application $app)
     {
-        return new Response(sprintf("Hello from %s", __METHOD__));
+        return sprintf("Hello from %s", __METHOD__);
     }
 }
