@@ -29,11 +29,6 @@ class PostRepository implements PostRepositoryInterface
             ->setCreatedAt(new \DateTime())
             ->setUpdatedAt(new \DateTime());
 
-        // TODO for debugging travis errors
-        try {
-            $this->db->insert(self::TABLE_NAME, $post->toArray(), self::TABLE_TYPES);
-        } catch (\Exception $e) {
-            echo $e->getMessage();
-        }
+        $this->db->insert(self::TABLE_NAME, $post->toArray(), self::TABLE_TYPES);
     }
 }

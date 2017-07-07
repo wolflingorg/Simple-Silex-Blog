@@ -21,8 +21,8 @@ before_script:
   - composer self-update
   - composer install --prefer-source --no-interaction --dev
   - mysql -e "CREATE DATABASE IF NOT EXISTS $DB_NAME;"
-  - php app/console migrations:migrate
-  - php app/console fixtures:load
+  - php app/console migrations:migrate --no-interaction
+  - php app/console fixtures:load --no-interaction
 
 script:
   - phpunit --configuration phpunit.xml.dist
