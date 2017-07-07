@@ -19,7 +19,7 @@ class YamlFileLoaderTest extends AbstractUnitTest
 
     public function testLoadValidYamlConfig()
     {
-        $validConfig = json_decode('{"parameters":{"database_host":"127.0.0.1","database_port":3306,"database_name":"symfony","database_user":"root","database_password":"root"},"doctrine":{"dbal":{"driver":"pdo_mysql","host":"%database_host%","port":"%database_port%","dbname":"%database_name%","user":"%database_user%","password":"%database_password%","charset":"UTF8"}},"environment":"%env(APP_ENV)%"}', true);
+        $validConfig = json_decode('{"parameters":{"database_host":"127.0.0.1","database_port":null,"database_name":"symfony","database_user":"root","database_password":null},"doctrine":{"dbal":{"driver":"pdo_mysql","host":"%database_host%","port":"%database_port%","dbname":"%database_name%","user":"%database_user%","password":"%database_password%","charset":"UTF8"}},"environment":"%env(APP_ENV)%"}', true);
 
         $locator = new FileLocator($this->mocksConfigDir);
         $loader = new YamlFileLoader($locator);
