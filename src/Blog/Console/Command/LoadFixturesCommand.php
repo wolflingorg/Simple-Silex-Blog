@@ -2,6 +2,7 @@
 
 namespace Blog\Console\Command;
 
+use Blog\Exception\RuntimeException;
 use Doctrine\DBAL\Driver\PDOConnection;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Helper\QuestionHelper;
@@ -103,7 +104,7 @@ HELP
             } catch (\PDOException $e) {
                 $output->write('error!' . PHP_EOL);
 
-                throw new \RuntimeException($e->getMessage(), $e->getCode(), $e);
+                throw new RuntimeException($e->getMessage(), $e->getCode(), $e);
             }
         } else {
             // Non-PDO Drivers (ie. OCI8 driver)
@@ -117,7 +118,7 @@ HELP
 
                 $output->write('error!' . PHP_EOL);
 
-                throw new \RuntimeException($error[2], $error[0]);
+                throw new RuntimeException($error[2], $error[0]);
             }
 
             $stmt->closeCursor();

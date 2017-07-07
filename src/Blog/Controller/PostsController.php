@@ -15,26 +15,26 @@ class PostsController
         $command = new CreatePostCommand(json_decode($data, true));
         $app['command_bus']->handle($command);
 
-        return sprintf("Hello from %s", __METHOD__);
+        return true;
     }
 
-    public function searchAction(Application $app)
+    public function searchAction()
     {
-        return sprintf("Hello from %s", __METHOD__);
+        return __METHOD__;
     }
 
-    public function showAction(Application $app)
+    public function showAction()
     {
-        return sprintf("Hello from %s", __METHOD__);
+        return __METHOD__;
     }
 
-    public function editAction(Application $app)
+    public function editAction()
     {
-        return sprintf("Hello from %s", __METHOD__);
+        return __METHOD__;
     }
 
-    public function deleteAction(Application $app)
+    public function deleteAction()
     {
-        return sprintf("Hello from %s", __METHOD__);
+        return __METHOD__;
     }
 }
