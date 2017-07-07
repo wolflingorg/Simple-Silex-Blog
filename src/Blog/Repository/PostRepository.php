@@ -33,6 +33,7 @@ class PostRepository implements PostRepositoryInterface
         try {
             $this->db->insert(self::TABLE_NAME, $post->toArray(), self::TABLE_TYPES);
         } catch (\Exception $e) {
+            print_r($this->db->getParams());
             echo $e->getMessage();
         }
     }

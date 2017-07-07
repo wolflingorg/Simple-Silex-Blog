@@ -21,6 +21,7 @@ before_script:
   - composer self-update
   - composer install --prefer-source --no-interaction --dev
   - mysql -e "CREATE DATABASE IF NOT EXISTS $DB_NAME;"
+  - mysql -e "SHOW DATABASES;"
   - php app/config migrations:migrate
   - php app/config fixtures:load
 
