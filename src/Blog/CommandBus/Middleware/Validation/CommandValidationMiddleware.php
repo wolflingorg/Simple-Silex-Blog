@@ -1,6 +1,6 @@
 <?php
 
-namespace Blog\CommandBus\Middleware;
+namespace Blog\CommandBus\Middleware\Validation;
 
 use SimpleBus\Message\Bus\Middleware\MessageBusMiddleware;
 use Symfony\Component\Validator\ConstraintViolationList;
@@ -17,6 +17,15 @@ class CommandValidationMiddleware implements MessageBusMiddleware
 
     public function handle($message, callable $next)
     {
+        if (is_object($message) && method_exists($message, 'loadValidatorMetadata')) {
+            $this->validate($message);
+        }
+
+        $next($message);
+    }
+
+    private function validate($message)
+    {
         /** @var ConstraintViolationList $violations */
         $violations = $this->validator->validate($message);
 
@@ -29,7 +38,5 @@ class CommandValidationMiddleware implements MessageBusMiddleware
 
             throw new CommandValidationException($errors);
         }
-
-        $next($message);
     }
 }

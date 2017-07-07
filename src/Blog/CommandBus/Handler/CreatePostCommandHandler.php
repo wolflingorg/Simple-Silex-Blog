@@ -6,7 +6,7 @@ use Blog\CommandBus\Command\CreatePostCommand;
 use Blog\Entity\Post;
 use Blog\Entity\User;
 use Blog\EventBus\Event\PostWasCreatedEvent;
-use Blog\Repository\PostRepository;
+use Blog\Repository\Interfaces\PostRepositoryInterface;
 use SimpleBus\Message\Bus\MessageBus;
 
 class CreatePostCommandHandler
@@ -15,7 +15,7 @@ class CreatePostCommandHandler
     private $currentUser;
     private $bus;
 
-    public function __construct(PostRepository $repository, User $currentUser, MessageBus $bus)
+    public function __construct(PostRepositoryInterface $repository, User $currentUser, MessageBus $bus)
     {
         $this->repository = $repository;
         $this->currentUser = $currentUser;

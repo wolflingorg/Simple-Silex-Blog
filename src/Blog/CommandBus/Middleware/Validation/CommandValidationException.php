@@ -1,6 +1,6 @@
 <?php
 
-namespace Blog\CommandBus\Middleware;
+namespace Blog\CommandBus\Middleware\Validation;
 
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 

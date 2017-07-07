@@ -3,9 +3,10 @@
 namespace Blog\Repository;
 
 use Blog\Entity\Post;
+use Blog\Repository\Interfaces\PostRepositoryInterface;
 use Doctrine\DBAL\Connection;
 
-class PostRepository
+class PostRepository implements PostRepositoryInterface
 {
     const TABLE_NAME = 'post';
     const TABLE_TYPES = [
@@ -28,6 +29,11 @@ class PostRepository
             ->setCreatedAt(new \DateTime())
             ->setUpdatedAt(new \DateTime());
 
-        $this->db->insert(self::TABLE_NAME, $post->toArray(), self::TABLE_TYPES);
+        // TODO for testing travis errors
+        try {
+            $this->db->insert(self::TABLE_NAME, $post->toArray(), self::TABLE_TYPES);
+        } catch (\Exception $e) {
+            echo $e->getMessage();
+        }
     }
 }

@@ -2,7 +2,7 @@
 
 namespace Blog\Provider;
 
-use Blog\CommandBus\Middleware\CommandValidationMiddleware;
+use Blog\CommandBus\Middleware\Validation\CommandValidationMiddleware;
 use Pimple\Container;
 use Pimple\ServiceProviderInterface;
 use SimpleBus\Message\Bus\Middleware\MessageBusSupportingMiddleware;

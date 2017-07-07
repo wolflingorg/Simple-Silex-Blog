@@ -2,7 +2,7 @@
 
 namespace app;
 
-use Blog\CommandBus\Middleware\CommandValidationException;
+use Blog\CommandBus\Middleware\Validation\CommandValidationException;
 use Doctrine\DBAL\DBALException;
 use Silex\Application;
 use Symfony\Component\HttpFoundation\Request;
