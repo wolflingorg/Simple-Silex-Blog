@@ -11,19 +11,25 @@ posts.search:
   methods: [GET]
 
 posts.post:
-  path: /{id}
+  path: /{id}/
+  requirements:
+    id: '\d+'
   defaults:
     _controller: 'Blog\Controller\PostsController::showAction'
   methods: [GET]
 
 posts.post:
-  path: /{id}
+  path: /{id}/
+  requirements:
+    id: '\d+'
   defaults:
     _controller: 'Blog\Controller\PostsController::editAction'
   methods: [PUT]
 
 posts.post:
-  path: /{id}
+  path: /{id}/
+  requirements:
+    id: '\d+'
   defaults:
     _controller: 'Blog\Controller\PostsController::deleteAction'
   methods: [DELETE]

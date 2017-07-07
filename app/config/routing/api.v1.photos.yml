@@ -11,19 +11,25 @@ photos.search:
   methods: [GET]
 
 photos.photo:
-  path: /{id}
+  path: /{id}/
+  requirements:
+    id: '\d+'
   defaults:
     _controller: 'Blog\Controller\PhotosController::showAction'
   methods: [GET]
 
 photos.photo:
-  path: /{id}
+  path: /{id}/
+  requirements:
+    id: '\d+'
   defaults:
     _controller: 'Blog\Controller\PhotosController::editAction'
   methods: [PUT]
 
 photos.photo:
-  path: /{id}
+  path: /{id}/
+  requirements:
+    id: '\d+'
   defaults:
     _controller: 'Blog\Controller\PhotosController::deleteAction'
   methods: [DELETE]
