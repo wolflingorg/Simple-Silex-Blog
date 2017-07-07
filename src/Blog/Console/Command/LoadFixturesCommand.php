@@ -4,8 +4,10 @@ namespace Blog\Console\Command;
 
 use Doctrine\DBAL\Driver\PDOConnection;
 use Symfony\Component\Console\Command\Command;
+use Symfony\Component\Console\Helper\QuestionHelper;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
+use Symfony\Component\Console\Question\ConfirmationQuestion;
 use Symfony\Component\Finder\Finder;
 
 class LoadFixturesCommand extends Command
@@ -40,6 +42,15 @@ HELP
     {
         if (empty($this->dirs)) {
             throw new \InvalidArgumentException("Fixture dir parameter is required");
+        }
+
+        $helper = new QuestionHelper();
+        $question = 'WARNING! You are about to execute a database fixtures'
+            . ' that could result in data lost.'
+            . ' Are you sure you wish to continue? (y/n)';
+        $confirmation = new ConfirmationQuestion($question);
+        if (!$helper->ask($input, $output, $confirmation)) {
+            return;
         }
 
         $finder = new Finder();
