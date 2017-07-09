@@ -18,8 +18,17 @@ dbs.options:
         password: "%database_password%"
         charset:  UTF8
 
+routing:
+    directory: "%kernel.root_dir%/config"
+
 db.migrations:
     directory: "%kernel.root_dir%/migrations"
     namespace: "app\\migrations"
     name: "silex_blog"
     table_name: "_migrations"
+
+fixtures:
+    directory: "%kernel.root_dir%/fixtures"
+
+jms.serializer:
+    metadata_dir: "%kernel.root_dir%/serializer"

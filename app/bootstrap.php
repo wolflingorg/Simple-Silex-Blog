@@ -20,13 +20,11 @@ function application(): Application
 
     $app['parameters'] = [
         'kernel.root_dir' => $rootDir,
+        'kernel.config_dir' => $rootDir . DIRECTORY_SEPARATOR . 'config',
         'kernel.var_dir' => $varDir,
         'kernel.cache_dir' => $varDir . DIRECTORY_SEPARATOR . 'cache',
         'kernel.runtime_dir' => $varDir . DIRECTORY_SEPARATOR . 'runtime',
         'kernel.logs_dir' => $varDir . DIRECTORY_SEPARATOR . 'logs',
-        'app.config_dirs' => [$rootDir . DIRECTORY_SEPARATOR . 'config'],
-        'app.routing_dirs' => [$rootDir . DIRECTORY_SEPARATOR . 'config'],
-        'app.fixtures_dirs' => [$rootDir . DIRECTORY_SEPARATOR . 'fixtures'],
     ];
 
     // parse configuration

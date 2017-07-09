@@ -1,3 +1,4 @@
 api.v1:
   prefix: /api/v1
+  defaults: { _format: json|xml }
   resource: routing/api.v1.yml

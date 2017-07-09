@@ -15,7 +15,7 @@ class PostsController
         $command = new CreatePostCommand(json_decode($data, true));
         $app['command_bus']->handle($command);
 
-        return true;
+        return 'ok';
     }
 
     public function searchAction()
