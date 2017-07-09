@@ -1,4 +1,6 @@
 api.v1:
   prefix: /api/v1
   defaults: { _format: json|xml }
+  requirements:
+    uuid: '^[0-9A-Fa-f]{8}-[0-9A-Fa-f]{4}-4[0-9A-Fa-f]{3}-[89ABab][0-9A-Fa-f]{3}-[0-9A-Fa-f]{12}$'
   resource: routing/api.v1.yml

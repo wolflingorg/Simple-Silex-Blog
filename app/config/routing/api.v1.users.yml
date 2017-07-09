@@ -5,17 +5,13 @@ users.search:
   methods: [GET]
 
 users.user:
-  path: /{id}/
-  requirements:
-    id: '\d+'
+  path: /{uuid}/
   defaults:
     _controller: 'Blog\Controller\UsersController::showAction'
   methods: [GET]
 
 users.user:
-  path: /{id}/
-  requirements:
-    id: '\d+'
+  path: /{uuid}/
   defaults:
     _controller: 'Blog\Controller\UsersController::editAction'
   methods: [PUT]
