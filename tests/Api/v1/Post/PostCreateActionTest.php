@@ -19,7 +19,9 @@ class PostCreateActionTest extends AbstractApiTest
 
         $client->request('POST', '/api/v1/posts/', [], [], [], $data);
 
-        $this->assertEquals(Response::HTTP_OK, $client->getResponse()->getStatusCode());
+        $this->assertEquals(Response::HTTP_CREATED, $client->getResponse()->getStatusCode());
+
+        $this->assertEquals('"ok"', $client->getResponse()->getContent());
     }
 
     public function testCreateNewPostWithoutId()
@@ -36,7 +38,7 @@ class PostCreateActionTest extends AbstractApiTest
         $this->assertEquals(Response::HTTP_BAD_REQUEST, $client->getResponse()->getStatusCode());
     }
 
-    public function testCreateNewPostWithWrongUuid()
+    public function testCreateNewPostWithWrongId()
     {
         $client = $this->createClient();
 

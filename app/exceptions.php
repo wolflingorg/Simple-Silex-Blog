@@ -12,12 +12,11 @@ function exceptions(Application $app)
     // processing exceptions
     $app->error(function (CommandValidationException $e, Request $request, $code) use ($app) {
         return $app['output_builder']
-            ->setContent([
+            ->setResponseCode($code)
+            ->getResponse($request, [
                 'message' => 'Validation Failed',
                 'errors' => (array)$e->getMessages()
-            ])
-            ->setStatusCode($code)->
-            getResponse();
+            ]);
     });
 
     $app->error(function (DBALException $e, Request $request, $code) use ($app) {
@@ -28,21 +27,19 @@ function exceptions(Application $app)
         }
 
         return $app['output_builder']
-            ->setContent([
+            ->setResponseCode($code)
+            ->getResponse($request, [
                 'message' => 'SQL Failed',
                 'errors' => (array)$sqlstate
-            ])
-            ->setStatusCode($code)->
-            getResponse();
+            ]);
     });
 
     $app->error(function (\Exception $e, Request $request, $code) use ($app) {
         return $app['output_builder']
-            ->setContent([
+            ->setResponseCode($code)
+            ->getResponse($request, [
                 'message' => 'Exception',
                 'errors' => 'Something went wrong'
-            ])
-            ->setStatusCode($code)->
-            getResponse();
+            ]);
     });
 }

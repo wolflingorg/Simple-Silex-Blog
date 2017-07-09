@@ -3,25 +3,18 @@
 namespace Blog\Service\Output;
 
 use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 
 class OutputBuilder
 {
-    protected $content = '';
-
-    protected $statusCode = 200;
+    protected $responseCode = null;
 
     protected $headers = [];
 
-    public function setContent($content)
+    public function setResponseCode($responseCode)
     {
-        $this->content = $content;
-
-        return $this;
-    }
-
-    public function setStatusCode($statusCode)
-    {
-        $this->statusCode = $statusCode;
+        $this->responseCode = $responseCode;
 
         return $this;
     }
@@ -33,8 +26,33 @@ class OutputBuilder
         return $this;
     }
 
-    public function getResponse()
+    public function getResponse(Request $request, $content = '')
     {
-        return new JsonResponse($this->content, $this->statusCode, $this->headers);
+        $code = $this->getProperResponseCode($request);
+
+        return new JsonResponse($content, $code, $this->headers);
+    }
+
+    protected function getProperResponseCode(Request $request)
+    {
+        if (!is_null($this->responseCode)) {
+            return $this->responseCode;
+        }
+
+        switch ($request->getMethod()) {
+            case Request::METHOD_GET;
+            case Request::METHOD_PUT;
+            case Request::METHOD_DELETE:
+                $code = Response::HTTP_OK;
+                break;
+            case Request::METHOD_POST:
+                $code = Response::HTTP_CREATED;
+                break;
+            default:
+                $code = 406;
+                break;
+        }
+
+        return $code;
     }
 }
