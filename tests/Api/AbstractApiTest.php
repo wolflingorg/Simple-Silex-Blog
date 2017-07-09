@@ -31,6 +31,7 @@ abstract class AbstractApiTest extends WebTestCase
         $input = new ArrayInput(array(
             'command' => 'fixtures:load'
         ));
+        $input->setInteractive(false);
         $application->run($input, new NullOutput());
     }
 }
