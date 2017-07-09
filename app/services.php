@@ -4,6 +4,7 @@ namespace app;
 
 use Blog\CommandBus\Command\CreatePostCommand;
 use Blog\CommandBus\Handler\CreatePostCommandHandler;
+use Blog\Entity\Post;
 use Blog\Entity\User;
 use Blog\EventBus\Event\PostWasCreatedEvent;
 use Blog\Provider\CommandBusMiddlewareServiceProvider;
@@ -14,6 +15,7 @@ use Blog\Provider\EventBusServiceProvider;
 use Blog\Provider\FixtureCommandsServiceProvider;
 use Blog\Provider\JMSSerializerServiceProvider;
 use Blog\Provider\OutputBuilderServiceProvider;
+use Blog\Repository\Manager\RepositoryManager;
 use Blog\Repository\PostRepository;
 use Silex\Application;
 use Silex\Provider\DoctrineServiceProvider;
@@ -33,7 +35,7 @@ function services(Application $app)
         ];
     };
     $app['command_bus_create_post_command_handler'] = function ($app) {
-        return new CreatePostCommandHandler($app['post_repository'], $app['user'], $app['event_bus']);
+        return new CreatePostCommandHandler($app['repository_manager'], $app['user'], $app['event_bus']);
     };
 
     // event bus
@@ -45,6 +47,11 @@ function services(Application $app)
     };
 
     // repositories
+    $app['repository_manager'] = function ($app) {
+        return new RepositoryManager([
+            Post::class => $app['post_repository'],
+        ]);
+    };
     $app['post_repository'] = function ($app) {
         return new PostRepository($app['db']);
     };

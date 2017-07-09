@@ -3,10 +3,11 @@
 namespace Blog\Repository;
 
 use Blog\Entity\Post;
-use Blog\Repository\Interfaces\PostRepositoryInterface;
+use Blog\Repository\Filter\FilterInterface;
+use Blog\Repository\Interfaces\RepositoryInterface;
 use Doctrine\DBAL\Connection;
 
-class PostRepository implements PostRepositoryInterface
+class PostRepository implements RepositoryInterface
 {
     const TABLE_NAME = 'post';
     const TABLE_TYPES = [
@@ -30,5 +31,15 @@ class PostRepository implements PostRepositoryInterface
             ->setUpdatedAt(new \DateTime());
 
         $this->db->insert(self::TABLE_NAME, $post->toArray(), self::TABLE_TYPES);
+    }
+
+    public function findByPk($id)
+    {
+        // TODO: Implement findByPk() method.
+    }
+
+    public function findByFilter(FilterInterface $filter)
+    {
+        // TODO: Implement findByFilter() method.
     }
 }
