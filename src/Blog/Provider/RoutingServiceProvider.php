@@ -32,7 +32,7 @@ class RoutingServiceProvider implements ServiceProviderInterface
         });
 
         $app['routing_loader'] = function ($app) {
-            $locator = new FileLocator($app['parameters']['app.routing_dirs']);
+            $locator = new FileLocator($app['routing']['directory']);
             $loaderResolver = new LoaderResolver(array(new YamlFileLoader($locator)));
             $delegatingLoader = new DelegatingLoader($loaderResolver);
 

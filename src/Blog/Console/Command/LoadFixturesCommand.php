@@ -15,11 +15,15 @@ class LoadFixturesCommand extends Command
 {
     const FIXTURE_FILE_PATTERN = '*.sql';
 
-    private $dirs;
+    private $dirs = [];
 
-    public function __construct(array $dirs, $name = null)
+    public function __construct($dirs, $name = null)
     {
         parent::__construct($name);
+
+        if (!is_array($dirs)) {
+            $dirs = [$dirs];
+        }
         $this->dirs = $dirs;
     }
 

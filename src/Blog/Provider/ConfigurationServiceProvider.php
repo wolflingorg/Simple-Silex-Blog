@@ -18,7 +18,7 @@ class ConfigurationServiceProvider implements ServiceProviderInterface
     public function register(Container $app)
     {
         $app['config_loader'] = function ($app) {
-            $locator = new FileLocator($app['parameters']['app.config_dirs']);
+            $locator = new FileLocator($app['parameters']['kernel.config_dir']);
             $loaderResolver = new LoaderResolver(array(new YamlFileLoader($locator)));
             $delegatingLoader = new DelegatingLoader($loaderResolver);
 

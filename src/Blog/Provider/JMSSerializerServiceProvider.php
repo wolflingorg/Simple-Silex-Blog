@@ -16,7 +16,7 @@ class JMSSerializerServiceProvider implements ServiceProviderInterface
             return $builder
                 ->setCacheDir($app['parameters']['kernel.cache_dir'] . DIRECTORY_SEPARATOR . 'jms')
                 ->setDebug($app['debug'])
-                ->addMetadataDir($app['parameters']['kernel.root_dir'] . DIRECTORY_SEPARATOR . 'serializer')
+                ->addMetadataDir($app['jms.serializer']['metadata_dir'])
                 ->build();
         };
     }

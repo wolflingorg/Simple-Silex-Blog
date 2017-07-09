@@ -18,7 +18,7 @@ class FixtureCommandsServiceProvider implements ServiceProviderInterface
                 'db' => new ConnectionHelper($app['db'])
             ]));
 
-            $console->add(new LoadFixturesCommand($app['parameters']['app.fixtures_dirs']));
+            $console->add(new LoadFixturesCommand($app['fixtures']['directory']));
 
             return $console;
         });

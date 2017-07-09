@@ -20,9 +20,7 @@ class DoctrineMigrationCommandsServiceProvider implements ServiceProviderInterfa
     public function register(Container $app)
     {
         $app->extend('console', function (Application $console, Container $app) {
-            if (!is_dir($app['db.migrations']['directory'])) {
-                mkdir($app['db.migrations']['directory'], 0777, true);
-            }
+            $config = $app['db.migrations'];
 
             $migrationConfig = new Configuration($app['db'], new OutputWriter(
                 function ($message) {
@@ -30,11 +28,11 @@ class DoctrineMigrationCommandsServiceProvider implements ServiceProviderInterfa
                     $output->writeln($message);
                 }
             ));
-            $migrationConfig->setMigrationsDirectory($app['db.migrations']['directory']);
-            $migrationConfig->setMigrationsNamespace($app['db.migrations']['namespace']);
-            $migrationConfig->setName($app['db.migrations']['name']);
-            $migrationConfig->setMigrationsTableName($app['db.migrations']['table_name']);
-            $migrationConfig->registerMigrationsFromDirectory($app['db.migrations']['directory']);
+            $migrationConfig->setMigrationsDirectory($config['directory']);
+            $migrationConfig->setMigrationsNamespace($config['namespace']);
+            $migrationConfig->setName($config['name']);
+            $migrationConfig->setMigrationsTableName($config['table_name']);
+            $migrationConfig->registerMigrationsFromDirectory($config['directory']);
 
             $commands = array(
                 new ExecuteCommand(),
