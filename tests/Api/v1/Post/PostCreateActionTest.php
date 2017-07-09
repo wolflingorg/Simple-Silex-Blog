@@ -17,7 +17,9 @@ class PostCreateActionTest extends AbstractApiTest
             'body' => 'Some body'
         ]);
 
-        $client->request('POST', '/api/v1/posts/', [], [], [], $data);
+        $client->request('POST', '/api/v1/posts/', [], [], [
+            'HTTP_ACCEPT' => 'application/json',
+        ], $data);
 
         $this->assertEquals(Response::HTTP_CREATED, $client->getResponse()->getStatusCode());
 

@@ -2,15 +2,32 @@
 
 namespace Blog\Service\Output;
 
-use Symfony\Component\HttpFoundation\JsonResponse;
+use JMS\Serializer\SerializerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 
 class OutputBuilder
 {
     protected $responseCode = null;
 
     protected $headers = [];
+
+    protected $supported = [
+        'application/json',
+        'application/xml'
+    ];
+
+    private $serializer;
+
+    public function __construct(SerializerInterface $serializer, $supported = null)
+    {
+        $this->serializer = $serializer;
+
+        if (!empty($supported)) {
+            $this->supported = $supported;
+        }
+    }
 
     public function setResponseCode($responseCode)
     {
@@ -26,11 +43,21 @@ class OutputBuilder
         return $this;
     }
 
-    public function getResponse(Request $request, $content = '')
+    public function getResponse(Request $request, $content = [])
     {
-        $code = $this->getProperResponseCode($request);
+        try {
+            $code = $this->getProperResponseCode($request);
+            $content = $this->serializer->serialize($content, $this->getProperResponseFormat($request));
+        } catch (BadRequestHttpException $e) {
+            $content = $this->serializer->serialize($e->getMessage(), $request->getFormat($this->supported[0]));
+            $code = Response::HTTP_BAD_REQUEST;
+        }
 
-        return new JsonResponse($content, $code, $this->headers);
+        return new Response(
+            $content,
+            $code,
+            $this->headers
+        );
     }
 
     protected function getProperResponseCode(Request $request)
@@ -49,10 +76,21 @@ class OutputBuilder
                 $code = Response::HTTP_CREATED;
                 break;
             default:
-                $code = 406;
-                break;
+                throw new BadRequestHttpException('Unsupported method');
         }
 
         return $code;
+    }
+
+    protected function getProperResponseFormat(Request $request)
+    {
+        $accepted = $request->getAcceptableContentTypes();
+        array_push($accepted, $request->headers->get('Content-Type'));
+
+        foreach (array_intersect($accepted, $this->supported) as $type) {
+            return $request->getFormat($type);
+        }
+
+        throw new BadRequestHttpException('Unsupported Content-Type or Accept header');
     }
 }

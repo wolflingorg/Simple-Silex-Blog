@@ -12,6 +12,7 @@ use Blog\Provider\DoctrineCommandsServiceProvider;
 use Blog\Provider\DoctrineMigrationCommandsServiceProvider;
 use Blog\Provider\EventBusServiceProvider;
 use Blog\Provider\FixtureCommandsServiceProvider;
+use Blog\Provider\JMSSerializerServiceProvider;
 use Blog\Provider\OutputBuilderServiceProvider;
 use Blog\Repository\PostRepository;
 use Silex\Application;
@@ -55,4 +56,5 @@ function services(Application $app)
     $app->register(new FixtureCommandsServiceProvider());
     $app->register(new ValidatorServiceProvider());
     $app->register(new OutputBuilderServiceProvider());
+    $app->register(new JMSSerializerServiceProvider());
 }

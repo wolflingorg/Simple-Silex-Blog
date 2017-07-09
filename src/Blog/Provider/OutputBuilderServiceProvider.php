@@ -13,9 +13,8 @@ class OutputBuilderServiceProvider implements ServiceProviderInterface, EventLis
 {
     public function register(Container $app)
     {
-        // TODO implement different serialisation schemas
-        $app['output_builder'] = function () {
-            return new OutputBuilder();
+        $app['output_builder'] = function ($app) {
+            return new OutputBuilder($app['serializer']);
         };
     }
 

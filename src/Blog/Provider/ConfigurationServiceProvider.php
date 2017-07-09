@@ -33,7 +33,7 @@ class ConfigurationServiceProvider implements ServiceProviderInterface
         };
 
         // Loading configuration
-        $cachePath = $app['parameters']['kernel.cache_dir'] . DIRECTORY_SEPARATOR . 'configuration.obj';
+        $cachePath = $app['parameters']['kernel.cache_dir'] . DIRECTORY_SEPARATOR . 'configuration' . DIRECTORY_SEPARATOR . 'configuration.obj';
         $configMatcherCache = new ConfigCache($cachePath, $app['debug']);
 
         if (!$configMatcherCache->isFresh()) {
