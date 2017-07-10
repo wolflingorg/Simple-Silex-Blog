@@ -5,6 +5,7 @@ namespace Blog\CommandBus\Handler;
 use Blog\CommandBus\Command\CreatePostCommand;
 use Blog\Entity\Post;
 use Blog\Entity\User;
+use Blog\Entity\ValueObject\Uuid;
 use Blog\EventBus\Event\PostWasCreatedEvent;
 use Blog\Repository\Manager\RepositoryManager;
 use Blog\Repository\PostRepository;
@@ -27,7 +28,7 @@ class CreatePostCommandHandler
 
     public function handle(CreatePostCommand $command)
     {
-        $post = (new Post($command->id, $this->currentUser))
+        $post = (new Post(new Uuid($command->id), new Uuid((string)$this->currentUser)))
             ->setTitle($command->title)
             ->setBody($command->body)
             ->setIsPublished($command->isPublished);

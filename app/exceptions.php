@@ -19,27 +19,30 @@ function exceptions(Application $app)
             ]);
     });
 
-    $app->error(function (DBALException $e, Request $request, $code) use ($app) {
-        if (preg_match('/SQLSTATE\[(\d+)\]/', $e->getMessage(), $matches)) {
-            $sqlstate = $matches[0];
-        } else {
-            $sqlstate = 'SQLSTATE[UNKNOWN]';
-        }
+    // prod environment
+    if ($app['environment'] == 'PROD') {
+        $app->error(function (DBALException $e, Request $request, $code) use ($app) {
+            if (preg_match('/SQLSTATE\[(\d+)\]/', $e->getMessage(), $matches)) {
+                $sqlstate = $matches[0];
+            } else {
+                $sqlstate = 'SQLSTATE[UNKNOWN]';
+            }
 
-        return $app['output_builder']
-            ->setResponseCode($code)
-            ->getResponse($request, [
-                'message' => 'SQL Failed',
-                'errors' => (array)$sqlstate
-            ]);
-    });
+            return $app['output_builder']
+                ->setResponseCode($code)
+                ->getResponse($request, [
+                    'message' => 'SQL Failed',
+                    'errors' => (array)$sqlstate
+                ]);
+        });
 
-    $app->error(function (\Exception $e, Request $request, $code) use ($app) {
-        return $app['output_builder']
-            ->setResponseCode($code)
-            ->getResponse($request, [
-                'message' => 'Exception',
-                'errors' => 'Something went wrong'
-            ]);
-    });
+        $app->error(function (\Exception $e, Request $request, $code) use ($app) {
+            return $app['output_builder']
+                ->setResponseCode($code)
+                ->getResponse($request, [
+                    'message' => 'Exception',
+                    'errors' => 'Something went wrong'
+                ]);
+        });
+    }
 }

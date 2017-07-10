@@ -6,6 +6,7 @@ use Blog\CommandBus\Command\CreatePostCommand;
 use Blog\CommandBus\Handler\CreatePostCommandHandler;
 use Blog\Entity\Post;
 use Blog\Entity\User;
+use Blog\Entity\ValueObject\Uuid;
 use Blog\EventBus\Event\PostWasCreatedEvent;
 use Blog\Provider\CommandBusMiddlewareServiceProvider;
 use Blog\Provider\CommandBusServiceProvider;
@@ -17,6 +18,7 @@ use Blog\Provider\JMSSerializerServiceProvider;
 use Blog\Provider\OutputBuilderServiceProvider;
 use Blog\Repository\Manager\RepositoryManager;
 use Blog\Repository\PostRepository;
+use Doctrine\DBAL\Types\Type;
 use Silex\Application;
 use Silex\Provider\DoctrineServiceProvider;
 use Silex\Provider\ValidatorServiceProvider;
@@ -24,7 +26,7 @@ use Silex\Provider\ValidatorServiceProvider;
 function services(Application $app)
 {
     // TODO replace this with the security provider and user provider
-    $app['user'] = new User('ab5763c9-1d8c-4ad7-b22e-c484c26973d3');
+    $app['user'] = new User(new Uuid('ab5763c9-1d8c-4ad7-b22e-c484c26973d3'));
 
     // command bus
     $app->register(new CommandBusServiceProvider());
@@ -58,6 +60,10 @@ function services(Application $app)
 
     // other
     $app->register(new DoctrineServiceProvider());
+    if (!Type::hasType('uuid')) {
+        Type::addType('uuid', 'Blog\\Repository\\Type\\UuidType');
+    }
+
     $app->register(new DoctrineMigrationCommandsServiceProvider());
     $app->register(new DoctrineCommandsServiceProvider());
     $app->register(new ValidatorServiceProvider());

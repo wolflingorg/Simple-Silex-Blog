@@ -2,13 +2,15 @@
 
 namespace Blog\Entity;
 
+use Blog\Entity\ValueObject\Uuid;
+
 class User
 {
     private $id;
 
     private $name;
 
-    public function __construct($id)
+    public function __construct(Uuid $id)
     {
         $this->id = $id;
     }

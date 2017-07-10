@@ -3,6 +3,8 @@
 namespace Blog\Controller;
 
 use Blog\CommandBus\Command\CreatePostCommand;
+use Blog\Entity\Post;
+use Blog\Repository\Manager\RepositoryManager;
 use Silex\Application;
 use Symfony\Component\HttpFoundation\Request;
 
@@ -23,8 +25,12 @@ class PostsController
         return __METHOD__;
     }
 
-    public function showAction()
+    public function showAction($uuid, Application $app)
     {
+        /** @var RepositoryManager $rm */
+        $rm = $app['repository_manager'];
+        $rm->get(Post::class)->findByPk($uuid);
+
         return __METHOD__;
     }
 
