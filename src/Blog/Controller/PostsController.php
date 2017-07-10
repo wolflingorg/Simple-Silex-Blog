@@ -29,9 +29,8 @@ class PostsController
     {
         /** @var RepositoryManager $rm */
         $rm = $app['repository_manager'];
-        $rm->get(Post::class)->findByPk($uuid);
 
-        return __METHOD__;
+        return $rm->get(Post::class)->findByPk($uuid);
     }
 
     public function editAction()
