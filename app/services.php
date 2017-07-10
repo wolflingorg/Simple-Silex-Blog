@@ -60,8 +60,12 @@ function services(Application $app)
     $app->register(new DoctrineServiceProvider());
     $app->register(new DoctrineMigrationCommandsServiceProvider());
     $app->register(new DoctrineCommandsServiceProvider());
-    $app->register(new FixtureCommandsServiceProvider());
     $app->register(new ValidatorServiceProvider());
     $app->register(new OutputBuilderServiceProvider());
     $app->register(new JMSSerializerServiceProvider());
+
+    // dev environment
+    if (in_array($app['environment'], ['DEV', 'TEST'])) {
+        $app->register(new FixtureCommandsServiceProvider());
+    }
 }
