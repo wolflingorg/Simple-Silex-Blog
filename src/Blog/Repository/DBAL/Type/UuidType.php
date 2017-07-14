@@ -1,6 +1,6 @@
 <?php
 
-namespace Blog\Repository\Type;
+namespace Blog\Repository\DBAL\Type;
 
 use Blog\Entity\ValueObject\Uuid;
 use Doctrine\DBAL\Platforms\AbstractPlatform;

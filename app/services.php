@@ -16,8 +16,8 @@ use Blog\Provider\EventBusServiceProvider;
 use Blog\Provider\FixtureCommandsServiceProvider;
 use Blog\Provider\JMSSerializerServiceProvider;
 use Blog\Provider\OutputBuilderServiceProvider;
-use Blog\Repository\Manager\RepositoryManager;
-use Blog\Repository\PostRepository;
+use Blog\Repository\DBAL\PostRepository;
+use Blog\Service\Repository\RepositoryManager;
 use Doctrine\DBAL\Types\Type;
 use Silex\Application;
 use Silex\Provider\DoctrineServiceProvider;
@@ -61,7 +61,7 @@ function services(Application $app)
     // other
     $app->register(new DoctrineServiceProvider());
     if (!Type::hasType('uuid')) {
-        Type::addType('uuid', 'Blog\\Repository\\Type\\UuidType');
+        Type::addType('uuid', 'Blog\\Repository\\DBAL\\Type\\UuidType');
     }
 
     $app->register(new DoctrineMigrationCommandsServiceProvider());

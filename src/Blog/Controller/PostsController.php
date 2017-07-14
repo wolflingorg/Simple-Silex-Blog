@@ -30,7 +30,7 @@ class PostsController
         /** @var RepositoryManager $rm */
         $rm = $app['repository_manager'];
 
-        return $rm->get(Post::class)->findByPk($uuid);
+        return $rm->get(Post::class)->findPost($uuid);
     }
 
     public function editAction()

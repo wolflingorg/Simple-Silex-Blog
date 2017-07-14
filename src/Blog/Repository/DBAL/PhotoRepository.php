@@ -1,6 +1,6 @@
 <?php
 
-namespace Blog\Repository;
+namespace Blog\Repository\DBAL;
 
 use Silex\Application;
 

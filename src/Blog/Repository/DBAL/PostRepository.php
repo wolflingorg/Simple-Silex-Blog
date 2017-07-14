@@ -1,35 +1,27 @@
 <?php
 
-namespace Blog\Repository;
+namespace Blog\Repository\DBAL;
 
 use Blog\Entity\Post;
-use Blog\Repository\Filter\FilterInterface;
-use Blog\Repository\Type\UuidType;
+use Blog\Repository\DBAL\Type\UuidType;
+use Blog\Service\Repository\AbstractDBALRepository;
 use Doctrine\DBAL\Types\Type;
 
 class PostRepository extends AbstractDBALRepository
 {
     public function createPost(Post $post): int
     {
-        return $this->insert($post);
+        return $this->insertObject($post);
     }
 
-    public function findByPk($id)
+    public function findPost($id)
     {
-        $sql = 'SELECT * FROM ' . $this->getTableName() . ' WHERE id IN (?)';
-        $result = $this->db->fetchAll($sql, [$id], [Type::STRING]);
-
-        return !empty($result) ? $this->arrayToObject($result[0], Post::class, ['id', 'user']) : null;
+        return $this->findObjectByPk($id, Post::class, ['id', 'user']);
     }
 
     protected function getTableName(): string
     {
         return 'post';
-    }
-
-    public function findByFilter(FilterInterface $filter)
-    {
-        // TODO: Implement findByFilter() method.
     }
 
     protected function getTableSchema(): array

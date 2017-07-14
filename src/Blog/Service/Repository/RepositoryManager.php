@@ -1,10 +1,11 @@
 <?php
 
-namespace Blog\Repository\Manager;
+namespace Blog\Service\Repository;
 
-use Blog\Repository\Interfaces\RepositoryInterface;
+use Blog\Service\Repository\Interfaces\RepositoryInterface;
+use Blog\Service\Repository\Interfaces\RepositoryManagerInterface;
 
-class RepositoryManager
+class RepositoryManager implements RepositoryManagerInterface
 {
     /**
      * @var RepositoryInterface[]

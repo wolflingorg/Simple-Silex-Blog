@@ -7,8 +7,8 @@ use Blog\Entity\Post;
 use Blog\Entity\User;
 use Blog\Entity\ValueObject\Uuid;
 use Blog\EventBus\Event\PostWasCreatedEvent;
-use Blog\Repository\Manager\RepositoryManager;
-use Blog\Repository\PostRepository;
+use Blog\Repository\DBAL\PostRepository;
+use Blog\Service\Repository\RepositoryManager;
 use SimpleBus\Message\Bus\MessageBus;
 
 class CreatePostCommandHandler
