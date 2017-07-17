@@ -4,7 +4,6 @@ namespace app;
 
 use Blog\CommandBus\Command\CreatePostCommand;
 use Blog\CommandBus\Handler\CreatePostCommandHandler;
-use Blog\Entity\Post;
 use Blog\Entity\User;
 use Blog\Entity\ValueObject\Uuid;
 use Blog\EventBus\Event\PostWasCreatedEvent;
@@ -16,9 +15,8 @@ use Blog\Provider\EventBusServiceProvider;
 use Blog\Provider\FixtureCommandsServiceProvider;
 use Blog\Provider\JMSSerializerServiceProvider;
 use Blog\Provider\OutputBuilderServiceProvider;
-use Blog\Repository\DBAL\PostRepository;
-use Blog\Service\Repository\RepositoryManager;
-use Blog\Service\SearchEngine\SearchEngine;
+use Blog\Repository\Doctrine\PostRepository;
+use Dflydev\Provider\DoctrineOrm\DoctrineOrmServiceProvider;
 use Doctrine\DBAL\Types\Type;
 use Silex\Application;
 use Silex\Provider\DoctrineServiceProvider;
@@ -38,7 +36,12 @@ function services(Application $app)
         ];
     };
     $app['command_bus_create_post_command_handler'] = function ($app) {
-        return new CreatePostCommandHandler($app['dbal_repository_manager'], $app['user'], $app['event_bus']);
+        return new CreatePostCommandHandler($app['doctrine_post_repository'], $app['user'], $app['event_bus']);
+    };
+
+    // doctrine repository
+    $app['doctrine_post_repository'] = function ($app) {
+        return new PostRepository($app['orm.em']);
     };
 
     // event bus
@@ -49,32 +52,17 @@ function services(Application $app)
         ];
     };
 
-    // dbal repositories
-    $app['dbal_repository_manager'] = function ($app) {
-        return new RepositoryManager([
-            Post::class => $app['dbal_post_repository'],
-        ]);
-    };
-    $app['dbal_post_repository'] = function ($app) {
-        return new PostRepository($app['db']);
-    };
-
     // other
     $app->register(new DoctrineServiceProvider());
     if (!Type::hasType('uuid')) {
-        Type::addType('uuid', 'Blog\\Repository\\DBAL\\Type\\UuidType');
+        Type::addType('uuid', 'Blog\\Repository\\Doctrine\\Type\\UuidType');
     }
-
+    $app->register(new DoctrineOrmServiceProvider());
     $app->register(new DoctrineMigrationCommandsServiceProvider());
     $app->register(new DoctrineCommandsServiceProvider());
     $app->register(new ValidatorServiceProvider());
     $app->register(new OutputBuilderServiceProvider());
     $app->register(new JMSSerializerServiceProvider());
-
-    // search engines
-    $app['dbal_search_engine'] = function ($app) {
-        return new SearchEngine($app['dbal_repository_manager'], $app['validator']);
-    };
 
     // dev environment
     if (in_array($app['environment'], ['DEV', 'TEST'])) {

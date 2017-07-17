@@ -5,7 +5,7 @@ namespace Blog\Controller;
 use Blog\CommandBus\Command\CreatePostCommand;
 use Blog\Entity\Post;
 use Blog\QueryPipeline\PostCriteria\PostCriteria;
-use Blog\Repository\DBAL\PostRepository;
+use Blog\Repository\Doctrine\PostRepository;
 use Silex\Application;
 use Symfony\Component\HttpFoundation\Request;
 

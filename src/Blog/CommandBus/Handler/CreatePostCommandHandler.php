@@ -7,21 +7,20 @@ use Blog\Entity\Post;
 use Blog\Entity\User;
 use Blog\Entity\ValueObject\Uuid;
 use Blog\EventBus\Event\PostWasCreatedEvent;
-use Blog\Repository\DBAL\PostRepository;
-use Blog\Service\Repository\RepositoryManager;
+use Blog\Repository\Interfaces\PostRepositoryInterface;
 use SimpleBus\Message\Bus\MessageBus;
 
 class CreatePostCommandHandler
 {
-    private $rm;
+    private $repo;
 
     private $currentUser;
 
     private $bus;
 
-    public function __construct(RepositoryManager $rm, User $currentUser, MessageBus $bus)
+    public function __construct(PostRepositoryInterface $repo, User $currentUser, MessageBus $bus)
     {
-        $this->rm = $rm;
+        $this->repo = $repo;
         $this->currentUser = $currentUser;
         $this->bus = $bus;
     }
@@ -33,9 +32,7 @@ class CreatePostCommandHandler
             ->setBody($command->body)
             ->setIsPublished($command->isPublished);
 
-        /** @var PostRepository $repo */
-        $repo = $this->rm->get(Post::class);
-        $repo->createPost($post);
+        $this->repo->persist($post);
 
         $this->bus->handle(new PostWasCreatedEvent($post));
     }

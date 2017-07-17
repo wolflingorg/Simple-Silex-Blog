@@ -1,10 +1,10 @@
 <?php
 
-namespace Blog\Repository\DBAL;
+namespace Blog\Repository\Doctrine;
 
 use Silex\Application;
 
-class PhotoRepository
+class UserRepository
 {
     private $app;
 

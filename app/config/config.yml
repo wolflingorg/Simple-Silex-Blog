@@ -32,3 +32,10 @@ fixtures:
 
 jms.serializer:
     metadata_dir: "%kernel.root_dir%/serializer"
+
+orm.em.options:
+    mappings:
+        Post:
+            type: yml
+            namespace: "Blog\\Entity\\Post"
+            path: "%kernel.root_dir%/mappings"
