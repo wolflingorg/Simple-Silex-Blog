@@ -2,20 +2,38 @@
 
 namespace Blog\Repository\Doctrine;
 
+use Blog\Repository\Doctrine\Interfaces\BuilderInterface;
+use Blog\Repository\Interfaces\CriteriaInterface;
 use Blog\Repository\Interfaces\RepositoryInterface;
-use Doctrine\ORM\EntityManager;
+use Doctrine\ORM\EntityRepository;
 
-abstract class AbstractDoctrineRepository implements RepositoryInterface
+abstract class AbstractDoctrineRepository extends EntityRepository implements RepositoryInterface
 {
-    private $em;
+    private $builders = [];
 
-    public function __construct(EntityManager $em)
+    public function addBuilder(BuilderInterface $builder)
     {
-        $this->em = $em;
+        $this->builders[] = $builder;
     }
 
     public function persist($object)
     {
-        $this->em->persist($object);
+        $this->getEntityManager()->persist($object);
+    }
+
+    public function match(CriteriaInterface $criteria)
+    {
+        $entityName = $criteria->getEntityName();
+        $alias = mb_strtolower(substr(strrchr($entityName, "\\"), 1, 1));
+
+        $queryBuilder = $this->getEntityManager()->getRepository($entityName)->createQueryBuilder($alias);
+
+        foreach ($this->builders as $builder) {
+            if (true === $builder->supports($criteria)) {
+                $builder->build($criteria, $queryBuilder);
+            }
+        }
+
+        return $queryBuilder->getQuery()->getResult();
     }
 }

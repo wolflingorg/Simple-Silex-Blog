@@ -4,6 +4,7 @@ namespace app;
 
 use Blog\CommandBus\Command\CreatePostCommand;
 use Blog\CommandBus\Handler\CreatePostCommandHandler;
+use Blog\Entity\Post;
 use Blog\Entity\User;
 use Blog\Entity\ValueObject\Uuid;
 use Blog\EventBus\Event\PostWasCreatedEvent;
@@ -15,7 +16,6 @@ use Blog\Provider\EventBusServiceProvider;
 use Blog\Provider\FixtureCommandsServiceProvider;
 use Blog\Provider\JMSSerializerServiceProvider;
 use Blog\Provider\OutputBuilderServiceProvider;
-use Blog\Repository\Doctrine\PostRepository;
 use Dflydev\Provider\DoctrineOrm\DoctrineOrmServiceProvider;
 use Doctrine\DBAL\Types\Type;
 use Silex\Application;
@@ -41,7 +41,7 @@ function services(Application $app)
 
     // doctrine repository
     $app['doctrine_post_repository'] = function ($app) {
-        return new PostRepository($app['orm.em']);
+        return $app['orm.em']->getRepository(Post::class);
     };
 
     // event bus

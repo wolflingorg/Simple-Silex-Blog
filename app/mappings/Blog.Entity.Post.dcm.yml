@@ -1,6 +1,6 @@
 Blog\Entity\Post:
     type: entity
-    table: user
+    table: post
     repositoryClass: Blog\Repository\Doctrine\PostRepository
     id:
         id:
