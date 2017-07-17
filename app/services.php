@@ -18,6 +18,7 @@ use Blog\Provider\JMSSerializerServiceProvider;
 use Blog\Provider\OutputBuilderServiceProvider;
 use Blog\Repository\DBAL\PostRepository;
 use Blog\Service\Repository\RepositoryManager;
+use Blog\Service\SearchEngine\SearchEngine;
 use Doctrine\DBAL\Types\Type;
 use Silex\Application;
 use Silex\Provider\DoctrineServiceProvider;
@@ -37,7 +38,7 @@ function services(Application $app)
         ];
     };
     $app['command_bus_create_post_command_handler'] = function ($app) {
-        return new CreatePostCommandHandler($app['repository_manager'], $app['user'], $app['event_bus']);
+        return new CreatePostCommandHandler($app['dbal_repository_manager'], $app['user'], $app['event_bus']);
     };
 
     // event bus
@@ -48,13 +49,13 @@ function services(Application $app)
         ];
     };
 
-    // repositories
-    $app['repository_manager'] = function ($app) {
+    // dbal repositories
+    $app['dbal_repository_manager'] = function ($app) {
         return new RepositoryManager([
-            Post::class => $app['post_repository'],
+            Post::class => $app['dbal_post_repository'],
         ]);
     };
-    $app['post_repository'] = function ($app) {
+    $app['dbal_post_repository'] = function ($app) {
         return new PostRepository($app['db']);
     };
 
@@ -69,6 +70,11 @@ function services(Application $app)
     $app->register(new ValidatorServiceProvider());
     $app->register(new OutputBuilderServiceProvider());
     $app->register(new JMSSerializerServiceProvider());
+
+    // search engines
+    $app['dbal_search_engine'] = function ($app) {
+        return new SearchEngine($app['dbal_repository_manager'], $app['validator']);
+    };
 
     // dev environment
     if (in_array($app['environment'], ['DEV', 'TEST'])) {

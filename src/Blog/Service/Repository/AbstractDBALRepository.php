@@ -36,15 +36,14 @@ abstract class AbstractDBALRepository implements RepositoryInterface
 
         $accessor = PropertyAccess::createPropertyAccessor();
         foreach (array_keys($this->getTableSchema()) as $key) {
+            if (!$accessor->isReadable($object, $key)) {
+                continue;
+            }
+
             $values[$key] = $accessor->getValue($object, $key);
         }
 
         return $values;
-    }
-
-    public function findByCriteria($criteria)
-    {
-        // TODO: Implement findByCriteria() method.
     }
 
     public function findObjectByPk($id, $class, $ctor_args = [])

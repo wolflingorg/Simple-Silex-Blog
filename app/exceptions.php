@@ -2,7 +2,7 @@
 
 namespace app;
 
-use Blog\CommandBus\Middleware\Validation\CommandValidationException;
+use Blog\Exception\ValidationException;
 use Doctrine\DBAL\DBALException;
 use Silex\Application;
 use Symfony\Component\HttpFoundation\Request;
@@ -10,7 +10,7 @@ use Symfony\Component\HttpFoundation\Request;
 function exceptions(Application $app)
 {
     // processing exceptions
-    $app->error(function (CommandValidationException $e, Request $request, $code) use ($app) {
+    $app->error(function (ValidationException $e, Request $request, $code) use ($app) {
         return $app['output_builder']
             ->setResponseCode($code)
             ->getResponse($request, [

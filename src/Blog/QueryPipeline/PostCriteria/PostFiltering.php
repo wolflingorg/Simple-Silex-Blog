@@ -1,11 +1,12 @@
 <?php
 
-namespace Blog\CommandBus\Command;
+namespace Blog\QueryPipeline\PostCriteria;
 
+use Blog\Service\SearchEngine\Abstracts\AbstractFiltering;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\Validator\Mapping\ClassMetadata;
 
-class CreatePostCommand extends AbstractCommand
+class PostFiltering extends AbstractFiltering
 {
     public $id;
 
@@ -13,14 +14,16 @@ class CreatePostCommand extends AbstractCommand
 
     public $body;
 
-    public $isPublished = false;
+    public $isPublished;
+
+    public $user;
 
     static public function loadValidatorMetadata(ClassMetadata $metadata)
     {
         $metadata->addPropertyConstraint('id', new Assert\Uuid());
-        $metadata->addPropertyConstraint('id', new Assert\NotBlank());
-        $metadata->addPropertyConstraint('title', new Assert\NotBlank());
+        $metadata->addPropertyConstraint('user', new Assert\Uuid());
         $metadata->addPropertyConstraint('title', new Assert\Length(['max' => 256]));
+        $metadata->addPropertyConstraint('body', new Assert\Length(['max' => 256]));
         $metadata->addPropertyConstraint('isPublished', new Assert\Choice([1, 0]));
     }
 }

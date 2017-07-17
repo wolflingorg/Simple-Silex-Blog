@@ -2,6 +2,7 @@
 
 namespace Blog\CommandBus\Middleware\Validation;
 
+use Blog\Exception\ValidationException;
 use SimpleBus\Message\Bus\Middleware\MessageBusMiddleware;
 use Symfony\Component\Validator\ConstraintViolationList;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
@@ -36,7 +37,7 @@ class CommandValidationMiddleware implements MessageBusMiddleware
                 $errors[$violation->getPropertyPath()] = $violation->getMessage();
             }
 
-            throw new CommandValidationException($errors);
+            throw new ValidationException($errors);
         }
     }
 }

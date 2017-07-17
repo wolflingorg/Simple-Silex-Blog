@@ -4,7 +4,8 @@ namespace Blog\Controller;
 
 use Blog\CommandBus\Command\CreatePostCommand;
 use Blog\Entity\Post;
-use Blog\Repository\Manager\RepositoryManager;
+use Blog\QueryPipeline\PostCriteria\PostCriteria;
+use Blog\Repository\DBAL\PostRepository;
 use Silex\Application;
 use Symfony\Component\HttpFoundation\Request;
 
@@ -20,17 +21,20 @@ class PostsController
         return 'ok';
     }
 
-    public function searchAction()
+    public function searchAction(Request $request, Application $app)
     {
+        $criteria = new PostCriteria($request->query->all());
+        $result = $app['dbal_search_engine']->match($criteria);
+
         return __METHOD__;
     }
 
     public function showAction($uuid, Application $app)
     {
-        /** @var RepositoryManager $rm */
-        $rm = $app['repository_manager'];
+        /** @var PostRepository $repo */
+        $repo = $app['dbal_repository_manager']->get(Post::class);
 
-        return $rm->get(Post::class)->findPost($uuid);
+        return $repo->findPost($uuid);
     }
 
     public function editAction()

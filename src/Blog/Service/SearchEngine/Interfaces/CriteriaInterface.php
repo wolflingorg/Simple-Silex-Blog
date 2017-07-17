@@ -6,9 +6,9 @@ interface CriteriaInterface
 {
     public function getResourceName();
 
-    public function getFiltering();
+    public function getFiltering(): FilteringInterface;
 
-    public function getSorting();
+    public function getOrdering(): OrderingInterface;
 
-    public function getPagination();
+    public function getPaginating(): PaginatingInterface;
 }
