@@ -18,5 +18,8 @@ class PostShowActionTest extends AbstractApiTest
         ]);
 
         $this->assertEquals(Response::HTTP_OK, $client->getResponse()->getStatusCode());
+
+        $posts = json_decode($client->getResponse()->getContent());
+        $this->assertEquals(1, sizeof($posts));
     }
 }

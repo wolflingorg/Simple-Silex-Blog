@@ -16,6 +16,7 @@ use Blog\Provider\EventBusServiceProvider;
 use Blog\Provider\FixtureCommandsServiceProvider;
 use Blog\Provider\JMSSerializerServiceProvider;
 use Blog\Provider\OutputBuilderServiceProvider;
+use Blog\Repository\Doctrine\Builder\IdFilteringBuilder;
 use Blog\Repository\Doctrine\Builder\IsPublishedFilteringBuilder;
 use Blog\Repository\Doctrine\Builder\PostBodyFilteringBuilder;
 use Blog\Repository\Doctrine\Builder\PostTitleFilteringBuilder;
@@ -53,6 +54,7 @@ function services(Application $app)
         $repo->addBuilder(new PostBodyFilteringBuilder());
         $repo->addBuilder(new PostTitleFilteringBuilder());
         $repo->addBuilder(new UserFilteringBuilder());
+        $repo->addBuilder(new IdFilteringBuilder());
 
         return $repo;
     };
