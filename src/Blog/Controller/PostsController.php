@@ -22,6 +22,7 @@ class PostsController
     public function searchAction(Request $request, Application $app)
     {
         $criteria = new PostCriteria($request->query->all());
+        $app['criteria_validator']->validate($criteria);
 
         return $app['doctrine_post_repository']->match($criteria);
     }

@@ -16,6 +16,9 @@ use Blog\Provider\EventBusServiceProvider;
 use Blog\Provider\FixtureCommandsServiceProvider;
 use Blog\Provider\JMSSerializerServiceProvider;
 use Blog\Provider\OutputBuilderServiceProvider;
+use Blog\Repository\Doctrine\Builder\IsPublishedFilteringBuilder;
+use Blog\Repository\Doctrine\PostRepository;
+use Blog\Service\CriteriaValidator;
 use Dflydev\Provider\DoctrineOrm\DoctrineOrmServiceProvider;
 use Doctrine\DBAL\Types\Type;
 use Silex\Application;
@@ -41,7 +44,10 @@ function services(Application $app)
 
     // doctrine repository
     $app['doctrine_post_repository'] = function ($app) {
-        return $app['orm.em']->getRepository(Post::class);
+        /** @var PostRepository $repo */
+        $repo = $app['orm.em']->getRepository(Post::class);
+        $repo->addBuilder(new IsPublishedFilteringBuilder());
+        return $repo;
     };
 
     // event bus
@@ -63,6 +69,10 @@ function services(Application $app)
     $app->register(new ValidatorServiceProvider());
     $app->register(new OutputBuilderServiceProvider());
     $app->register(new JMSSerializerServiceProvider());
+
+    $app['criteria_validator'] = function ($app) {
+        return new CriteriaValidator($app['validator']);
+    };
 
     // dev environment
     if (in_array($app['environment'], ['DEV', 'TEST'])) {

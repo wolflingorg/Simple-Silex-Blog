@@ -2,6 +2,7 @@
 
 namespace Blog\Repository\Doctrine;
 
+use Blog\Repository\Doctrine\Builder\AbstractBuilder;
 use Blog\Repository\Doctrine\Interfaces\BuilderInterface;
 use Blog\Repository\Interfaces\CriteriaInterface;
 use Blog\Repository\Interfaces\RepositoryInterface;
@@ -24,7 +25,7 @@ abstract class AbstractDoctrineRepository extends EntityRepository implements Re
     public function match(CriteriaInterface $criteria)
     {
         $entityName = $criteria->getEntityName();
-        $alias = mb_strtolower(substr(strrchr($entityName, "\\"), 1, 1));
+        $alias = AbstractBuilder::getTableAliasByCriteria($criteria);
 
         $queryBuilder = $this->getEntityManager()->getRepository($entityName)->createQueryBuilder($alias);
 

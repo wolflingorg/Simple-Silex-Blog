@@ -11,9 +11,7 @@ class PostSearchActionTest extends AbstractApiTest
     {
         $client = $this->createClient();
 
-        $user = 'ab5763c9-1d8c-4ad7-b22e-c484c26973d3';
-
-        $client->request('GET', "/api/v1/posts/?isPublished=1&user={$user}", [], [], [
+        $client->request('GET', "/api/v1/posts/?is_published=1", [], [], [
             'HTTP_ACCEPT' => 'application/json',
         ]);
 
