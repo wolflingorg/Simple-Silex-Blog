@@ -32,6 +32,7 @@ class PostsController
         $criteria = new PostCriteria([
             'id' => $uuid
         ]);
+        $app['criteria_validator']->validate($criteria);
 
         return $app['doctrine_post_repository']->match($criteria);
     }

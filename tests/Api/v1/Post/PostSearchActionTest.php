@@ -7,7 +7,7 @@ use Tests\Api\AbstractApiTest;
 
 class PostSearchActionTest extends AbstractApiTest
 {
-    public function testShowValidPost()
+    public function testShowValidPublishedPosts()
     {
         $client = $this->createClient();
 
@@ -15,8 +15,53 @@ class PostSearchActionTest extends AbstractApiTest
             'HTTP_ACCEPT' => 'application/json',
         ]);
 
-        echo $client->getResponse()->getContent();
+        $this->assertEquals(Response::HTTP_OK, $client->getResponse()->getStatusCode());
+
+        $posts = json_decode($client->getResponse()->getContent());
+        $this->assertEquals(5, sizeof($posts));
+    }
+
+    public function testShowValidPostsByUser()
+    {
+        $client = $this->createClient();
+
+        $user = 'ab5763c9-1d8c-4ad7-b22e-c484c26973d3';
+
+        $client->request('GET', "/api/v1/posts/?user={$user}", [], [], [
+            'HTTP_ACCEPT' => 'application/json',
+        ]);
 
         $this->assertEquals(Response::HTTP_OK, $client->getResponse()->getStatusCode());
+
+        $posts = json_decode($client->getResponse()->getContent());
+        $this->assertEquals(10, sizeof($posts));
+    }
+
+    public function testShowValidPostsByTitle()
+    {
+        $client = $this->createClient();
+
+        $client->request('GET', "/api/v1/posts/?title=Australia", [], [], [
+            'HTTP_ACCEPT' => 'application/json',
+        ]);
+
+        $this->assertEquals(Response::HTTP_OK, $client->getResponse()->getStatusCode());
+
+        $posts = json_decode($client->getResponse()->getContent());
+        $this->assertEquals(1, sizeof($posts));
+    }
+
+    public function testShowValidPostsByBody()
+    {
+        $client = $this->createClient();
+
+        $client->request('GET', "/api/v1/posts/?body=Chelsea%20Manning", [], [], [
+            'HTTP_ACCEPT' => 'application/json',
+        ]);
+
+        $this->assertEquals(Response::HTTP_OK, $client->getResponse()->getStatusCode());
+
+        $posts = json_decode($client->getResponse()->getContent());
+        $this->assertEquals(1, sizeof($posts));
     }
 }

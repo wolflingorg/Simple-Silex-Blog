@@ -17,6 +17,9 @@ use Blog\Provider\FixtureCommandsServiceProvider;
 use Blog\Provider\JMSSerializerServiceProvider;
 use Blog\Provider\OutputBuilderServiceProvider;
 use Blog\Repository\Doctrine\Builder\IsPublishedFilteringBuilder;
+use Blog\Repository\Doctrine\Builder\PostBodyFilteringBuilder;
+use Blog\Repository\Doctrine\Builder\PostTitleFilteringBuilder;
+use Blog\Repository\Doctrine\Builder\UserFilteringBuilder;
 use Blog\Repository\Doctrine\PostRepository;
 use Blog\Service\CriteriaValidator;
 use Dflydev\Provider\DoctrineOrm\DoctrineOrmServiceProvider;
@@ -47,6 +50,10 @@ function services(Application $app)
         /** @var PostRepository $repo */
         $repo = $app['orm.em']->getRepository(Post::class);
         $repo->addBuilder(new IsPublishedFilteringBuilder());
+        $repo->addBuilder(new PostBodyFilteringBuilder());
+        $repo->addBuilder(new PostTitleFilteringBuilder());
+        $repo->addBuilder(new UserFilteringBuilder());
+
         return $repo;
     };
 
