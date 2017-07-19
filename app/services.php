@@ -6,6 +6,7 @@ use Blog\CommandBus\Command\CreatePostCommand;
 use Blog\CommandBus\Handler\CreatePostCommandHandler;
 use Blog\Entity\Post;
 use Blog\Entity\User;
+use Blog\Entity\ValueObject\Uuid;
 use Blog\EventBus\Event\PostWasCreatedEvent;
 use Blog\Provider\CommandBusMiddlewareServiceProvider;
 use Blog\Provider\CommandBusServiceProvider;
@@ -15,8 +16,18 @@ use Blog\Provider\EventBusServiceProvider;
 use Blog\Provider\FixtureCommandsServiceProvider;
 use Blog\Provider\JMSSerializerServiceProvider;
 use Blog\Provider\OutputBuilderServiceProvider;
-use Blog\Repository\Manager\RepositoryManager;
-use Blog\Repository\PostRepository;
+use Blog\Repository\Doctrine\Builder\IdFilteringBuilder;
+use Blog\Repository\Doctrine\Builder\IsPublishedFilteringBuilder;
+use Blog\Repository\Doctrine\Builder\PaginatingBuilder;
+use Blog\Repository\Doctrine\Builder\PostBodyFilteringBuilder;
+use Blog\Repository\Doctrine\Builder\PostTitleFilteringBuilder;
+use Blog\Repository\Doctrine\Builder\SortingBuilder;
+use Blog\Repository\Doctrine\Builder\UserFilteringBuilder;
+use Blog\Repository\Doctrine\PostRepository;
+use Blog\Service\CriteriaValidator;
+use Blog\Service\SearchEngine\SearchEngine;
+use Dflydev\Provider\DoctrineOrm\DoctrineOrmServiceProvider;
+use Doctrine\DBAL\Types\Type;
 use Silex\Application;
 use Silex\Provider\DoctrineServiceProvider;
 use Silex\Provider\ValidatorServiceProvider;
@@ -24,7 +35,7 @@ use Silex\Provider\ValidatorServiceProvider;
 function services(Application $app)
 {
     // TODO replace this with the security provider and user provider
-    $app['user'] = new User('ab5763c9-1d8c-4ad7-b22e-c484c26973d3');
+    $app['user'] = new User(new Uuid('ab5763c9-1d8c-4ad7-b22e-c484c26973d3'));
 
     // command bus
     $app->register(new CommandBusServiceProvider());
@@ -35,7 +46,26 @@ function services(Application $app)
         ];
     };
     $app['command_bus_create_post_command_handler'] = function ($app) {
-        return new CreatePostCommandHandler($app['repository_manager'], $app['user'], $app['event_bus']);
+        return new CreatePostCommandHandler($app['doctrine_post_repository'], $app['user'], $app['event_bus']);
+    };
+
+    // doctrine repository
+    $app['doctrine_post_repository'] = function ($app) {
+        /** @var PostRepository $repo */
+        $repo = $app['orm.em']->getRepository(Post::class);
+        $repo->setBuilders(
+            [
+                new IsPublishedFilteringBuilder(),
+                new PostBodyFilteringBuilder(),
+                new PostTitleFilteringBuilder(),
+                new UserFilteringBuilder(),
+                new IdFilteringBuilder(),
+                new PaginatingBuilder(),
+                new SortingBuilder(),
+            ]
+        );
+
+        return $repo;
     };
 
     // event bus
@@ -46,22 +76,34 @@ function services(Application $app)
         ];
     };
 
-    // repositories
-    $app['repository_manager'] = function ($app) {
-        return new RepositoryManager([
-            Post::class => $app['post_repository'],
-        ]);
-    };
-    $app['post_repository'] = function ($app) {
-        return new PostRepository($app['db']);
-    };
-
     // other
     $app->register(new DoctrineServiceProvider());
+    if (!Type::hasType('uuid')) {
+        Type::addType('uuid', 'Blog\\Repository\\Doctrine\\Type\\UuidType');
+    }
+    $app->register(new DoctrineOrmServiceProvider());
     $app->register(new DoctrineMigrationCommandsServiceProvider());
     $app->register(new DoctrineCommandsServiceProvider());
-    $app->register(new FixtureCommandsServiceProvider());
     $app->register(new ValidatorServiceProvider());
     $app->register(new OutputBuilderServiceProvider());
     $app->register(new JMSSerializerServiceProvider());
+
+    $app['criteria_validator'] = function ($app) {
+        return new CriteriaValidator($app['validator']);
+    };
+
+    // dev environment
+    if (in_array($app['environment'], ['DEV', 'TEST'])) {
+        $app->register(new FixtureCommandsServiceProvider());
+    }
+
+    // search engine
+    $app['search_engine'] = function ($app) {
+        $searchEngine = new SearchEngine($app['criteria_validator']);
+        $searchEngine->setRepositoryMap([
+            Post::class => $app['doctrine_post_repository'],
+        ]);
+
+        return $searchEngine;
+    };
 }

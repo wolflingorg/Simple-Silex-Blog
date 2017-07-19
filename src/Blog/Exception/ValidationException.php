@@ -1,10 +1,10 @@
 <?php
 
-namespace Blog\CommandBus\Middleware\Validation;
+namespace Blog\Exception;
 
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 
-class CommandValidationException extends BadRequestHttpException
+class ValidationException extends BadRequestHttpException
 {
     protected $messages = [];
 

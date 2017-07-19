@@ -21,6 +21,6 @@ class CreatePostCommand extends AbstractCommand
         $metadata->addPropertyConstraint('id', new Assert\NotBlank());
         $metadata->addPropertyConstraint('title', new Assert\NotBlank());
         $metadata->addPropertyConstraint('title', new Assert\Length(['max' => 256]));
-        $metadata->addPropertyConstraint('isPublished', new Assert\Type("bool"));
+        $metadata->addPropertyConstraint('isPublished', new Assert\Choice([1, 0]));
     }
 }

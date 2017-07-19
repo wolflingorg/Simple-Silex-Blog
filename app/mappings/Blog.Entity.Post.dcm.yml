@@ -1,0 +1,25 @@
+Blog\Entity\Post:
+    type: entity
+    table: post
+    repositoryClass: Blog\Repository\Doctrine\PostRepository
+    id:
+        id:
+            type: uuid
+            length: 36
+    fields:
+        title:
+            type: string
+            length: 256
+        body:
+            type: text
+        isPublished:
+            type: boolean
+            column: is_published
+        user:
+            type: uuid
+        createdAt:
+            type: datetime
+            column: created_at
+        updatedAt:
+            type: datetime
+            column: updated_at

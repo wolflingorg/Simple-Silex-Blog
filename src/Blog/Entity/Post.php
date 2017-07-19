@@ -2,12 +2,12 @@
 
 namespace Blog\Entity;
 
-use Blog\Entity\Interfaces\ArrayableInterface;
-use Blog\Entity\Traits\ArrayableTrait;
+use Blog\Entity\Traits\TimestampableTrait;
+use Blog\Entity\ValueObject\Uuid;
 
-class Post implements ArrayableInterface
+class Post
 {
-    use ArrayableTrait;
+    use TimestampableTrait;
 
     private $id;
 
@@ -19,11 +19,7 @@ class Post implements ArrayableInterface
 
     private $user;
 
-    private $createdAt;
-
-    private $updatedAt;
-
-    public function __construct($id, User $user)
+    public function __construct(Uuid $id, Uuid $user)
     {
         $this->id = $id;
         $this->user = $user;
@@ -63,39 +59,15 @@ class Post implements ArrayableInterface
         return $this->isPublished;
     }
 
-    public function setIsPublished(bool $isPublished): Post
+    public function setIsPublished(bool $isPublished)
     {
         $this->isPublished = $isPublished;
 
         return $this;
     }
 
-    public function getUser(): User
+    public function getUser()
     {
         return $this->user;
-    }
-
-    public function getCreatedAt()
-    {
-        return $this->createdAt;
-    }
-
-    public function setCreatedAt($createdAt)
-    {
-        $this->createdAt = $createdAt;
-
-        return $this;
-    }
-
-    public function getUpdatedAt()
-    {
-        return $this->updatedAt;
-    }
-
-    public function setUpdatedAt($updatedAt)
-    {
-        $this->updatedAt = $updatedAt;
-
-        return $this;
     }
 }
