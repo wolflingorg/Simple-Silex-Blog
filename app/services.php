@@ -21,6 +21,7 @@ use Blog\Repository\Doctrine\Builder\IsPublishedFilteringBuilder;
 use Blog\Repository\Doctrine\Builder\PaginatingBuilder;
 use Blog\Repository\Doctrine\Builder\PostBodyFilteringBuilder;
 use Blog\Repository\Doctrine\Builder\PostTitleFilteringBuilder;
+use Blog\Repository\Doctrine\Builder\SortingBuilder;
 use Blog\Repository\Doctrine\Builder\UserFilteringBuilder;
 use Blog\Repository\Doctrine\PostRepository;
 use Blog\Service\CriteriaValidator;
@@ -59,6 +60,7 @@ function services(Application $app)
                 new UserFilteringBuilder(),
                 new IdFilteringBuilder(),
                 new PaginatingBuilder(),
+                new SortingBuilder(),
             ]
         );
 

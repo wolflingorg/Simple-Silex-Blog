@@ -10,5 +10,7 @@ interface CriteriaInterface
 
     public function getPaginating(): array;
 
+    public function getSorting(): array;
+
     public function getValidationRules(): array;
 }

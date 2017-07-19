@@ -15,6 +15,11 @@ class PostCriteria extends AbstractCriteria
         'user' => null,
     ];
 
+    protected $sorting = [
+        'id' => null,
+        'title' => null,
+    ];
+
     public function getEntityName(): string
     {
         return Post::class;
