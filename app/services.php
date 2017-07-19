@@ -25,6 +25,7 @@ use Blog\Repository\Doctrine\Builder\SortingBuilder;
 use Blog\Repository\Doctrine\Builder\UserFilteringBuilder;
 use Blog\Repository\Doctrine\PostRepository;
 use Blog\Service\CriteriaValidator;
+use Blog\Service\SearchEngine\SearchEngine;
 use Dflydev\Provider\DoctrineOrm\DoctrineOrmServiceProvider;
 use Doctrine\DBAL\Types\Type;
 use Silex\Application;
@@ -95,4 +96,14 @@ function services(Application $app)
     if (in_array($app['environment'], ['DEV', 'TEST'])) {
         $app->register(new FixtureCommandsServiceProvider());
     }
+
+    // search engine
+    $app['search_engine'] = function ($app) {
+        $searchEngine = new SearchEngine($app['criteria_validator']);
+        $searchEngine->setRepositoryMap([
+            Post::class => $app['doctrine_post_repository'],
+        ]);
+
+        return $searchEngine;
+    };
 }

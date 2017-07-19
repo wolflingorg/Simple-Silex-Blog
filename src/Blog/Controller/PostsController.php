@@ -12,7 +12,6 @@ class PostsController
     public function createAction(Request $request, Application $app)
     {
         $data = $request->getContent();
-
         $command = new CreatePostCommand(json_decode($data, true));
         $app['command_bus']->handle($command);
 
@@ -22,11 +21,9 @@ class PostsController
     public function searchAction(Request $request, Application $app)
     {
         $params = $request->query->all();
-
         $criteria = new PostCriteria($params);
-        $app['criteria_validator']->validate($criteria);
 
-        return $app['doctrine_post_repository']->match($criteria);
+        return $app['search_engine']->match($criteria);
     }
 
     public function showAction($uuid, Application $app)
@@ -34,9 +31,8 @@ class PostsController
         $criteria = new PostCriteria([
             'id' => $uuid
         ]);
-        $app['criteria_validator']->validate($criteria);
 
-        return $app['doctrine_post_repository']->match($criteria);
+        return $app['search_engine']->match($criteria);
     }
 
     public function editAction()

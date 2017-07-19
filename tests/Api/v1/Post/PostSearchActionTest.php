@@ -19,7 +19,7 @@ class PostSearchActionTest extends AbstractApiTest
 
         $posts = json_decode($client->getResponse()->getContent());
 
-        $this->assertEquals(5, sizeof($posts));
+        $this->assertEquals(5, sizeof($posts->result));
     }
 
     public function testShowValidPostsByUser()
@@ -36,7 +36,7 @@ class PostSearchActionTest extends AbstractApiTest
 
         $posts = json_decode($client->getResponse()->getContent());
 
-        $this->assertEquals(10, sizeof($posts));
+        $this->assertEquals(10, sizeof($posts->result));
     }
 
     public function testShowValidPostsByTitle()
@@ -51,7 +51,7 @@ class PostSearchActionTest extends AbstractApiTest
 
         $posts = json_decode($client->getResponse()->getContent());
 
-        $this->assertEquals(1, sizeof($posts));
+        $this->assertEquals(1, sizeof($posts->result));
     }
 
     public function testShowValidPostsByBody()
@@ -66,7 +66,7 @@ class PostSearchActionTest extends AbstractApiTest
 
         $posts = json_decode($client->getResponse()->getContent());
 
-        $this->assertEquals(1, sizeof($posts));
+        $this->assertEquals(1, sizeof($posts->result));
     }
 
     public function testShowValidPostsByUserWithPagination()
@@ -83,7 +83,7 @@ class PostSearchActionTest extends AbstractApiTest
 
         $posts = json_decode($client->getResponse()->getContent());
 
-        $this->assertEquals(1, sizeof($posts));
+        $this->assertEquals(1, sizeof($posts->result));
     }
 
     public function testShowValidPostsByUserWithSortingByIdASC()
@@ -102,7 +102,7 @@ class PostSearchActionTest extends AbstractApiTest
 
         $expectingUuid = '0117ed73-547f-48c0-a304-fb202a69d0ca';
 
-        $this->assertEquals($expectingUuid, $posts[0]->id->uuid);
+        $this->assertEquals($expectingUuid, $posts->result[0]->id->uuid);
     }
 
     public function testShowValidPostsByUserWithSortingByIdDESC()
@@ -121,6 +121,6 @@ class PostSearchActionTest extends AbstractApiTest
 
         $expectingUuid = 'f2bfd7da-f366-4fcb-82d3-75d3e27bf063';
 
-        $this->assertEquals($expectingUuid, $posts[0]->id->uuid);
+        $this->assertEquals($expectingUuid, $posts->result[0]->id->uuid);
     }
 }
