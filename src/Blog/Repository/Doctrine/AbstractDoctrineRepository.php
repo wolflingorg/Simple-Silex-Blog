@@ -2,15 +2,18 @@
 
 namespace Blog\Repository\Doctrine;
 
-use Blog\Repository\Doctrine\Builder\AbstractBuilder;
 use Blog\Repository\Doctrine\Interfaces\BuilderInterface;
 use Blog\Repository\Interfaces\CriteriaInterface;
 use Blog\Repository\Interfaces\RepositoryInterface;
 use Doctrine\ORM\EntityRepository;
+use Doctrine\ORM\Query\Parameter;
+use Doctrine\ORM\QueryBuilder;
 
 abstract class AbstractDoctrineRepository extends EntityRepository implements RepositoryInterface
 {
-    private $builders = [];
+    protected $builders = [];
+
+    protected $rowCount = 0;
 
     public function setBuilders(array $builders)
     {
@@ -32,7 +35,7 @@ abstract class AbstractDoctrineRepository extends EntityRepository implements Re
     public function match(CriteriaInterface $criteria)
     {
         $entityName = $criteria->getEntityName();
-        $alias = AbstractBuilder::getTableAliasByCriteria($criteria);
+        $alias = self::getTableAliasByCriteria($criteria);
 
         $queryBuilder = $this->getEntityManager()->getRepository($entityName)->createQueryBuilder($alias);
 
@@ -42,6 +45,37 @@ abstract class AbstractDoctrineRepository extends EntityRepository implements Re
             }
         }
 
+        $this->setRowCount($queryBuilder);
+
         return $queryBuilder->getQuery()->getResult();
+    }
+
+    static public function getTableAliasByCriteria(CriteriaInterface $criteria)
+    {
+        $entityName = $criteria->getEntityName();
+
+        return mb_strtolower(substr(strrchr($entityName, "\\"), 1, 1));
+    }
+
+    private function setRowCount(QueryBuilder $queryBuilder)
+    {
+        $subSql = $queryBuilder->getQuery()->getSql();
+        $sql = "SELECT count(*) AS count FROM ({$subSql}) as sub_query";
+
+        $parameters = [];
+        $types = [];
+        foreach ($queryBuilder->getParameters()->toArray() as $parameter) {
+            /** @var Parameter $parameter */
+            $parameters[] = $parameter->getValue();
+            $types[] = $parameter->getType();
+        }
+        $result = $this->getEntityManager()->getConnection()->fetchAssoc($sql, $parameters, $types);
+
+        $this->rowCount = $result['count'] ?? 0;
+    }
+
+    public function getRowCount()
+    {
+        return $this->rowCount;
     }
 }

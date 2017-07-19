@@ -2,10 +2,11 @@
 
 namespace Blog\Repository\Doctrine\Builder;
 
+use Blog\Repository\Doctrine\Interfaces\BuilderInterface;
 use Blog\Repository\Interfaces\CriteriaInterface;
 use Doctrine\ORM\QueryBuilder;
 
-class UserFilteringBuilder extends AbstractBuilder
+class UserFilteringBuilder implements BuilderInterface
 {
 
     public function supports(CriteriaInterface $criteria): bool
@@ -15,7 +16,7 @@ class UserFilteringBuilder extends AbstractBuilder
 
     public function build(CriteriaInterface $criteria, QueryBuilder $queryBuilder)
     {
-        $alias = AbstractBuilder::getTableAliasByCriteria($criteria);
+        $alias = $queryBuilder->getRootAliases()[0];
 
         $queryBuilder->andWhere("{$alias}.user = :user");
         $queryBuilder->setParameter(':user', $criteria->getFiltering()['user']);

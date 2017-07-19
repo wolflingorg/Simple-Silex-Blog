@@ -3,10 +3,11 @@
 namespace Blog\Repository\Doctrine\Builder;
 
 use Blog\Entity\Post;
+use Blog\Repository\Doctrine\Interfaces\BuilderInterface;
 use Blog\Repository\Interfaces\CriteriaInterface;
 use Doctrine\ORM\QueryBuilder;
 
-class PostBodyFilteringBuilder extends AbstractBuilder
+class PostBodyFilteringBuilder implements BuilderInterface
 {
 
     public function supports(CriteriaInterface $criteria): bool
@@ -16,7 +17,7 @@ class PostBodyFilteringBuilder extends AbstractBuilder
 
     public function build(CriteriaInterface $criteria, QueryBuilder $queryBuilder)
     {
-        $alias = AbstractBuilder::getTableAliasByCriteria($criteria);
+        $alias = $queryBuilder->getRootAliases()[0];
 
         $queryBuilder->andWhere("{$alias}.body LIKE :body");
         $queryBuilder->setParameter(':body', '%' . $criteria->getFiltering()['body'] . '%');

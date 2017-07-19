@@ -2,10 +2,11 @@
 
 namespace Blog\Repository\Doctrine\Builder;
 
+use Blog\Repository\Doctrine\Interfaces\BuilderInterface;
 use Blog\Repository\Interfaces\CriteriaInterface;
 use Doctrine\ORM\QueryBuilder;
 
-class PaginatingBuilder extends AbstractBuilder
+class PaginatingBuilder implements BuilderInterface
 {
 
     public function supports(CriteriaInterface $criteria): bool
