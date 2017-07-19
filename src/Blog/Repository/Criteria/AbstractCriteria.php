@@ -10,7 +10,6 @@ abstract class AbstractCriteria implements CriteriaInterface
     protected $filtering = [];
 
     protected $paginating = [
-        'page' => 0,
         'per_page' => 10,
         'offset' => 0
     ];
@@ -31,12 +30,16 @@ abstract class AbstractCriteria implements CriteriaInterface
         return $this->filtering;
     }
 
+    public function getPaginating(): array
+    {
+        return $this->paginating;
+    }
+
     public function getValidationRules(): array
     {
         return [
-            [$this->paginating['page'], new Assert\Type('int')],
-            [$this->paginating['per_page'], new Assert\Type('int')],
-            [$this->paginating['offset'], new Assert\Type('int')],
+            [$this->paginating['per_page'], new Assert\Type('numeric')],
+            [$this->paginating['offset'], new Assert\Type('numeric')],
         ];
     }
 }

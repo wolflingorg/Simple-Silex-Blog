@@ -8,5 +8,7 @@ interface CriteriaInterface
 
     public function getFiltering(): array;
 
+    public function getPaginating(): array;
+
     public function getValidationRules(): array;
 }

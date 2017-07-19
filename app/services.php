@@ -18,6 +18,7 @@ use Blog\Provider\JMSSerializerServiceProvider;
 use Blog\Provider\OutputBuilderServiceProvider;
 use Blog\Repository\Doctrine\Builder\IdFilteringBuilder;
 use Blog\Repository\Doctrine\Builder\IsPublishedFilteringBuilder;
+use Blog\Repository\Doctrine\Builder\PaginatingBuilder;
 use Blog\Repository\Doctrine\Builder\PostBodyFilteringBuilder;
 use Blog\Repository\Doctrine\Builder\PostTitleFilteringBuilder;
 use Blog\Repository\Doctrine\Builder\UserFilteringBuilder;
@@ -50,11 +51,16 @@ function services(Application $app)
     $app['doctrine_post_repository'] = function ($app) {
         /** @var PostRepository $repo */
         $repo = $app['orm.em']->getRepository(Post::class);
-        $repo->addBuilder(new IsPublishedFilteringBuilder());
-        $repo->addBuilder(new PostBodyFilteringBuilder());
-        $repo->addBuilder(new PostTitleFilteringBuilder());
-        $repo->addBuilder(new UserFilteringBuilder());
-        $repo->addBuilder(new IdFilteringBuilder());
+        $repo->setBuilders(
+            [
+                new IsPublishedFilteringBuilder(),
+                new PostBodyFilteringBuilder(),
+                new PostTitleFilteringBuilder(),
+                new UserFilteringBuilder(),
+                new IdFilteringBuilder(),
+                new PaginatingBuilder(),
+            ]
+        );
 
         return $repo;
     };

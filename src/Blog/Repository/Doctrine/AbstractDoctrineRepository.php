@@ -12,6 +12,13 @@ abstract class AbstractDoctrineRepository extends EntityRepository implements Re
 {
     private $builders = [];
 
+    public function setBuilders(array $builders)
+    {
+        foreach ($builders as $builder) {
+            $this->addBuilder($builder);
+        }
+    }
+
     public function addBuilder(BuilderInterface $builder)
     {
         $this->builders[] = $builder;
