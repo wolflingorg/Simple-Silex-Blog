@@ -24,6 +24,7 @@ use Blog\Repository\Doctrine\Builder\PostTitleFilteringBuilder;
 use Blog\Repository\Doctrine\Builder\SortingBuilder;
 use Blog\Repository\Doctrine\Builder\UserFilteringBuilder;
 use Blog\Repository\Doctrine\PostRepository;
+use Blog\Repository\Interfaces\CriteriaInterface;
 use Blog\Service\CriteriaValidator;
 use Blog\Service\SearchEngine\SearchEngine;
 use Dflydev\Provider\DoctrineOrm\DoctrineOrmServiceProvider;
@@ -99,10 +100,13 @@ function services(Application $app)
 
     // search engine
     $app['search_engine'] = function ($app) {
-        $searchEngine = new SearchEngine($app['criteria_validator']);
+        $searchEngine = new SearchEngine();
         $searchEngine->setRepositoryMap([
             Post::class => $app['doctrine_post_repository'],
         ]);
+        $searchEngine->before(function (CriteriaInterface $criteria) use ($app) {
+            $app['criteria_validator']->validate($criteria);
+        }, 0);
 
         return $searchEngine;
     };

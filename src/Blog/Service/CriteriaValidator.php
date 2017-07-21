@@ -20,15 +20,16 @@ class CriteriaValidator implements CriteriaValidatorInterface
     public function validate(CriteriaInterface $criteria)
     {
         $violations = new ConstraintViolationList();
+
         foreach ($criteria->getValidationRules() as $rule) {
             if (!is_array($rule) || count($rule) !== 2) {
                 throw new \InvalidArgumentException('Criteria Validation Rule should be an array');
             }
 
-            $violations->addAll($this->validator->validate(...$rule));
+            $violations->addAll($this->validator->validate($rule[0], $rule[1]));
         }
 
-        if (count($violations) != 0) {
+        if ($violations->count() != 0) {
             $errors = [];
             foreach ($violations as $violation) {
                 $errors[$violation->getPropertyPath()] = $violation->getMessage();

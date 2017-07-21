@@ -22,7 +22,18 @@ class PostSearchActionTest extends AbstractApiTest
         $this->assertEquals(5, sizeof($posts->result));
     }
 
-    public function testShowValidPostsByUser()
+    public function testShowPostsByInvalidIsPublished()
+    {
+        $client = $this->createClient();
+
+        $client->request('GET', "/api/v1/posts/?is_published=yes", [], [], [
+            'HTTP_ACCEPT' => 'application/json',
+        ]);
+
+        $this->assertEquals(Response::HTTP_BAD_REQUEST, $client->getResponse()->getStatusCode());
+    }
+
+    public function testShowPostsByValidUser()
     {
         $client = $this->createClient();
 
@@ -39,7 +50,20 @@ class PostSearchActionTest extends AbstractApiTest
         $this->assertEquals(10, sizeof($posts->result));
     }
 
-    public function testShowValidPostsByTitle()
+    public function testShowPostsByInvalidUser()
+    {
+        $client = $this->createClient();
+
+        $user = 'ab5763c9-4ad7-b22e-c484c26973d3';
+
+        $client->request('GET', "/api/v1/posts/?user={$user}", [], [], [
+            'HTTP_ACCEPT' => 'application/json',
+        ]);
+
+        $this->assertEquals(Response::HTTP_BAD_REQUEST, $client->getResponse()->getStatusCode());
+    }
+
+    public function testShowPostsByValidTitle()
     {
         $client = $this->createClient();
 
@@ -54,7 +78,7 @@ class PostSearchActionTest extends AbstractApiTest
         $this->assertEquals(1, sizeof($posts->result));
     }
 
-    public function testShowValidPostsByBody()
+    public function testShowPostsByValidBody()
     {
         $client = $this->createClient();
 
@@ -69,7 +93,7 @@ class PostSearchActionTest extends AbstractApiTest
         $this->assertEquals(1, sizeof($posts->result));
     }
 
-    public function testShowValidPostsByUserWithPagination()
+    public function testShowPostsByValidUserWithPagination()
     {
         $client = $this->createClient();
 
@@ -86,7 +110,7 @@ class PostSearchActionTest extends AbstractApiTest
         $this->assertEquals(1, sizeof($posts->result));
     }
 
-    public function testShowValidPostsByUserWithSortingByIdASC()
+    public function testShowPostsByValidUserWithSortingByIdASC()
     {
         $client = $this->createClient();
 
@@ -105,7 +129,7 @@ class PostSearchActionTest extends AbstractApiTest
         $this->assertEquals($expectingUuid, $posts->result[0]->id->uuid);
     }
 
-    public function testShowValidPostsByUserWithSortingByIdDESC()
+    public function testShowPostsByValidUserWithSortingByIdDESC()
     {
         $client = $this->createClient();
 

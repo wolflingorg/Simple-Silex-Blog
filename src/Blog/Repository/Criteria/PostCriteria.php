@@ -32,7 +32,7 @@ class PostCriteria extends AbstractCriteria
             [
                 [$this->filtering['id'], new Assert\Uuid()],
                 [$this->filtering['user'], new Assert\Uuid()],
-                [$this->filtering['is_published'], new Assert\Choice([1, 0])],
+                [$this->filtering['is_published'], new Assert\Regex(['pattern' => '/[01]/'])],
                 [$this->filtering['body'], new Assert\Type('string')],
                 [$this->filtering['title'], new Assert\Type('string')],
             ]
