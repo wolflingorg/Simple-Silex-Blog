@@ -8,12 +8,17 @@ use Doctrine\ORM\QueryBuilder;
 
 class PaginatingBuilder implements BuilderInterface
 {
-
+    /**
+     * @inheritdoc
+     */
     public function supports(CriteriaInterface $criteria): bool
     {
         return true;
     }
 
+    /**
+     * @inheritdoc
+     */
     public function build(CriteriaInterface $criteria, QueryBuilder $queryBuilder)
     {
         $paginating = $criteria->getPaginating();

@@ -11,15 +11,33 @@ abstract class AbstractCriteria implements CriteriaInterface
 
     const SORTING_DESC = 'DESC';
 
+    /**
+     * List of allowable parameters for paginating
+     *
+     * @var array
+     */
     protected $paginating = [
         'per_page' => 10,
         'offset' => 0
     ];
 
+    /**
+     * List of allowable parameters for filtering
+     *
+     * @var array
+     */
     protected $filtering = [];
 
+    /**
+     * List of allowable parameters for sorting
+     *
+     * @var array
+     */
     protected $sorting = [];
 
+    /**
+     * @param array $params
+     */
     public function __construct(array $params)
     {
         $params = $this->parsePaginationFromQueryString($params);
@@ -27,6 +45,13 @@ abstract class AbstractCriteria implements CriteriaInterface
         $this->parseOrderingFromQueryString($params);
     }
 
+    /**
+     * Applying Pagination from user query string
+     *
+     * @param array $params
+     *
+     * @return array
+     */
     private function parsePaginationFromQueryString(array $params)
     {
         return array_filter($params, function ($value, $key) {
@@ -34,6 +59,13 @@ abstract class AbstractCriteria implements CriteriaInterface
         }, ARRAY_FILTER_USE_BOTH);
     }
 
+    /**
+     * Applying Filtering from user query string
+     *
+     * @param array $params
+     *
+     * @return array
+     */
     private function parseFilteringFromQueryString(array $params)
     {
         return array_filter($params, function ($value, $key) {
@@ -41,6 +73,13 @@ abstract class AbstractCriteria implements CriteriaInterface
         }, ARRAY_FILTER_USE_BOTH);
     }
 
+    /**
+     * Applying Ordering from user query string
+     *
+     * @param array $params
+     *
+     * @return array
+     */
     private function parseOrderingFromQueryString(array $params)
     {
         if (!isset($params['sort'])) {
@@ -59,21 +98,35 @@ abstract class AbstractCriteria implements CriteriaInterface
         return $params;
     }
 
+    /**
+     * @return array
+     */
     public function getFiltering(): array
     {
         return $this->filtering;
     }
 
+    /**
+     * @return array
+     */
     public function getPaginating(): array
     {
         return $this->paginating;
     }
 
+    /**
+     * @return array
+     */
     public function getSorting(): array
     {
         return $this->sorting;
     }
 
+    /**
+     * Validation rules
+     *
+     * @return array
+     */
     public function getValidationRules(): array
     {
         return [

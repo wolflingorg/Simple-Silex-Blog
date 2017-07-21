@@ -8,12 +8,17 @@ use Doctrine\ORM\QueryBuilder;
 
 class UserFilteringBuilder implements BuilderInterface
 {
-
+    /**
+     * @inheritdoc
+     */
     public function supports(CriteriaInterface $criteria): bool
     {
         return isset($criteria->getFiltering()['user']);
     }
 
+    /**
+     * @inheritdoc
+     */
     public function build(CriteriaInterface $criteria, QueryBuilder $queryBuilder)
     {
         $alias = $queryBuilder->getRootAliases()[0];

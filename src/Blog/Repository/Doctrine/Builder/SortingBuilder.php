@@ -8,12 +8,17 @@ use Doctrine\ORM\QueryBuilder;
 
 class SortingBuilder implements BuilderInterface
 {
-
+    /**
+     * @inheritdoc
+     */
     public function supports(CriteriaInterface $criteria): bool
     {
         return !empty($criteria->getSorting());
     }
 
+    /**
+     * @inheritdoc
+     */
     public function build(CriteriaInterface $criteria, QueryBuilder $queryBuilder)
     {
         $alias = $queryBuilder->getRootAliases()[0];

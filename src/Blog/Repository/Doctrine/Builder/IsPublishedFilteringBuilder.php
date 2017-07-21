@@ -8,12 +8,17 @@ use Doctrine\ORM\QueryBuilder;
 
 class IsPublishedFilteringBuilder implements BuilderInterface
 {
-
+    /**
+     * @inheritdoc
+     */
     public function supports(CriteriaInterface $criteria): bool
     {
         return isset($criteria->getFiltering()['is_published']);
     }
 
+    /**
+     * @inheritdoc
+     */
     public function build(CriteriaInterface $criteria, QueryBuilder $queryBuilder)
     {
         $alias = $queryBuilder->getRootAliases()[0];

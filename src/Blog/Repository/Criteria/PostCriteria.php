@@ -20,11 +20,19 @@ class PostCriteria extends AbstractCriteria
         'title' => null,
     ];
 
+    /**
+     * @return string
+     */
     public function getEntityName(): string
     {
         return Post::class;
     }
 
+    /**
+     * Validation rules
+     *
+     * @return array
+     */
     public function getValidationRules(): array
     {
         return array_merge(

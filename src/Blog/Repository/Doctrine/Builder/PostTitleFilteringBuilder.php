@@ -9,12 +9,17 @@ use Doctrine\ORM\QueryBuilder;
 
 class PostTitleFilteringBuilder implements BuilderInterface
 {
-
+    /**
+     * @inheritdoc
+     */
     public function supports(CriteriaInterface $criteria): bool
     {
         return Post::class == $criteria->getEntityName() && isset($criteria->getFiltering()['title']);
     }
 
+    /**
+     * @inheritdoc
+     */
     public function build(CriteriaInterface $criteria, QueryBuilder $queryBuilder)
     {
         $alias = $queryBuilder->getRootAliases()[0];

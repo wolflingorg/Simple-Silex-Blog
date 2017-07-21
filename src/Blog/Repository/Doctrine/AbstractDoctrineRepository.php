@@ -15,6 +15,9 @@ abstract class AbstractDoctrineRepository extends EntityRepository implements Re
 
     protected $rowCount = 0;
 
+    /**
+     * @param BuilderInterface[] $builders
+     */
     public function setBuilders(array $builders)
     {
         foreach ($builders as $builder) {
@@ -22,16 +25,29 @@ abstract class AbstractDoctrineRepository extends EntityRepository implements Re
         }
     }
 
+    /**
+     * @param BuilderInterface $builder
+     *
+     * @return $this
+     */
     public function addBuilder(BuilderInterface $builder)
     {
         $this->builders[] = $builder;
+
+        return $this;
     }
 
+    /**
+     * @inheritdoc
+     */
     public function persist($object)
     {
         $this->getEntityManager()->persist($object);
     }
 
+    /**
+     * @inheritdoc
+     */
     public function match(CriteriaInterface $criteria)
     {
         $entityName = $criteria->getEntityName();
@@ -50,6 +66,13 @@ abstract class AbstractDoctrineRepository extends EntityRepository implements Re
         return $queryBuilder->getQuery()->getResult();
     }
 
+    /**
+     * Return table alias using Criteria entity name
+     *
+     * @param CriteriaInterface $criteria
+     *
+     * @return string
+     */
     static public function getTableAliasByCriteria(CriteriaInterface $criteria)
     {
         $entityName = $criteria->getEntityName();
@@ -57,6 +80,9 @@ abstract class AbstractDoctrineRepository extends EntityRepository implements Re
         return mb_strtolower(substr(strrchr($entityName, "\\"), 1, 1));
     }
 
+    /**
+     * @param QueryBuilder $queryBuilder
+     */
     private function setRowCount(QueryBuilder $queryBuilder)
     {
         $subSql = $queryBuilder->getQuery()->getSql();
@@ -74,6 +100,9 @@ abstract class AbstractDoctrineRepository extends EntityRepository implements Re
         $this->rowCount = $result['count'] ?? 0;
     }
 
+    /**
+     * @inheritdoc
+     */
     public function getRowCount()
     {
         return $this->rowCount;
