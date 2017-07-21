@@ -16,9 +16,7 @@ class ConfigurationCollection implements ConfigurationCollectionInterface
     }
 
     /**
-     * Merges configuration
-     *
-     * @param ConfigurationCollectionInterface $collection
+     * @inheritdoc
      */
     public function addCollection(ConfigurationCollectionInterface $collection)
     {
@@ -31,7 +29,7 @@ class ConfigurationCollection implements ConfigurationCollectionInterface
     }
 
     /**
-     * @return array
+     * @inheritdoc
      */
     public function getCollection(): array
     {
@@ -39,9 +37,7 @@ class ConfigurationCollection implements ConfigurationCollectionInterface
     }
 
     /**
-     * Returns an array of resources loaded to build this collection.
-     *
-     * @return ResourceInterface[] An array of resources
+     * @inheritdoc
      */
     public function getResources()
     {
@@ -49,9 +45,7 @@ class ConfigurationCollection implements ConfigurationCollectionInterface
     }
 
     /**
-     * Adds a resource for this collection.
-     *
-     * @param ResourceInterface $resource A resource instance
+     * @inheritdoc
      */
     public function addResource(ResourceInterface $resource)
     {

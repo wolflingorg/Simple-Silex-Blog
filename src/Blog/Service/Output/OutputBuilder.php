@@ -7,6 +7,11 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 
+/**
+ * Builds the correct REST Response
+ *
+ * @package Blog\Service\Output
+ */
 class OutputBuilder
 {
     protected $responseCode = null;
@@ -20,6 +25,10 @@ class OutputBuilder
 
     private $serializer;
 
+    /**
+     * @param SerializerInterface $serializer
+     * @param null $supported
+     */
     public function __construct(SerializerInterface $serializer, $supported = null)
     {
         $this->serializer = $serializer;
@@ -29,6 +38,11 @@ class OutputBuilder
         }
     }
 
+    /**
+     * @param $responseCode
+     *
+     * @return $this
+     */
     public function setResponseCode($responseCode)
     {
         $this->responseCode = $responseCode;
@@ -36,6 +50,11 @@ class OutputBuilder
         return $this;
     }
 
+    /**
+     * @param $headers
+     *
+     * @return $this
+     */
     public function setHeaders($headers)
     {
         $this->headers = $headers;
@@ -43,13 +62,19 @@ class OutputBuilder
         return $this;
     }
 
+    /**
+     * @param Request $request
+     * @param array $content
+     *
+     * @return Response
+     */
     public function getResponse(Request $request, $content = [])
     {
         try {
             $code = $this->getProperResponseCode($request);
             $content = $this->serializer->serialize($content, $this->getProperResponseFormat($request));
         } catch (BadRequestHttpException $e) {
-            $content = $this->serializer->serialize($e->getMessage(), $request->getFormat($this->supported[0]));
+            $content = $this->serializer->serialize([$e->getMessage()], $request->getFormat($this->supported[0]));
             $code = Response::HTTP_BAD_REQUEST;
         }
 
@@ -60,6 +85,13 @@ class OutputBuilder
         );
     }
 
+    /**
+     * Returns the correct response code based on Requests Method Type
+     *
+     * @param Request $request
+     *
+     * @return int|null
+     */
     protected function getProperResponseCode(Request $request)
     {
         if (!is_null($this->responseCode)) {
@@ -82,6 +114,13 @@ class OutputBuilder
         return $code;
     }
 
+    /**
+     * Returns correct response format based on Requests Content-Type
+     *
+     * @param Request $request
+     *
+     * @return string
+     */
     protected function getProperResponseFormat(Request $request)
     {
         $accepted = $request->getAcceptableContentTypes();

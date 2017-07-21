@@ -2,13 +2,28 @@
 
 namespace Blog\Service\Configuration\Resolver;
 
+/**
+ * Replace placeholders with the correct environment variables
+ *
+ * @package Blog\Service\Configuration\Resolver
+ */
 class EnvironmentPlaceholdersResolver extends AbstractResolver
 {
+    /**
+     * Decorated method
+     *
+     * @return array
+     */
     public function getCollection(): array
     {
         return $this->resolve($this->collection->getCollection());
     }
 
+    /**
+     * @param array $collection
+     *
+     * @return array
+     */
     protected function resolve(array $collection): array
     {
         $callback = function ($param) {

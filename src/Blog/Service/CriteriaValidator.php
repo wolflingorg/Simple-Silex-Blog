@@ -8,15 +8,26 @@ use Blog\Repository\Interfaces\CriteriaValidatorInterface;
 use Symfony\Component\Validator\ConstraintViolationList;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 
+/**
+ * Validates Search Criteria
+ *
+ * @package Blog\Service
+ */
 class CriteriaValidator implements CriteriaValidatorInterface
 {
     private $validator;
 
+    /**
+     * @param ValidatorInterface $validator
+     */
     public function __construct(ValidatorInterface $validator)
     {
         $this->validator = $validator;
     }
 
+    /**
+     * @inheritdoc
+     */
     public function validate(CriteriaInterface $criteria)
     {
         $violations = new ConstraintViolationList();

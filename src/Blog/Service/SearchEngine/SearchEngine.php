@@ -10,6 +10,8 @@ use Blog\Service\SearchEngine\Interfaces\SearchResultInterface;
 class SearchEngine implements SearchEngineInterface
 {
     /**
+     * Map of Entity repositories
+     *
      * @var RepositoryInterface[]
      */
     protected $repositoryMap = [];
@@ -19,6 +21,9 @@ class SearchEngine implements SearchEngineInterface
         'after' => []
     ];
 
+    /**
+     * @param array $map
+     */
     public function setRepositoryMap(array $map)
     {
         foreach ($map as $entityName => $repository) {
@@ -26,11 +31,18 @@ class SearchEngine implements SearchEngineInterface
         }
     }
 
+    /**
+     * @param $entityName
+     * @param RepositoryInterface $repository
+     */
     public function addRepository($entityName, RepositoryInterface $repository)
     {
         $this->repositoryMap[$entityName] = $repository;
     }
 
+    /**
+     * @inheritdoc
+     */
     public function match(CriteriaInterface $criteria): SearchResultInterface
     {
         // before middlewares
@@ -58,11 +70,19 @@ class SearchEngine implements SearchEngineInterface
         return $result;
     }
 
+    /**
+     * @inheritdoc
+     */
     public function before(callable $callable, $priority = 0)
     {
         $this->addMiddleware('before', $callable, $priority);
     }
 
+    /**
+     * @param $type
+     * @param callable $callable
+     * @param int $priority
+     */
     private function addMiddleware($type, callable $callable, $priority = 0)
     {
         if ($priority == 0) {
@@ -72,6 +92,9 @@ class SearchEngine implements SearchEngineInterface
         }
     }
 
+    /**
+     * @inheritdoc
+     */
     public function after(callable $callable, $priority = 0)
     {
         $this->addMiddleware('after', $callable, $priority);

@@ -2,13 +2,28 @@
 
 namespace Blog\Service\Configuration\Resolver;
 
+/**
+ * Replace placeholders with the correct parameter variables
+ *
+ * @package Blog\Service\Configuration\Resolver
+ */
 class ParameterPlaceholdersResolver extends AbstractResolver
 {
+    /**
+     * Decorated method
+     *
+     * @return array
+     */
     public function getCollection(): array
     {
         return $this->resolve($this->collection->getCollection());
     }
 
+    /**
+     * @param array $collection
+     *
+     * @return array
+     */
     protected function resolve(array $collection): array
     {
         if (!isset($collection['parameters']) || !is_array($collection['parameters'])) {

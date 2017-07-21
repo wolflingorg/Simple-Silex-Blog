@@ -6,6 +6,9 @@ class Configuration implements \ArrayAccess
 {
     private $configuration;
 
+    /**
+     * @param array $configuration
+     */
     public function __construct(array $configuration)
     {
         $this->configuration = $configuration;

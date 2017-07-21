@@ -10,6 +10,14 @@ use Symfony\Component\Yaml\Yaml;
 
 class YamlFileLoader extends FileLoader
 {
+    /**
+     * Loading and parsing config file from specific path
+     *
+     * @param mixed $resource
+     * @param null $type
+     *
+     * @return ConfigurationCollection
+     */
     public function load($resource, $type = null)
     {
         $paths = $this->locator->locate($resource, null, false);
@@ -34,6 +42,13 @@ class YamlFileLoader extends FileLoader
         return $collection;
     }
 
+    /**
+     * Trying to read file
+     *
+     * @param $file
+     *
+     * @return mixed
+     */
     protected function loadFile($file)
     {
         if (!stream_is_local($file)) {
@@ -53,6 +68,11 @@ class YamlFileLoader extends FileLoader
         return $content;
     }
 
+    /**
+     * @param array $content
+     * @param $file
+     * @param ConfigurationCollection $collection
+     */
     private function parseImports(array &$content, $file, ConfigurationCollection $collection)
     {
         if (!isset($content['imports'])) {
@@ -78,6 +98,14 @@ class YamlFileLoader extends FileLoader
         unset($content['imports']);
     }
 
+    /**
+     * Check if current resource is supported
+     *
+     * @param mixed $resource
+     * @param null $type
+     *
+     * @return bool
+     */
     public function supports($resource, $type = null)
     {
         return is_string($resource) && 'yml' === pathinfo($resource, PATHINFO_EXTENSION);

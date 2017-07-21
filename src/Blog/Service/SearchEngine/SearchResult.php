@@ -14,21 +14,33 @@ class SearchResult implements SearchResultInterface
 
     private $offset = 0;
 
+    /**
+     * @param $result
+     */
     public function __construct($result)
     {
         $this->result = $result;
     }
 
+    /**
+     * @inheritdoc
+     */
     public function getResult()
     {
         return $this->result;
     }
 
+    /**
+     * @inheritdoc
+     */
     public function getRowCount(): int
     {
         return $this->rowCount;
     }
 
+    /**
+     * @inheritdoc
+     */
     public function setRowCount(int $rowCount)
     {
         $this->rowCount = $rowCount;
@@ -36,11 +48,17 @@ class SearchResult implements SearchResultInterface
         return $this;
     }
 
+    /**
+     * @inheritdoc
+     */
     public function getPerPage(): int
     {
         return $this->perPage;
     }
 
+    /**
+     * @inheritdoc
+     */
     public function setPerPage(int $perPage)
     {
         $this->perPage = $perPage;
@@ -48,11 +66,17 @@ class SearchResult implements SearchResultInterface
         return $this;
     }
 
+    /**
+     * @inheritdoc
+     */
     public function getOffset(): int
     {
         return $this->offset;
     }
 
+    /**
+     * @inheritdoc
+     */
     public function setOffset(int $offset)
     {
         $this->offset = $offset;
