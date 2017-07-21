@@ -8,6 +8,9 @@ use Pimple\ServiceProviderInterface;
 
 class JMSSerializerServiceProvider implements ServiceProviderInterface
 {
+    /**
+     * @inheritdoc
+     */
     public function register(Container $app)
     {
         $app['serializer'] = function ($app) {

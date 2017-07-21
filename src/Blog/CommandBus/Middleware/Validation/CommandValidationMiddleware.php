@@ -11,11 +11,18 @@ class CommandValidationMiddleware implements MessageBusMiddleware
 {
     private $validator;
 
+    /**
+     * @param ValidatorInterface $validator
+     */
     public function __construct(ValidatorInterface $validator)
     {
         $this->validator = $validator;
     }
 
+    /**
+     * @param object $message
+     * @param callable $next
+     */
     public function handle($message, callable $next)
     {
         if (is_object($message) && method_exists($message, 'loadValidatorMetadata')) {
@@ -25,6 +32,9 @@ class CommandValidationMiddleware implements MessageBusMiddleware
         $next($message);
     }
 
+    /**
+     * @param object $message
+     */
     private function validate($message)
     {
         /** @var ConstraintViolationList $violations */

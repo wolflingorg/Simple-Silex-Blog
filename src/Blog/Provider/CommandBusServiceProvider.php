@@ -14,6 +14,9 @@ use SimpleBus\Message\Name\ClassBasedNameResolver;
 
 class CommandBusServiceProvider implements ServiceProviderInterface
 {
+    /**
+     * @inheritdoc
+     */
     public function register(Container $app)
     {
         $app['command_bus'] = function ($app) {

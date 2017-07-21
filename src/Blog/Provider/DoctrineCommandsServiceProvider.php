@@ -13,6 +13,9 @@ use Symfony\Component\Console\Helper\HelperSet;
 
 class DoctrineCommandsServiceProvider implements ServiceProviderInterface
 {
+    /**
+     * @inheritdoc
+     */
     public function register(Container $app)
     {
         $app->extend('console', function (Application $console, Container $app) {

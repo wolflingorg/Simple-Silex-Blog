@@ -17,6 +17,9 @@ use Symfony\Component\Console\Output\ConsoleOutput;
 
 class DoctrineMigrationCommandsServiceProvider implements ServiceProviderInterface
 {
+    /**
+     * @inheritdoc
+     */
     public function register(Container $app)
     {
         $app->extend('console', function (Application $console, Container $app) {

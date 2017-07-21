@@ -11,6 +11,9 @@ use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
 class OutputBuilderServiceProvider implements ServiceProviderInterface, EventListenerProviderInterface
 {
+    /**
+     * @inheritdoc
+     */
     public function register(Container $app)
     {
         $app['output_builder'] = function ($app) {
@@ -18,6 +21,9 @@ class OutputBuilderServiceProvider implements ServiceProviderInterface, EventLis
         };
     }
 
+    /**
+     * @inheritdoc
+     */
     public function subscribe(Container $app, EventDispatcherInterface $dispatcher)
     {
         $dispatcher->addSubscriber(

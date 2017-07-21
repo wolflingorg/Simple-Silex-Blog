@@ -18,6 +18,11 @@ class CreatePostCommandHandler
 
     private $bus;
 
+    /**
+     * @param PostRepositoryInterface $repo
+     * @param User $currentUser
+     * @param MessageBus $bus
+     */
     public function __construct(PostRepositoryInterface $repo, User $currentUser, MessageBus $bus)
     {
         $this->repo = $repo;
@@ -25,6 +30,11 @@ class CreatePostCommandHandler
         $this->bus = $bus;
     }
 
+    /**
+     * Processing Create Post Command
+     *
+     * @param CreatePostCommand $command
+     */
     public function handle(CreatePostCommand $command)
     {
         $post = (new Post(new Uuid($command->id), new Uuid((string)$this->currentUser)))

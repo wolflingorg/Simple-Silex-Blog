@@ -3,6 +3,7 @@
 namespace Blog\Console\Command;
 
 use Blog\Exception\RuntimeException;
+use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\Driver\PDOConnection;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Helper\QuestionHelper;
@@ -17,6 +18,10 @@ class LoadFixturesCommand extends Command
 
     private $dirs = [];
 
+    /**
+     * @param array|string $dirs
+     * @param null $name
+     */
     public function __construct($dirs, $name = null)
     {
         parent::__construct($name);
@@ -71,6 +76,13 @@ HELP
         }
     }
 
+    /**
+     * Load file with SQL queries and execute each query
+     *
+     * @param $filePath
+     * @param OutputInterface $output
+     * @throws RuntimeException
+     */
     protected function processFile($filePath, OutputInterface $output)
     {
         $conn = $this->getHelper('db')->getConnection();
@@ -112,6 +124,7 @@ HELP
             }
         } else {
             // Non-PDO Drivers (ie. OCI8 driver)
+            /** @var Connection $conn */
             $stmt = $conn->prepare($sql);
             $rs = $stmt->execute();
 

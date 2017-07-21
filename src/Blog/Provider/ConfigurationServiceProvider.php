@@ -15,6 +15,9 @@ use Symfony\Component\Config\Loader\LoaderResolver;
 
 class ConfigurationServiceProvider implements ServiceProviderInterface
 {
+    /**
+     * @inheritdoc
+     */
     public function register(Container $app)
     {
         $app['config_loader'] = function ($app) {

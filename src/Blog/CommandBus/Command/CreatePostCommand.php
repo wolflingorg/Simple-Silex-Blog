@@ -15,6 +15,11 @@ class CreatePostCommand extends AbstractCommand
 
     public $isPublished = false;
 
+    /**
+     * Validation rules
+     *
+     * @param ClassMetadata $metadata
+     */
     static public function loadValidatorMetadata(ClassMetadata $metadata)
     {
         $metadata->addPropertyConstraint('id', new Assert\Uuid());

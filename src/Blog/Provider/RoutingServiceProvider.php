@@ -13,6 +13,9 @@ use Symfony\Component\Routing\RouteCollection;
 
 class RoutingServiceProvider implements ServiceProviderInterface
 {
+    /**
+     * @inheritdoc
+     */
     public function register(Container $app)
     {
         $app->extend('routes', function (RouteCollection $routes, Container $app) {

@@ -14,6 +14,9 @@ use SimpleBus\Message\Subscriber\Resolver\NameBasedMessageSubscriberResolver;
 
 class EventBusServiceProvider implements ServiceProviderInterface
 {
+    /**
+     * @inheritdoc
+     */
     public function register(Container $app)
     {
         $app['event_bus'] = function ($app) {

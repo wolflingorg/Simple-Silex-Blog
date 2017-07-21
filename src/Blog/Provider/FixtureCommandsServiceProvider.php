@@ -11,6 +11,9 @@ use Symfony\Component\Console\Helper\HelperSet;
 
 class FixtureCommandsServiceProvider implements ServiceProviderInterface
 {
+    /**
+     * @inheritdoc
+     */
     public function register(Container $app)
     {
         $app->extend('console', function (Application $console, Container $app) {
