@@ -5,9 +5,8 @@ namespace app;
 use Blog\CommandBus\Command\CreatePostCommand;
 use Blog\CommandBus\Handler\CreatePostCommandHandler;
 use Blog\Entity\Post;
-use Blog\Entity\User;
-use Blog\Entity\ValueObject\Uuid;
 use Blog\EventBus\Event\PostWasCreatedEvent;
+use Blog\Manager\CurrentUserManager;
 use Blog\Provider\CommandBusMiddlewareServiceProvider;
 use Blog\Provider\CommandBusServiceProvider;
 use Blog\Provider\DoctrineCommandsServiceProvider;
@@ -35,8 +34,9 @@ use Silex\Provider\ValidatorServiceProvider;
 
 function services(Application $app)
 {
-    // TODO replace this with the security provider and user provider
-    $app['user'] = new User(new Uuid('ab5763c9-1d8c-4ad7-b22e-c484c26973d3'));
+    $app['user_manager'] = function () {
+        return new CurrentUserManager();
+    };
 
     // command bus
     $app->register(new CommandBusServiceProvider());
@@ -47,7 +47,7 @@ function services(Application $app)
         ];
     };
     $app['command_bus_create_post_command_handler'] = function ($app) {
-        return new CreatePostCommandHandler($app['doctrine_post_repository'], $app['user'], $app['event_bus']);
+        return new CreatePostCommandHandler($app['doctrine_post_repository'], $app['user_manager'], $app['event_bus']);
     };
 
     // doctrine repository
