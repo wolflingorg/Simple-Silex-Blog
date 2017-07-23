@@ -3,8 +3,9 @@
 namespace Blog\Entity;
 
 use Blog\Entity\ValueObject\Uuid;
+use Symfony\Component\Security\Core\User\UserInterface;
 
-class User
+class User implements UserInterface
 {
     private $id;
 
@@ -52,5 +53,26 @@ class User
     public function __toString()
     {
         return sprintf('%s', $this->id);
+    }
+
+    public function getRoles()
+    {
+        return ['ROLE_USER'];
+    }
+
+    public function getPassword()
+    {
+    }
+
+    public function getSalt()
+    {
+    }
+
+    public function getUsername()
+    {
+    }
+
+    public function eraseCredentials()
+    {
     }
 }

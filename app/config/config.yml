@@ -39,3 +39,4 @@ orm.em.options:
             type: yml
             namespace: "Blog\\Entity\\Post"
             path: "%kernel.root_dir%/mappings"
+

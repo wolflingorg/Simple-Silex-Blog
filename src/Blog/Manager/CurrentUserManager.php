@@ -3,11 +3,12 @@
 namespace Blog\Manager;
 
 use Blog\Entity\User;
-use Blog\Entity\ValueObject\Uuid;
 use Blog\Manager\Interfaces\UserManagerInterface;
 
 class CurrentUserManager implements UserManagerInterface
 {
+    private $user;
+
     /**
      * Returns current user
      *
@@ -15,6 +16,16 @@ class CurrentUserManager implements UserManagerInterface
      */
     public function getUser(): User
     {
-        return new User(new Uuid('ab5763c9-1d8c-4ad7-b22e-c484c26973d3'));
+        return $this->user;
+    }
+
+    /**
+     * Set current user
+     *
+     * @param User $user
+     */
+    public function setUser(User $user)
+    {
+        $this->user = $user;
     }
 }

@@ -24,19 +24,53 @@ use Blog\Repository\Doctrine\Builder\SortingBuilder;
 use Blog\Repository\Doctrine\Builder\UserFilteringBuilder;
 use Blog\Repository\Doctrine\PostRepository;
 use Blog\Repository\Interfaces\CriteriaInterface;
+use Blog\Security\JWTAuthenticator;
+use Blog\Security\JWTDecoder;
+use Blog\Security\UserProvider;
 use Blog\Service\CriteriaValidator;
 use Blog\Service\SearchEngine\SearchEngine;
 use Dflydev\Provider\DoctrineOrm\DoctrineOrmServiceProvider;
 use Doctrine\DBAL\Types\Type;
 use Silex\Application;
 use Silex\Provider\DoctrineServiceProvider;
+use Silex\Provider\SecurityServiceProvider;
 use Silex\Provider\ValidatorServiceProvider;
+use Symfony\Component\HttpFoundation\Request;
 
 function services(Application $app)
 {
-    $app['user_manager'] = function () {
-        return new CurrentUserManager();
+    # user manager
+    $app['user_manager'] = function ($app) {
+        $userManager = new CurrentUserManager();
+        if ($user = $app['user']) {
+            $userManager->setUser($user);
+        }
+
+        return $userManager;
     };
+
+    # security
+    $app['app.jwt_decoder'] = function ($app) {
+        return new JWTDecoder($app['parameters']['jwt_secret']);
+    };
+    $app['app.jwt_authenticator'] = function ($app) {
+        return new JWTAuthenticator($app['app.jwt_decoder']);
+    };
+    $app->register(new SecurityServiceProvider(), [
+        'security.firewalls' => [
+            'default' => [
+                'stateless' => true,
+                'pattern' => '^.*$',
+                'methods' => [Request::METHOD_POST, Request::METHOD_PUT, Request::METHOD_DELETE, Request::METHOD_PATCH],
+                'guard' => [
+                    'authenticators' => ['app.jwt_authenticator']
+                ],
+                'users' => function () {
+                    return new UserProvider();
+                }
+            ]
+        ]
+    ]);
 
     // command bus
     $app->register(new CommandBusServiceProvider());
