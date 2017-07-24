@@ -3,7 +3,7 @@
 namespace Blog\Security;
 
 use Blog\Entity\User;
-use Blog\Entity\ValueObject\Uuid;
+use Blog\Repository\Criteria\UserCriteria;
 use Blog\Service\SearchEngine\Interfaces\SearchEngineInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Security\Core\User\UserProviderInterface;
@@ -33,7 +33,13 @@ class UserProvider implements UserProviderInterface
      */
     public function loadUserByUsername($username)
     {
-        return new User(new Uuid('ab5763c9-1d8c-4ad7-b22e-c484c26973d3'));
+        $criteria = new UserCriteria(['id' => $username]);
+        $result = $this->searchEngine->match($criteria);
+        if (isset($result->getResult()[0]) && $result->getResult()[0] instanceof User) {
+            return $result->getResult()[0];
+        }
+
+        return null;
     }
 
     /**

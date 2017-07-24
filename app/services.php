@@ -5,6 +5,7 @@ namespace app;
 use Blog\CommandBus\Command\CreatePostCommand;
 use Blog\CommandBus\Handler\CreatePostCommandHandler;
 use Blog\Entity\Post;
+use Blog\Entity\User;
 use Blog\EventBus\Event\PostWasCreatedEvent;
 use Blog\Manager\CurrentUserManager;
 use Blog\Provider\CommandBusMiddlewareServiceProvider;
@@ -23,6 +24,7 @@ use Blog\Repository\Doctrine\Builder\PostTitleFilteringBuilder;
 use Blog\Repository\Doctrine\Builder\SortingBuilder;
 use Blog\Repository\Doctrine\Builder\UserFilteringBuilder;
 use Blog\Repository\Doctrine\PostRepository;
+use Blog\Repository\Doctrine\UserRepository;
 use Blog\Repository\Interfaces\CriteriaInterface;
 use Blog\Security\JWTAuthenticator;
 use Blog\Security\JWTDecoder;
@@ -65,8 +67,8 @@ function services(Application $app)
                 'guard' => [
                     'authenticators' => ['app.jwt_authenticator']
                 ],
-                'users' => function () {
-                    return new UserProvider();
+                'users' => function ($app) {
+                    return new UserProvider($app['search_engine']);
                 }
             ]
         ]
@@ -94,6 +96,20 @@ function services(Application $app)
                 new PostBodyFilteringBuilder(),
                 new PostTitleFilteringBuilder(),
                 new UserFilteringBuilder(),
+                new IdFilteringBuilder(),
+                new PaginatingBuilder(),
+                new SortingBuilder(),
+            ]
+        );
+
+        return $repo;
+    };
+
+    $app['doctrine_user_repository'] = function ($app) {
+        /** @var UserRepository $repo */
+        $repo = $app['orm.em']->getRepository(User::class);
+        $repo->setBuilders(
+            [
                 new IdFilteringBuilder(),
                 new PaginatingBuilder(),
                 new SortingBuilder(),
@@ -137,6 +153,7 @@ function services(Application $app)
         $searchEngine = new SearchEngine();
         $searchEngine->setRepositoryMap([
             Post::class => $app['doctrine_post_repository'],
+            User::class => $app['doctrine_user_repository'],
         ]);
         $searchEngine->before(function (CriteriaInterface $criteria) use ($app) {
             $app['criteria_validator']->validate($criteria);

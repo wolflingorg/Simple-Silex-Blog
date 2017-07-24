@@ -22,9 +22,9 @@ class PostCreateActionTest extends AbstractApiTest
             'HTTP_AUTHORIZATION' => 'Bearer ' . $this->getMockToken()
         ], $data);
 
-        $this->assertEquals(Response::HTTP_CREATED, $client->getResponse()->getStatusCode());
-
         $this->assertEquals('"ok"', $client->getResponse()->getContent());
+
+        $this->assertEquals(Response::HTTP_CREATED, $client->getResponse()->getStatusCode());
     }
 
     public function testCreateNewPostWithoutId()
