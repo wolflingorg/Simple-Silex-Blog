@@ -5,4 +5,4 @@ parameters:
     database_user:      root
     database_password:  ~
 
-    jwt_secret:         ~
+    jwt_secret:         secret

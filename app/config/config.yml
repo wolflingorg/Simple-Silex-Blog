@@ -35,12 +35,8 @@ jms.serializer:
 
 orm.em.options:
     mappings:
-        Post:
+        default:
             type: yml
-            namespace: "Blog\\Entity\\Post"
-            path: "%kernel.root_dir%/mappings"
-        User:
-            type: yml
-            namespace: "Blog\\Entity\\User"
+            namespace: "Blog\\Entity"
             path: "%kernel.root_dir%/mappings"
 
