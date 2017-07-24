@@ -2,17 +2,8 @@
 
 namespace Blog\Repository\Doctrine;
 
-use Silex\Application;
+use Blog\Repository\Interfaces\PostRepositoryInterface;
 
-class UserRepository
+class UserRepository extends AbstractDoctrineRepository implements PostRepositoryInterface
 {
-    private $app;
-
-    /**
-     * @param Application $app
-     */
-    public function __construct(Application $app)
-    {
-        $this->app = $app;
-    }
 }

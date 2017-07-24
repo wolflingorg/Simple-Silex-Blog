@@ -1,0 +1,18 @@
+Blog\Entity\User:
+    type: entity
+    table: user
+    repositoryClass: Blog\Repository\Doctrine\UserRepository
+    id:
+        id:
+            type: uuid
+            length: 36
+    fields:
+        name:
+            type: string
+            length: 256
+        createdAt:
+            type: datetime
+            column: created_at
+        updatedAt:
+            type: datetime
+            column: updated_at

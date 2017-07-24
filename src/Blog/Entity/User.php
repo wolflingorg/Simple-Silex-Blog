@@ -2,11 +2,14 @@
 
 namespace Blog\Entity;
 
+use Blog\Entity\Traits\TimestampableTrait;
 use Blog\Entity\ValueObject\Uuid;
 use Symfony\Component\Security\Core\User\UserInterface;
 
 class User implements UserInterface
 {
+    use TimestampableTrait;
+
     private $id;
 
     private $name;
